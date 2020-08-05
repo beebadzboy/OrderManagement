@@ -31,6 +31,36 @@ namespace KP.OrderMGT.Service
             return connectionString;
         }
 
+        public SaleOnlineByPassport GetOrderOnline(string order_no)
+        {
+            throw new NotImplementedException();
+        }
+
+        public SaleOnlineByPassport GetOrderOnlineList(string airport_code, int? skip, int? take)
+        {
+            throw new NotImplementedException();
+        }
+
+        public SaleOnlineByPassport HoleOrderOnline(OrderHeader order)
+        {
+            throw new NotImplementedException();
+        }
+
+        public SaleOnlineByPassport HoleOrderOnline(string order_no)
+        {
+            throw new NotImplementedException();
+        }
+
+        public SaleOnlineByPassport SaveOrderOnline(POSAirPortClassesDataContext _posDB, OrderHeader order)
+        {
+            throw new NotImplementedException();
+        }
+
+        public SaleOnlineByPassport SaveSaleOnline(POSAirPortClassesDataContext _posDB, OrderHeader order)
+        {
+            throw new NotImplementedException();
+        }
+
         public SaleOnlineByPassport ValidateAllowSaleOnline(POSAirPortClassesDataContext _posDB, char terminal, string passort, DateTime date, int time)
         {
             var connObj = _posDB.get_sale_passport4(time, passort, date, terminal);
@@ -40,6 +70,11 @@ namespace KP.OrderMGT.Service
             }
 
             return new SaleOnlineByPassport();
+        }
+
+        public SaleOnlineByPassport VoidOrderOnline(string order_no)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -100,7 +100,6 @@ namespace KP.OrderMGT.API.Controllers
                 var omSrv = new OrderService(omDB);
                 var omConn = omSrv.GetConnectionPOSAirport(order.Flight.AirportCode);
 
-
                 ret.totalCount = 1;
                 ret.isCompleted = true;
             }
