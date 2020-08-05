@@ -44,5 +44,16 @@ namespace KP.OrderMGT.BL.Properties {
                 return ((string)(this["NDCCSVB_TrainConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=172.17.0.3;Initial Catalog=NDCCSVB_Train;Persist Security Info=True;U" +
+            "ser ID=sa;Password=sql2000")]
+        public string NDCCSVB_TrainConnectionString1 {
+            get {
+                return ((string)(this["NDCCSVB_TrainConnectionString1"]));
+            }
+        }
     }
 }

@@ -42,6 +42,18 @@ namespace KP.OrderMGT.BL.DBModel
     partial void Insertorder_transaction(order_transaction instance);
     partial void Updateorder_transaction(order_transaction instance);
     partial void Deleteorder_transaction(order_transaction instance);
+    partial void Insertorder_detail(order_detail instance);
+    partial void Updateorder_detail(order_detail instance);
+    partial void Deleteorder_detail(order_detail instance);
+    partial void Insertorder_discount(order_discount instance);
+    partial void Updateorder_discount(order_discount instance);
+    partial void Deleteorder_discount(order_discount instance);
+    partial void Insertorder_header(order_header instance);
+    partial void Updateorder_header(order_header instance);
+    partial void Deleteorder_header(order_header instance);
+    partial void Insertorder_payment(order_payment instance);
+    partial void Updateorder_payment(order_payment instance);
+    partial void Deleteorder_payment(order_payment instance);
     #endregion
 		
 		public OrderDataClassesDataContext() : 
@@ -127,6 +139,38 @@ namespace KP.OrderMGT.BL.DBModel
 			get
 			{
 				return this.GetTable<order_transaction>();
+			}
+		}
+		
+		public System.Data.Linq.Table<order_detail> order_details
+		{
+			get
+			{
+				return this.GetTable<order_detail>();
+			}
+		}
+		
+		public System.Data.Linq.Table<order_discount> order_discounts
+		{
+			get
+			{
+				return this.GetTable<order_discount>();
+			}
+		}
+		
+		public System.Data.Linq.Table<order_header> order_headers
+		{
+			get
+			{
+				return this.GetTable<order_header>();
+			}
+		}
+		
+		public System.Data.Linq.Table<order_payment> order_payments
+		{
+			get
+			{
+				return this.GetTable<order_payment>();
 			}
 		}
 	}
@@ -1512,6 +1556,8 @@ namespace KP.OrderMGT.BL.DBModel
 		
 		private EntitySet<order_transaction> _order_transactions;
 		
+		private EntitySet<order_header> _order_headers;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1539,6 +1585,7 @@ namespace KP.OrderMGT.BL.DBModel
 		public order_session()
 		{
 			this._order_transactions = new EntitySet<order_transaction>(new Action<order_transaction>(this.attach_order_transactions), new Action<order_transaction>(this.detach_order_transactions));
+			this._order_headers = new EntitySet<order_header>(new Action<order_header>(this.attach_order_headers), new Action<order_header>(this.detach_order_headers));
 			OnCreated();
 		}
 		
@@ -1735,6 +1782,19 @@ namespace KP.OrderMGT.BL.DBModel
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="order_session_order_header", Storage="_order_headers", ThisKey="id", OtherKey="session_id")]
+		public EntitySet<order_header> order_headers
+		{
+			get
+			{
+				return this._order_headers;
+			}
+			set
+			{
+				this._order_headers.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1762,6 +1822,18 @@ namespace KP.OrderMGT.BL.DBModel
 		}
 		
 		private void detach_order_transactions(order_transaction entity)
+		{
+			this.SendPropertyChanging();
+			entity.order_session = null;
+		}
+		
+		private void attach_order_headers(order_header entity)
+		{
+			this.SendPropertyChanging();
+			entity.order_session = this;
+		}
+		
+		private void detach_order_headers(order_header entity)
 		{
 			this.SendPropertyChanging();
 			entity.order_session = null;
@@ -1983,6 +2055,1510 @@ namespace KP.OrderMGT.BL.DBModel
 						this._session_id = default(long);
 					}
 					this.SendPropertyChanged("order_session");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.order_detail")]
+	public partial class order_detail : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _id;
+		
+		private long _header_id;
+		
+		private string _sub_order_type;
+		
+		private string _article_code;
+		
+		private decimal _quantity;
+		
+		private decimal _selling_price;
+		
+		private decimal _total_amt;
+		
+		private System.Nullable<decimal> _dis_rate;
+		
+		private System.Nullable<decimal> _dis_amt;
+		
+		private decimal _net_amt;
+		
+		private string _promo_code;
+		
+		private string _reference_1;
+		
+		private string _reference_2;
+		
+		private string _reference_3;
+		
+		private EntityRef<order_header> _order_header;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(long value);
+    partial void OnidChanged();
+    partial void Onheader_idChanging(long value);
+    partial void Onheader_idChanged();
+    partial void Onsub_order_typeChanging(string value);
+    partial void Onsub_order_typeChanged();
+    partial void Onarticle_codeChanging(string value);
+    partial void Onarticle_codeChanged();
+    partial void OnquantityChanging(decimal value);
+    partial void OnquantityChanged();
+    partial void Onselling_priceChanging(decimal value);
+    partial void Onselling_priceChanged();
+    partial void Ontotal_amtChanging(decimal value);
+    partial void Ontotal_amtChanged();
+    partial void Ondis_rateChanging(System.Nullable<decimal> value);
+    partial void Ondis_rateChanged();
+    partial void Ondis_amtChanging(System.Nullable<decimal> value);
+    partial void Ondis_amtChanged();
+    partial void Onnet_amtChanging(decimal value);
+    partial void Onnet_amtChanged();
+    partial void Onpromo_codeChanging(string value);
+    partial void Onpromo_codeChanged();
+    partial void Onreference_1Changing(string value);
+    partial void Onreference_1Changed();
+    partial void Onreference_2Changing(string value);
+    partial void Onreference_2Changed();
+    partial void Onreference_3Changing(string value);
+    partial void Onreference_3Changed();
+    #endregion
+		
+		public order_detail()
+		{
+			this._order_header = default(EntityRef<order_header>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_header_id", DbType="BigInt NOT NULL")]
+		public long header_id
+		{
+			get
+			{
+				return this._header_id;
+			}
+			set
+			{
+				if ((this._header_id != value))
+				{
+					if (this._order_header.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onheader_idChanging(value);
+					this.SendPropertyChanging();
+					this._header_id = value;
+					this.SendPropertyChanged("header_id");
+					this.Onheader_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sub_order_type", DbType="Char(10) NOT NULL", CanBeNull=false)]
+		public string sub_order_type
+		{
+			get
+			{
+				return this._sub_order_type;
+			}
+			set
+			{
+				if ((this._sub_order_type != value))
+				{
+					this.Onsub_order_typeChanging(value);
+					this.SendPropertyChanging();
+					this._sub_order_type = value;
+					this.SendPropertyChanged("sub_order_type");
+					this.Onsub_order_typeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_article_code", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string article_code
+		{
+			get
+			{
+				return this._article_code;
+			}
+			set
+			{
+				if ((this._article_code != value))
+				{
+					this.Onarticle_codeChanging(value);
+					this.SendPropertyChanging();
+					this._article_code = value;
+					this.SendPropertyChanged("article_code");
+					this.Onarticle_codeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_quantity", DbType="Decimal(18,0) NOT NULL")]
+		public decimal quantity
+		{
+			get
+			{
+				return this._quantity;
+			}
+			set
+			{
+				if ((this._quantity != value))
+				{
+					this.OnquantityChanging(value);
+					this.SendPropertyChanging();
+					this._quantity = value;
+					this.SendPropertyChanged("quantity");
+					this.OnquantityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_selling_price", DbType="Decimal(18,0) NOT NULL")]
+		public decimal selling_price
+		{
+			get
+			{
+				return this._selling_price;
+			}
+			set
+			{
+				if ((this._selling_price != value))
+				{
+					this.Onselling_priceChanging(value);
+					this.SendPropertyChanging();
+					this._selling_price = value;
+					this.SendPropertyChanged("selling_price");
+					this.Onselling_priceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_total_amt", DbType="Decimal(18,0) NOT NULL")]
+		public decimal total_amt
+		{
+			get
+			{
+				return this._total_amt;
+			}
+			set
+			{
+				if ((this._total_amt != value))
+				{
+					this.Ontotal_amtChanging(value);
+					this.SendPropertyChanging();
+					this._total_amt = value;
+					this.SendPropertyChanged("total_amt");
+					this.Ontotal_amtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dis_rate", DbType="Decimal(18,0)")]
+		public System.Nullable<decimal> dis_rate
+		{
+			get
+			{
+				return this._dis_rate;
+			}
+			set
+			{
+				if ((this._dis_rate != value))
+				{
+					this.Ondis_rateChanging(value);
+					this.SendPropertyChanging();
+					this._dis_rate = value;
+					this.SendPropertyChanged("dis_rate");
+					this.Ondis_rateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dis_amt", DbType="Decimal(18,0)")]
+		public System.Nullable<decimal> dis_amt
+		{
+			get
+			{
+				return this._dis_amt;
+			}
+			set
+			{
+				if ((this._dis_amt != value))
+				{
+					this.Ondis_amtChanging(value);
+					this.SendPropertyChanging();
+					this._dis_amt = value;
+					this.SendPropertyChanged("dis_amt");
+					this.Ondis_amtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_net_amt", DbType="Decimal(18,0) NOT NULL")]
+		public decimal net_amt
+		{
+			get
+			{
+				return this._net_amt;
+			}
+			set
+			{
+				if ((this._net_amt != value))
+				{
+					this.Onnet_amtChanging(value);
+					this.SendPropertyChanging();
+					this._net_amt = value;
+					this.SendPropertyChanged("net_amt");
+					this.Onnet_amtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_promo_code", DbType="NVarChar(50)")]
+		public string promo_code
+		{
+			get
+			{
+				return this._promo_code;
+			}
+			set
+			{
+				if ((this._promo_code != value))
+				{
+					this.Onpromo_codeChanging(value);
+					this.SendPropertyChanging();
+					this._promo_code = value;
+					this.SendPropertyChanged("promo_code");
+					this.Onpromo_codeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reference_1", DbType="NVarChar(50)")]
+		public string reference_1
+		{
+			get
+			{
+				return this._reference_1;
+			}
+			set
+			{
+				if ((this._reference_1 != value))
+				{
+					this.Onreference_1Changing(value);
+					this.SendPropertyChanging();
+					this._reference_1 = value;
+					this.SendPropertyChanged("reference_1");
+					this.Onreference_1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reference_2", DbType="NVarChar(50)")]
+		public string reference_2
+		{
+			get
+			{
+				return this._reference_2;
+			}
+			set
+			{
+				if ((this._reference_2 != value))
+				{
+					this.Onreference_2Changing(value);
+					this.SendPropertyChanging();
+					this._reference_2 = value;
+					this.SendPropertyChanged("reference_2");
+					this.Onreference_2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reference_3", DbType="NVarChar(50)")]
+		public string reference_3
+		{
+			get
+			{
+				return this._reference_3;
+			}
+			set
+			{
+				if ((this._reference_3 != value))
+				{
+					this.Onreference_3Changing(value);
+					this.SendPropertyChanging();
+					this._reference_3 = value;
+					this.SendPropertyChanged("reference_3");
+					this.Onreference_3Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="order_header_order_detail", Storage="_order_header", ThisKey="header_id", OtherKey="id", IsForeignKey=true)]
+		public order_header order_header
+		{
+			get
+			{
+				return this._order_header.Entity;
+			}
+			set
+			{
+				order_header previousValue = this._order_header.Entity;
+				if (((previousValue != value) 
+							|| (this._order_header.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._order_header.Entity = null;
+						previousValue.order_details.Remove(this);
+					}
+					this._order_header.Entity = value;
+					if ((value != null))
+					{
+						value.order_details.Add(this);
+						this._header_id = value.id;
+					}
+					else
+					{
+						this._header_id = default(long);
+					}
+					this.SendPropertyChanged("order_header");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.order_discount")]
+	public partial class order_discount : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _id;
+		
+		private long _header_id;
+		
+		private string _dis_type;
+		
+		private string _dis_code;
+		
+		private System.Nullable<decimal> _dis_rate;
+		
+		private System.Nullable<decimal> _dis_amt;
+		
+		private EntityRef<order_header> _order_header;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(long value);
+    partial void OnidChanged();
+    partial void Onheader_idChanging(long value);
+    partial void Onheader_idChanged();
+    partial void Ondis_typeChanging(string value);
+    partial void Ondis_typeChanged();
+    partial void Ondis_codeChanging(string value);
+    partial void Ondis_codeChanged();
+    partial void Ondis_rateChanging(System.Nullable<decimal> value);
+    partial void Ondis_rateChanged();
+    partial void Ondis_amtChanging(System.Nullable<decimal> value);
+    partial void Ondis_amtChanged();
+    #endregion
+		
+		public order_discount()
+		{
+			this._order_header = default(EntityRef<order_header>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_header_id", DbType="BigInt NOT NULL")]
+		public long header_id
+		{
+			get
+			{
+				return this._header_id;
+			}
+			set
+			{
+				if ((this._header_id != value))
+				{
+					if (this._order_header.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onheader_idChanging(value);
+					this.SendPropertyChanging();
+					this._header_id = value;
+					this.SendPropertyChanged("header_id");
+					this.Onheader_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dis_type", DbType="NVarChar(50)")]
+		public string dis_type
+		{
+			get
+			{
+				return this._dis_type;
+			}
+			set
+			{
+				if ((this._dis_type != value))
+				{
+					this.Ondis_typeChanging(value);
+					this.SendPropertyChanging();
+					this._dis_type = value;
+					this.SendPropertyChanged("dis_type");
+					this.Ondis_typeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dis_code", DbType="NVarChar(50)")]
+		public string dis_code
+		{
+			get
+			{
+				return this._dis_code;
+			}
+			set
+			{
+				if ((this._dis_code != value))
+				{
+					this.Ondis_codeChanging(value);
+					this.SendPropertyChanging();
+					this._dis_code = value;
+					this.SendPropertyChanged("dis_code");
+					this.Ondis_codeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dis_rate", DbType="Decimal(18,0)")]
+		public System.Nullable<decimal> dis_rate
+		{
+			get
+			{
+				return this._dis_rate;
+			}
+			set
+			{
+				if ((this._dis_rate != value))
+				{
+					this.Ondis_rateChanging(value);
+					this.SendPropertyChanging();
+					this._dis_rate = value;
+					this.SendPropertyChanged("dis_rate");
+					this.Ondis_rateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dis_amt", DbType="Decimal(18,0)")]
+		public System.Nullable<decimal> dis_amt
+		{
+			get
+			{
+				return this._dis_amt;
+			}
+			set
+			{
+				if ((this._dis_amt != value))
+				{
+					this.Ondis_amtChanging(value);
+					this.SendPropertyChanging();
+					this._dis_amt = value;
+					this.SendPropertyChanged("dis_amt");
+					this.Ondis_amtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="order_header_order_discount", Storage="_order_header", ThisKey="header_id", OtherKey="id", IsForeignKey=true)]
+		public order_header order_header
+		{
+			get
+			{
+				return this._order_header.Entity;
+			}
+			set
+			{
+				order_header previousValue = this._order_header.Entity;
+				if (((previousValue != value) 
+							|| (this._order_header.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._order_header.Entity = null;
+						previousValue.order_discounts.Remove(this);
+					}
+					this._order_header.Entity = value;
+					if ((value != null))
+					{
+						value.order_discounts.Add(this);
+						this._header_id = value.id;
+					}
+					else
+					{
+						this._header_id = default(long);
+					}
+					this.SendPropertyChanged("order_header");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.order_header")]
+	public partial class order_header : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _id;
+		
+		private long _session_id;
+		
+		private string _order_type;
+		
+		private string _member_id;
+		
+		private string _full_name;
+		
+		private string _passport_no;
+		
+		private string _country;
+		
+		private string _airport_code;
+		
+		private string _terminal_code;
+		
+		private string _airline_code;
+		
+		private string _flight_code;
+		
+		private string _flight_no;
+		
+		private string _reference_1;
+		
+		private string _reference_2;
+		
+		private string _reference_3;
+		
+		private string _remark;
+		
+		private System.DateTime _create_date;
+		
+		private EntitySet<order_detail> _order_details;
+		
+		private EntitySet<order_discount> _order_discounts;
+		
+		private EntitySet<order_payment> _order_payments;
+		
+		private EntityRef<order_session> _order_session;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(long value);
+    partial void OnidChanged();
+    partial void Onsession_idChanging(long value);
+    partial void Onsession_idChanged();
+    partial void Onorder_typeChanging(string value);
+    partial void Onorder_typeChanged();
+    partial void Onmember_idChanging(string value);
+    partial void Onmember_idChanged();
+    partial void Onfull_nameChanging(string value);
+    partial void Onfull_nameChanged();
+    partial void Onpassport_noChanging(string value);
+    partial void Onpassport_noChanged();
+    partial void OncountryChanging(string value);
+    partial void OncountryChanged();
+    partial void Onairport_codeChanging(string value);
+    partial void Onairport_codeChanged();
+    partial void Onterminal_codeChanging(string value);
+    partial void Onterminal_codeChanged();
+    partial void Onairline_codeChanging(string value);
+    partial void Onairline_codeChanged();
+    partial void Onflight_codeChanging(string value);
+    partial void Onflight_codeChanged();
+    partial void Onflight_noChanging(string value);
+    partial void Onflight_noChanged();
+    partial void Onreference_1Changing(string value);
+    partial void Onreference_1Changed();
+    partial void Onreference_2Changing(string value);
+    partial void Onreference_2Changed();
+    partial void Onreference_3Changing(string value);
+    partial void Onreference_3Changed();
+    partial void OnremarkChanging(string value);
+    partial void OnremarkChanged();
+    partial void Oncreate_dateChanging(System.DateTime value);
+    partial void Oncreate_dateChanged();
+    #endregion
+		
+		public order_header()
+		{
+			this._order_details = new EntitySet<order_detail>(new Action<order_detail>(this.attach_order_details), new Action<order_detail>(this.detach_order_details));
+			this._order_discounts = new EntitySet<order_discount>(new Action<order_discount>(this.attach_order_discounts), new Action<order_discount>(this.detach_order_discounts));
+			this._order_payments = new EntitySet<order_payment>(new Action<order_payment>(this.attach_order_payments), new Action<order_payment>(this.detach_order_payments));
+			this._order_session = default(EntityRef<order_session>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_session_id", DbType="BigInt NOT NULL")]
+		public long session_id
+		{
+			get
+			{
+				return this._session_id;
+			}
+			set
+			{
+				if ((this._session_id != value))
+				{
+					if (this._order_session.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onsession_idChanging(value);
+					this.SendPropertyChanging();
+					this._session_id = value;
+					this.SendPropertyChanged("session_id");
+					this.Onsession_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_order_type", DbType="Char(10)")]
+		public string order_type
+		{
+			get
+			{
+				return this._order_type;
+			}
+			set
+			{
+				if ((this._order_type != value))
+				{
+					this.Onorder_typeChanging(value);
+					this.SendPropertyChanging();
+					this._order_type = value;
+					this.SendPropertyChanged("order_type");
+					this.Onorder_typeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_member_id", DbType="NVarChar(50)")]
+		public string member_id
+		{
+			get
+			{
+				return this._member_id;
+			}
+			set
+			{
+				if ((this._member_id != value))
+				{
+					this.Onmember_idChanging(value);
+					this.SendPropertyChanging();
+					this._member_id = value;
+					this.SendPropertyChanged("member_id");
+					this.Onmember_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_full_name", DbType="NVarChar(50)")]
+		public string full_name
+		{
+			get
+			{
+				return this._full_name;
+			}
+			set
+			{
+				if ((this._full_name != value))
+				{
+					this.Onfull_nameChanging(value);
+					this.SendPropertyChanging();
+					this._full_name = value;
+					this.SendPropertyChanged("full_name");
+					this.Onfull_nameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_passport_no", DbType="NVarChar(50)")]
+		public string passport_no
+		{
+			get
+			{
+				return this._passport_no;
+			}
+			set
+			{
+				if ((this._passport_no != value))
+				{
+					this.Onpassport_noChanging(value);
+					this.SendPropertyChanging();
+					this._passport_no = value;
+					this.SendPropertyChanged("passport_no");
+					this.Onpassport_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_country", DbType="NChar(10)")]
+		public string country
+		{
+			get
+			{
+				return this._country;
+			}
+			set
+			{
+				if ((this._country != value))
+				{
+					this.OncountryChanging(value);
+					this.SendPropertyChanging();
+					this._country = value;
+					this.SendPropertyChanged("country");
+					this.OncountryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_airport_code", DbType="NChar(10)")]
+		public string airport_code
+		{
+			get
+			{
+				return this._airport_code;
+			}
+			set
+			{
+				if ((this._airport_code != value))
+				{
+					this.Onairport_codeChanging(value);
+					this.SendPropertyChanging();
+					this._airport_code = value;
+					this.SendPropertyChanged("airport_code");
+					this.Onairport_codeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_terminal_code", DbType="NChar(10)")]
+		public string terminal_code
+		{
+			get
+			{
+				return this._terminal_code;
+			}
+			set
+			{
+				if ((this._terminal_code != value))
+				{
+					this.Onterminal_codeChanging(value);
+					this.SendPropertyChanging();
+					this._terminal_code = value;
+					this.SendPropertyChanged("terminal_code");
+					this.Onterminal_codeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_airline_code", DbType="NChar(10) NOT NULL", CanBeNull=false)]
+		public string airline_code
+		{
+			get
+			{
+				return this._airline_code;
+			}
+			set
+			{
+				if ((this._airline_code != value))
+				{
+					this.Onairline_codeChanging(value);
+					this.SendPropertyChanging();
+					this._airline_code = value;
+					this.SendPropertyChanged("airline_code");
+					this.Onairline_codeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_flight_code", DbType="NChar(10)")]
+		public string flight_code
+		{
+			get
+			{
+				return this._flight_code;
+			}
+			set
+			{
+				if ((this._flight_code != value))
+				{
+					this.Onflight_codeChanging(value);
+					this.SendPropertyChanging();
+					this._flight_code = value;
+					this.SendPropertyChanged("flight_code");
+					this.Onflight_codeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_flight_no", DbType="NChar(10)")]
+		public string flight_no
+		{
+			get
+			{
+				return this._flight_no;
+			}
+			set
+			{
+				if ((this._flight_no != value))
+				{
+					this.Onflight_noChanging(value);
+					this.SendPropertyChanging();
+					this._flight_no = value;
+					this.SendPropertyChanged("flight_no");
+					this.Onflight_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reference_1", DbType="NVarChar(50)")]
+		public string reference_1
+		{
+			get
+			{
+				return this._reference_1;
+			}
+			set
+			{
+				if ((this._reference_1 != value))
+				{
+					this.Onreference_1Changing(value);
+					this.SendPropertyChanging();
+					this._reference_1 = value;
+					this.SendPropertyChanged("reference_1");
+					this.Onreference_1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reference_2", DbType="NVarChar(50)")]
+		public string reference_2
+		{
+			get
+			{
+				return this._reference_2;
+			}
+			set
+			{
+				if ((this._reference_2 != value))
+				{
+					this.Onreference_2Changing(value);
+					this.SendPropertyChanging();
+					this._reference_2 = value;
+					this.SendPropertyChanged("reference_2");
+					this.Onreference_2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reference_3", DbType="NVarChar(50)")]
+		public string reference_3
+		{
+			get
+			{
+				return this._reference_3;
+			}
+			set
+			{
+				if ((this._reference_3 != value))
+				{
+					this.Onreference_3Changing(value);
+					this.SendPropertyChanging();
+					this._reference_3 = value;
+					this.SendPropertyChanged("reference_3");
+					this.Onreference_3Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+		public string remark
+		{
+			get
+			{
+				return this._remark;
+			}
+			set
+			{
+				if ((this._remark != value))
+				{
+					this.OnremarkChanging(value);
+					this.SendPropertyChanging();
+					this._remark = value;
+					this.SendPropertyChanged("remark");
+					this.OnremarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_create_date", DbType="DateTime NOT NULL")]
+		public System.DateTime create_date
+		{
+			get
+			{
+				return this._create_date;
+			}
+			set
+			{
+				if ((this._create_date != value))
+				{
+					this.Oncreate_dateChanging(value);
+					this.SendPropertyChanging();
+					this._create_date = value;
+					this.SendPropertyChanged("create_date");
+					this.Oncreate_dateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="order_header_order_detail", Storage="_order_details", ThisKey="id", OtherKey="header_id")]
+		public EntitySet<order_detail> order_details
+		{
+			get
+			{
+				return this._order_details;
+			}
+			set
+			{
+				this._order_details.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="order_header_order_discount", Storage="_order_discounts", ThisKey="id", OtherKey="header_id")]
+		public EntitySet<order_discount> order_discounts
+		{
+			get
+			{
+				return this._order_discounts;
+			}
+			set
+			{
+				this._order_discounts.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="order_header_order_payment", Storage="_order_payments", ThisKey="id", OtherKey="header_id")]
+		public EntitySet<order_payment> order_payments
+		{
+			get
+			{
+				return this._order_payments;
+			}
+			set
+			{
+				this._order_payments.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="order_session_order_header", Storage="_order_session", ThisKey="session_id", OtherKey="id", IsForeignKey=true)]
+		public order_session order_session
+		{
+			get
+			{
+				return this._order_session.Entity;
+			}
+			set
+			{
+				order_session previousValue = this._order_session.Entity;
+				if (((previousValue != value) 
+							|| (this._order_session.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._order_session.Entity = null;
+						previousValue.order_headers.Remove(this);
+					}
+					this._order_session.Entity = value;
+					if ((value != null))
+					{
+						value.order_headers.Add(this);
+						this._session_id = value.id;
+					}
+					else
+					{
+						this._session_id = default(long);
+					}
+					this.SendPropertyChanged("order_session");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_order_details(order_detail entity)
+		{
+			this.SendPropertyChanging();
+			entity.order_header = this;
+		}
+		
+		private void detach_order_details(order_detail entity)
+		{
+			this.SendPropertyChanging();
+			entity.order_header = null;
+		}
+		
+		private void attach_order_discounts(order_discount entity)
+		{
+			this.SendPropertyChanging();
+			entity.order_header = this;
+		}
+		
+		private void detach_order_discounts(order_discount entity)
+		{
+			this.SendPropertyChanging();
+			entity.order_header = null;
+		}
+		
+		private void attach_order_payments(order_payment entity)
+		{
+			this.SendPropertyChanging();
+			entity.order_header = this;
+		}
+		
+		private void detach_order_payments(order_payment entity)
+		{
+			this.SendPropertyChanging();
+			entity.order_header = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.order_payment")]
+	public partial class order_payment : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _id;
+		
+		private long _header_id;
+		
+		private string _payment_type;
+		
+		private string _paymemt_agent;
+		
+		private string _paymemt_session_id;
+		
+		private string _paymemt_ref_no;
+		
+		private string _payment_code;
+		
+		private System.Nullable<decimal> _paymemt_amt;
+		
+		private System.Nullable<System.DateTime> _paymemt_datetime;
+		
+		private EntityRef<order_header> _order_header;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(long value);
+    partial void OnidChanged();
+    partial void Onheader_idChanging(long value);
+    partial void Onheader_idChanged();
+    partial void Onpayment_typeChanging(string value);
+    partial void Onpayment_typeChanged();
+    partial void Onpaymemt_agentChanging(string value);
+    partial void Onpaymemt_agentChanged();
+    partial void Onpaymemt_session_idChanging(string value);
+    partial void Onpaymemt_session_idChanged();
+    partial void Onpaymemt_ref_noChanging(string value);
+    partial void Onpaymemt_ref_noChanged();
+    partial void Onpayment_codeChanging(string value);
+    partial void Onpayment_codeChanged();
+    partial void Onpaymemt_amtChanging(System.Nullable<decimal> value);
+    partial void Onpaymemt_amtChanged();
+    partial void Onpaymemt_datetimeChanging(System.Nullable<System.DateTime> value);
+    partial void Onpaymemt_datetimeChanged();
+    #endregion
+		
+		public order_payment()
+		{
+			this._order_header = default(EntityRef<order_header>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_header_id", DbType="BigInt NOT NULL")]
+		public long header_id
+		{
+			get
+			{
+				return this._header_id;
+			}
+			set
+			{
+				if ((this._header_id != value))
+				{
+					if (this._order_header.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onheader_idChanging(value);
+					this.SendPropertyChanging();
+					this._header_id = value;
+					this.SendPropertyChanged("header_id");
+					this.Onheader_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_payment_type", DbType="NChar(10)")]
+		public string payment_type
+		{
+			get
+			{
+				return this._payment_type;
+			}
+			set
+			{
+				if ((this._payment_type != value))
+				{
+					this.Onpayment_typeChanging(value);
+					this.SendPropertyChanging();
+					this._payment_type = value;
+					this.SendPropertyChanged("payment_type");
+					this.Onpayment_typeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_paymemt_agent", DbType="NChar(10)")]
+		public string paymemt_agent
+		{
+			get
+			{
+				return this._paymemt_agent;
+			}
+			set
+			{
+				if ((this._paymemt_agent != value))
+				{
+					this.Onpaymemt_agentChanging(value);
+					this.SendPropertyChanging();
+					this._paymemt_agent = value;
+					this.SendPropertyChanged("paymemt_agent");
+					this.Onpaymemt_agentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_paymemt_session_id", DbType="NVarChar(50)")]
+		public string paymemt_session_id
+		{
+			get
+			{
+				return this._paymemt_session_id;
+			}
+			set
+			{
+				if ((this._paymemt_session_id != value))
+				{
+					this.Onpaymemt_session_idChanging(value);
+					this.SendPropertyChanging();
+					this._paymemt_session_id = value;
+					this.SendPropertyChanged("paymemt_session_id");
+					this.Onpaymemt_session_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_paymemt_ref_no", DbType="NVarChar(50)")]
+		public string paymemt_ref_no
+		{
+			get
+			{
+				return this._paymemt_ref_no;
+			}
+			set
+			{
+				if ((this._paymemt_ref_no != value))
+				{
+					this.Onpaymemt_ref_noChanging(value);
+					this.SendPropertyChanging();
+					this._paymemt_ref_no = value;
+					this.SendPropertyChanged("paymemt_ref_no");
+					this.Onpaymemt_ref_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_payment_code", DbType="NChar(10)")]
+		public string payment_code
+		{
+			get
+			{
+				return this._payment_code;
+			}
+			set
+			{
+				if ((this._payment_code != value))
+				{
+					this.Onpayment_codeChanging(value);
+					this.SendPropertyChanging();
+					this._payment_code = value;
+					this.SendPropertyChanged("payment_code");
+					this.Onpayment_codeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_paymemt_amt", DbType="Decimal(18,0)")]
+		public System.Nullable<decimal> paymemt_amt
+		{
+			get
+			{
+				return this._paymemt_amt;
+			}
+			set
+			{
+				if ((this._paymemt_amt != value))
+				{
+					this.Onpaymemt_amtChanging(value);
+					this.SendPropertyChanging();
+					this._paymemt_amt = value;
+					this.SendPropertyChanged("paymemt_amt");
+					this.Onpaymemt_amtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_paymemt_datetime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> paymemt_datetime
+		{
+			get
+			{
+				return this._paymemt_datetime;
+			}
+			set
+			{
+				if ((this._paymemt_datetime != value))
+				{
+					this.Onpaymemt_datetimeChanging(value);
+					this.SendPropertyChanging();
+					this._paymemt_datetime = value;
+					this.SendPropertyChanged("paymemt_datetime");
+					this.Onpaymemt_datetimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="order_header_order_payment", Storage="_order_header", ThisKey="header_id", OtherKey="id", IsForeignKey=true)]
+		public order_header order_header
+		{
+			get
+			{
+				return this._order_header.Entity;
+			}
+			set
+			{
+				order_header previousValue = this._order_header.Entity;
+				if (((previousValue != value) 
+							|| (this._order_header.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._order_header.Entity = null;
+						previousValue.order_payments.Remove(this);
+					}
+					this._order_header.Entity = value;
+					if ((value != null))
+					{
+						value.order_payments.Add(this);
+						this._header_id = value.id;
+					}
+					else
+					{
+						this._header_id = default(long);
+					}
+					this.SendPropertyChanged("order_header");
 				}
 			}
 		}
