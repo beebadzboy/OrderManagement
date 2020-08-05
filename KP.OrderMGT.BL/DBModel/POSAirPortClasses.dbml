@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="NDCCSVB_Train" Class="POSAirPortClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=172.17.0.3;Initial Catalog=NDCCSVB_Train;Persist Security Info=True;User ID=sa" SettingsObjectName="KP.OrderMGT.BL.Properties.Settings" SettingsPropertyName="NDCCSVB_TrainConnectionString" Provider="System.Data.SqlClient" />
+  <Function Name="dbo.get_sale_passport4" Method="get_sale_passport4">
+    <Parameter Name="ihour" Type="System.Int32" DbType="Int" />
+    <Parameter Name="cpass" Type="System.String" DbType="Char(20)" />
+    <Parameter Name="cdate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="cstatus" Type="System.Char" DbType="Char(1)" />
+    <ElementType Name="get_sale_passport4Result">
+      <Column Name="net" Type="System.Decimal" DbType="Decimal(38,2)" CanBeNull="true" />
+      <Column Name="lq" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tb" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

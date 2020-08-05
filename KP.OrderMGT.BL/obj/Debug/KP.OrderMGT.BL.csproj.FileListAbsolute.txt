@@ -1,0 +1,10 @@
+C:\Code\OrderManagement\OrderManagement\KP.OrderMGT.BL\bin\Debug\KP.OrderMGT.BL.dll.config
+C:\Code\OrderManagement\OrderManagement\KP.OrderMGT.BL\bin\Debug\KP.OrderMGT.BL.dll
+C:\Code\OrderManagement\OrderManagement\KP.OrderMGT.BL\bin\Debug\KP.OrderMGT.BL.pdb
+C:\Code\OrderManagement\OrderManagement\KP.OrderMGT.BL\bin\Debug\KP.Common.dll
+C:\Code\OrderManagement\OrderManagement\KP.OrderMGT.BL\bin\Debug\KP.Caller.ServiceModels.dll
+C:\Code\OrderManagement\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.csproj.CoreCompileInputs.cache
+C:\Code\OrderManagement\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.csproj.CopyComplete
+C:\Code\OrderManagement\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.dll
+C:\Code\OrderManagement\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.pdb
+C:\Code\OrderManagement\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.csprojAssemblyReference.cache

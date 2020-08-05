@@ -1,0 +1,92 @@
+{
+  "data": {
+    "header": {
+      "date": "11-Jan-2020",
+      "dateMDY": "Jan-11-2020",
+      "title": "(JAI) Jaipur Airport - (BOM) Chhatrapati Shivaji International Airport",
+      "mobileTitle": "JAI - BOM Flights",
+      "departureAirport": {
+        "fs": "JAI",
+        "iata": "JAI",
+        "icao": "VIJP",
+        "name": "Jaipur Airport",
+        "city": "Jaipur",
+        "state": "",
+        "country": "IN",
+        "active": true,
+        "classification": 3,
+        "timeZoneRegionName": "Asia/Kolkata"
+      },
+      "arrivalAirport": {
+        "fs": "BOM",
+        "iata": "BOM",
+        "icao": "VABB",
+        "name": "Chhatrapati Shivaji International Airport",
+        "city": "Mumbai",
+        "state": "",
+        "country": "IN",
+        "active": true,
+        "classification": 1,
+        "timeZoneRegionName": "Asia/Kolkata"
+      }
+    },
+    "destOriginTitle": null,
+    "flights": [
+      {
+        "sortTime": "2020-01-11T08:30:00.000Z",
+        "departureTime": {
+          "timeAMPM": "2:00PM",
+          "time24": "14:00"
+        },
+        "arrivalTime": {
+          "timeAMPM": "3:50PM",
+          "time24": "15:50"
+        },
+        "carrier": {
+          "fs": "AI",
+          "name": "Air India",
+          "flightNumber": "612"
+        },
+        "operatedBy": null,
+        "url": "/flight-tracker/AI/612?year=2020&month=1&date=11&flightId=1027495334"
+      },
+      {
+        "sortTime": "2020-01-11T08:30:00.000Z",
+        "departureTime": {
+          "timeAMPM": "2:00PM",
+          "time24": "14:00"
+        },
+        "arrivalTime": {
+          "timeAMPM": "3:50PM",
+          "time24": "15:50"
+        },
+        "carrier": {
+          "fs": "ET",
+          "name": "Ethiopian Airlines",
+          "flightNumber": "1778"
+        },
+        "operatedBy": "Operated by Air India 612",
+        "url": "/flight-tracker/ET/1778?year=2020&month=1&date=11&flightId=1027495334",
+        "isCodeshare": true
+      },
+      {
+        "sortTime": "2020-01-11T11:55:00.000Z",
+        "departureTime": {
+          "timeAMPM": "5:25PM",
+          "time24": "17:25"
+        },
+        "arrivalTime": {
+          "timeAMPM": "7:30PM",
+          "time24": "19:30"
+        },
+        "carrier": {
+          "fs": "6E",
+          "name": "IndiGo",
+          "flightNumber": "394"
+        },
+        "operatedBy": null,
+        "url": "/flight-tracker/6E/394?year=2020&month=1&date=11&flightId=1027482365"
+      }
+    ]
+  }
+}
