@@ -8,3 +8,12 @@ C:\Code\OrderManagement\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.
 C:\Code\OrderManagement\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.dll
 C:\Code\OrderManagement\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.pdb
 C:\Code\OrderManagement\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.csprojAssemblyReference.cache
+C:\Users\Bee\source\repos\OrderManagement\KP.OrderMGT.BL\bin\Debug\KP.OrderMGT.BL.dll.config
+C:\Users\Bee\source\repos\OrderManagement\KP.OrderMGT.BL\bin\Debug\KP.OrderMGT.BL.dll
+C:\Users\Bee\source\repos\OrderManagement\KP.OrderMGT.BL\bin\Debug\KP.OrderMGT.BL.pdb
+C:\Users\Bee\source\repos\OrderManagement\KP.OrderMGT.BL\bin\Debug\KP.Caller.ServiceModels.dll
+C:\Users\Bee\source\repos\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.csprojAssemblyReference.cache
+C:\Users\Bee\source\repos\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.csproj.CoreCompileInputs.cache
+C:\Users\Bee\source\repos\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.csproj.CopyComplete
+C:\Users\Bee\source\repos\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.dll
+C:\Users\Bee\source\repos\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.pdb

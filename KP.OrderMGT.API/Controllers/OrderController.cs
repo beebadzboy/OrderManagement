@@ -5,6 +5,7 @@ using KP.OrderMGT.Service;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -24,49 +25,64 @@ namespace KP.OrderMGT.API.Controllers
         [HttpGet]
         [Route("check-purchase-rights")]
         [ResponseType(typeof(ReturnObject<SaleOnlineByPassport>))]
-        public IHttpActionResult CheckAllowSaleOnline(string airport_code, string fight_code, string passort, string date, string time)
+        public IHttpActionResult CheckAllowSaleOnline(string airport_code, char terminal, string passport, string date, string time)
         {
-            if (string.IsNullOrEmpty(airport_code))
-            {
-                throw new ArgumentException("message", nameof(airport_code));
-            }
-
-            if (string.IsNullOrEmpty(fight_code))
-            {
-                throw new ArgumentException("message", nameof(fight_code));
-            }
-
-            if (string.IsNullOrEmpty(passort))
-            {
-                throw new ArgumentException("message", nameof(passort));
-            }
-
-            if (string.IsNullOrEmpty(date))
-            {
-                throw new ArgumentException("message", nameof(date));
-            }
-
-            if (string.IsNullOrEmpty(time))
-            {
-                throw new ArgumentException("message", nameof(time));
-            }
-
             ReturnObject<SaleOnlineByPassport> ret = new ReturnObject<SaleOnlineByPassport>();
             try
             {
-                var omSrv = new OrderService();
-                var omConn = omSrv.GetConnectionPOSAirport(airport_code);
 
+                if (string.IsNullOrEmpty(airport_code))
+                {
+                    throw new ArgumentException("message", nameof(airport_code));
+                }
 
+                if (char.IsWhiteSpace(terminal))
+                {
+                    throw new ArgumentException("message", nameof(passport));
+                }
 
-                ret.totalCount = 1;
-                ret.isCompleted = true;
+                DateTime dateConvert = DateTime.Now;
+                if (string.IsNullOrEmpty(date))
+                {
+                    throw new ArgumentException("message", nameof(date));
+                }
+                else
+                {
+                    CultureInfo provider = CultureInfo.InvariantCulture;
+                    dateConvert = DateTime.ParseExact(date, "dd-mm-yyyy", provider);
+                }
+
+                int timeConvert = 0;
+                if (string.IsNullOrEmpty(time))
+                {
+                    throw new ArgumentException("message", nameof(time));
+                }
+                else
+                {
+                    var result = TimeSpan.Parse(time);
+                    timeConvert = result.Days;
+                }
+
+                var omSrv = new OrderService(omDB);
+                var posConn = omSrv.GetConnectionPOSAirport(airport_code);
+                if (posConn != null)
+                {
+                    posDB = new POSAirPortClassesDataContext(posConn);
+                    ret.Data = omSrv.ValidateAllowSaleOnline(posDB, terminal, passport, dateConvert, timeConvert);
+
+                    ret.totalCount = 1;
+                    ret.isCompleted = true;
+                }
+                else
+                {
+                    throw new ArgumentException("message", "connection error");
+                }
+
             }
             catch (Exception e)
             {
                 ret.SetMessage(e);
             }
-
 
             return Ok(ret.Data);
         }
@@ -92,7 +108,6 @@ namespace KP.OrderMGT.API.Controllers
             {
                 ret.SetMessage(e);
             }
-
 
             return Ok(ret.Data);
         }

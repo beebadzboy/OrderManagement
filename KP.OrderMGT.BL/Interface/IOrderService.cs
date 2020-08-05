@@ -1,5 +1,6 @@
 ﻿using KP.OrderMGT.BL.DBModel;
 using KP.OrderMGT.BL.ServiceModel;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -14,7 +15,7 @@ namespace KP.OrderMGT.Service
         string GetConnectionPOSAirport(string airport_code);
 
         [OperationContract]
-        SaleOnlineByPassport ValidateAllowSaleOnline(POSAirPortClassesDataContext _posDB, string airport_code, string fight_code, string passort, string date, string time);
+        SaleOnlineByPassport ValidateAllowSaleOnline(POSAirPortClassesDataContext _posDB, char terminal, string passort, DateTime date, int time);
 
 
     }
