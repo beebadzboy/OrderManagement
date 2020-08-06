@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KP.OrderMGT.BL.ServiceModel
 {
@@ -56,7 +52,7 @@ namespace KP.OrderMGT.BL.ServiceModel
 
         //[DataMember]
         //public Signature Signature { get; set; }
-        
+
     }
 
     [DataContract]

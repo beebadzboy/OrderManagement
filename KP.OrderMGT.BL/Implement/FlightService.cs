@@ -1,8 +1,6 @@
-﻿using KP.Common.Return;
-using KP.OrderMGT.BL;
+﻿using KP.OrderMGT.BL;
 using KP.OrderMGT.BL.DBModel;
 using KP.OrderMGT.BL.ServiceModel;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -91,7 +89,7 @@ namespace KP.OrderMGT.Service
                     newData = new Flight(item, airline_data3);
                 }
 
-                if(newData.Teminal == "A")
+                if (newData.Teminal == "A")
                 {
                     ret.Arrival.Add(newData);
                 }

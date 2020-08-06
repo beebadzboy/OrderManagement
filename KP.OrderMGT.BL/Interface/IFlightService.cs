@@ -1,8 +1,6 @@
-﻿using KP.Common.Return;
+﻿using KP.OrderMGT.BL.ServiceModel;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using System.ServiceModel;
-using KP.OrderMGT.BL.ServiceModel;
 
 namespace KP.OrderMGT.BL
 {

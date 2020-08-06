@@ -1,9 +1,7 @@
-﻿using KP.Common.Return;
-using KP.OrderMGT.BL.DBModel;
+﻿using KP.OrderMGT.BL.DBModel;
 using KP.OrderMGT.BL.ServiceModel;
 using System;
 using System.Linq;
-using System.Xml;
 
 namespace KP.OrderMGT.Service
 {
@@ -27,7 +25,7 @@ namespace KP.OrderMGT.Service
                 throw new System.ArgumentException("message", nameof(connObj));
             }
 
-            var connectionString = "Data Source="+ connObj.cn_server + ";Initial Catalog="+ connObj.cn_database + ";Persist Security Info=True;User ID=" + connObj.cn_uid + ";Password=" + connObj.cn_pwd + ";";
+            var connectionString = "Data Source=" + connObj.cn_server + ";Initial Catalog=" + connObj.cn_database + ";Persist Security Info=True;User ID=" + connObj.cn_uid + ";Password=" + connObj.cn_pwd + ";";
             return connectionString;
         }
 

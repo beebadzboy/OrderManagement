@@ -1,10 +1,6 @@
 ﻿using KP.OrderMGT.BL.DBModel;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KP.OrderMGT.BL.ServiceModel
 {
@@ -63,6 +59,9 @@ namespace KP.OrderMGT.BL.ServiceModel
 
         [DataMember]
         public string Teminal { get; set; }
+
+        [DataMember]
+        public PickUp PickUp { get; set; }
 
         [DataMember]
         public string DepartureAirport { get; set; }
@@ -178,7 +177,8 @@ namespace KP.OrderMGT.BL.ServiceModel
             {
                 this.AirportCode = dataTable1.arrdep_airport_code.Trim();
             }
-
+            // รอใส่ค่า
+            this.PickUp = null;
             this.AirlineCode = dataTable2.airline_code.Trim();
             this.AirlineName = dataTable2.airline_desc.Trim();
             this.DepartureAirport = dataTable1.dest_airport_code.Trim();
@@ -279,5 +279,22 @@ namespace KP.OrderMGT.BL.ServiceModel
 
         [DataMember]
         public string FullName { get; set; }
+    }
+
+    [DataContract]
+    public class PickUp
+    {
+        [DataMember]
+        public string Code { get; set; }
+
+        [DataMember]
+        public string Name { get; set; }
+
+        [DataMember]
+        public string Detail { get; set; }
+
+        [DataMember]
+        public string MapImg { get; set; }
+
     }
 }

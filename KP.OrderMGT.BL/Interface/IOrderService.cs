@@ -1,8 +1,6 @@
 ﻿using KP.OrderMGT.BL.DBModel;
 using KP.OrderMGT.BL.ServiceModel;
 using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
 using System.ServiceModel;
 
 namespace KP.OrderMGT.Service

@@ -1,12 +1,10 @@
 ﻿using KP.Common.Return;
-using KP.OrderMGT.BL;
 using KP.OrderMGT.BL.DBModel;
 using KP.OrderMGT.BL.ServiceModel;
 using KP.OrderMGT.Service;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -59,7 +57,7 @@ namespace KP.OrderMGT.API.Controllers
                 int a = ret.Data.Arrival.Count;
                 int z = ret.Data.Transfer.Count;
 
-                ret.totalCount = d+a+z;
+                ret.totalCount = d + a + z;
                 ret.isCompleted = true;
             }
             catch (Exception e)
