@@ -12,6 +12,9 @@ namespace KP.OrderMGT.BL
         Flight CheckFlights(string fight_code);
 
         [OperationContract]
+        Flight CheckFlights(string fight_code, string fight_date);
+
+        [OperationContract]
         Flight GetDataFlights(string fight_code);
 
         [OperationContract]

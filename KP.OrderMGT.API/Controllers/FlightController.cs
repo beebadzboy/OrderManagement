@@ -2,9 +2,11 @@
 using KP.OrderMGT.BL.DBModel;
 using KP.OrderMGT.BL.ServiceModel;
 using KP.OrderMGT.Service;
+using Swashbuckle.Swagger.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -21,13 +23,18 @@ namespace KP.OrderMGT.API.Controllers
         }
 
         [HttpGet]
-        [Route("check")]
+        [Route("validate-code")]
         [ResponseType(typeof(ReturnObject<Flight>))]
-        public IHttpActionResult CheckFlights(string fight_code)
+        public IHttpActionResult ValidateFlights(string fight_code)
         {
             ReturnObject<Flight> ret = new ReturnObject<Flight>();
             try
             {
+                if (string.IsNullOrEmpty(fight_code))
+                {
+                    throw new ArgumentException("message", nameof(fight_code));
+                }
+
                 var srv = new FlightService(orderDB);
                 ret.Data = srv.CheckFlights(fight_code);
                 ret.totalCount = 1;
@@ -36,6 +43,41 @@ namespace KP.OrderMGT.API.Controllers
             catch (Exception e)
             {
                 ret.SetMessage(e);
+                ret.Tracking = new ReturnTracking();
+            }
+
+
+            return Ok(ret);
+        }
+
+        [HttpGet]
+        [Route("check-flight")]
+        [ResponseType(typeof(ReturnObject<Flight>))]
+        public IHttpActionResult CheckFlights(string fight_code, string fight_date)
+        {
+            ReturnObject<Flight> ret = new ReturnObject<Flight>();
+            try
+            {
+                if (string.IsNullOrEmpty(fight_code))
+                {
+                    throw new ArgumentException("fight code", nameof(fight_code));
+                }
+
+                if (string.IsNullOrEmpty(fight_date))
+                {
+                    throw new ArgumentException("fight date", nameof(fight_date));
+                }
+
+
+                var srv = new FlightService(orderDB);
+                ret.Data = srv.CheckFlights(fight_code, fight_date);
+                ret.totalCount = 1;
+                ret.isCompleted = true;
+            }
+            catch (Exception e)
+            {
+                ret.SetMessage(e);
+                ret.Tracking = new ReturnTracking();
             }
 
 
@@ -63,6 +105,7 @@ namespace KP.OrderMGT.API.Controllers
             catch (Exception e)
             {
                 ret.SetMessage(e);
+                ret.Tracking = new ReturnTracking();
             }
 
 
@@ -85,6 +128,7 @@ namespace KP.OrderMGT.API.Controllers
             catch (Exception e)
             {
                 ret.SetMessage(e);
+                ret.Tracking = new ReturnTracking();
             }
 
             return Ok(ret);
@@ -107,6 +151,7 @@ namespace KP.OrderMGT.API.Controllers
             catch (Exception e)
             {
                 ret.SetMessage(e);
+                ret.Tracking = new ReturnTracking();
             }
 
             return Ok(ret);
@@ -128,6 +173,7 @@ namespace KP.OrderMGT.API.Controllers
             catch (Exception e)
             {
                 ret.SetMessage(e);
+                ret.Tracking = new ReturnTracking();
             }
 
             return Ok(ret);

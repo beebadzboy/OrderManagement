@@ -24,10 +24,10 @@ namespace KP.OrderMGT.API.Controllers
 
         [HttpGet]
         [Route("check-purchase-rights")]
-        [ResponseType(typeof(ReturnObject<SaleOnlineByPassport>))]
-        public IHttpActionResult CheckAllowSaleOnline(string airport_code, char terminal, string passport, string date, string time)
+        [ResponseType(typeof(ReturnObject<SaleAmountByPassport>))]
+        public IHttpActionResult CheckAllowSaleOnline(string airport_code, char terminal, string passport, string date, int time)
         {
-            ReturnObject<SaleOnlineByPassport> ret = new ReturnObject<SaleOnlineByPassport>();
+            ReturnObject<SaleAmountByPassport> ret = new ReturnObject<SaleAmountByPassport>();
             try
             {
 
@@ -41,7 +41,7 @@ namespace KP.OrderMGT.API.Controllers
                     throw new ArgumentException("message", nameof(passport));
                 }
 
-                DateTime dateConvert = DateTime.Now;
+                DateTime dateTime = Convert.ToDateTime(date);
                 if (string.IsNullOrEmpty(date))
                 {
                     throw new ArgumentException("message", nameof(date));
@@ -49,18 +49,7 @@ namespace KP.OrderMGT.API.Controllers
                 else
                 {
                     CultureInfo provider = CultureInfo.InvariantCulture;
-                    dateConvert = DateTime.ParseExact(date, "dd-mm-yyyy", provider);
-                }
-
-                int timeConvert = 0;
-                if (string.IsNullOrEmpty(time))
-                {
-                    throw new ArgumentException("message", nameof(time));
-                }
-                else
-                {
-                    var result = TimeSpan.Parse(time);
-                    timeConvert = result.Days;
+                    dateTime = DateTime.ParseExact(date, "yyyy-MM-dd", provider);
                 }
 
                 var omSrv = new OrderService(omDB);
@@ -68,7 +57,7 @@ namespace KP.OrderMGT.API.Controllers
                 if (posConn != null)
                 {
                     posDB = new POSAirPortClassesDataContext(posConn);
-                    ret.Data = omSrv.ValidateAllowSaleOnline(posDB, terminal, passport, dateConvert, timeConvert);
+                    ret.Data = omSrv.ValidateAllowSaleOnline(posDB, terminal, passport, dateTime, time);
 
                     ret.totalCount = 1;
                     ret.isCompleted = true;
@@ -82,6 +71,7 @@ namespace KP.OrderMGT.API.Controllers
             catch (Exception e)
             {
                 ret.SetMessage(e);
+                ret.Tracking = new ReturnTracking();
             }
 
             return Ok(ret.Data);
@@ -89,11 +79,11 @@ namespace KP.OrderMGT.API.Controllers
 
         [HttpPost]
         [Route("save-order")]
-        [ResponseType(typeof(ReturnObject<OrderHeader>))]
+        [ResponseType(typeof(ReturnObject<OrderSession>))]
         public IHttpActionResult SaveOrderOnline(OrderHeader order)
         {
             ReturnObject<OrderHeader> ret = new ReturnObject<OrderHeader>();
-            ret.Data = order;
+            //ret.Data = order;
 
             try
             {
@@ -106,6 +96,7 @@ namespace KP.OrderMGT.API.Controllers
             catch (Exception e)
             {
                 ret.SetMessage(e);
+                ret.Tracking = new ReturnTracking();
             }
 
             return Ok(ret.Data);
@@ -113,7 +104,7 @@ namespace KP.OrderMGT.API.Controllers
 
         [HttpGet]
         [Route("hold-order")]
-        [ResponseType(typeof(ReturnObject<OrderHeader>))]
+        [ResponseType(typeof(ReturnObject<OrderSession>))]
         public IHttpActionResult HoldOrderOnline(string order_no)
         {
             if (string.IsNullOrWhiteSpace(order_no))
@@ -134,6 +125,7 @@ namespace KP.OrderMGT.API.Controllers
             catch (Exception e)
             {
                 ret.SetMessage(e);
+                ret.Tracking = new ReturnTracking();
             }
 
 
@@ -142,7 +134,7 @@ namespace KP.OrderMGT.API.Controllers
 
         [HttpPost]
         [Route("hold-order")]
-        [ResponseType(typeof(ReturnObject<OrderHeader>))]
+        [ResponseType(typeof(ReturnObject<OrderSession>))]
         public IHttpActionResult HoldOrderOnline(OrderHeader order)
         {
             ReturnObject<OrderHeader> ret = new ReturnObject<OrderHeader>();
@@ -159,6 +151,7 @@ namespace KP.OrderMGT.API.Controllers
             catch (Exception e)
             {
                 ret.SetMessage(e);
+                ret.Tracking = new ReturnTracking();
             }
 
 
@@ -167,7 +160,7 @@ namespace KP.OrderMGT.API.Controllers
 
         [HttpPut]
         [Route("void-order")]
-        [ResponseType(typeof(ReturnObject<OrderHeader>))]
+        [ResponseType(typeof(ReturnObject<OrderSession>))]
         public IHttpActionResult VoidOrderOnline(string order_no)
         {
             if (string.IsNullOrWhiteSpace(order_no))
@@ -188,6 +181,7 @@ namespace KP.OrderMGT.API.Controllers
             catch (Exception e)
             {
                 ret.SetMessage(e);
+                ret.Tracking = new ReturnTracking();
             }
 
 
@@ -196,7 +190,7 @@ namespace KP.OrderMGT.API.Controllers
 
         [HttpGet]
         [Route("get-order")]
-        [ResponseType(typeof(ReturnObject<OrderHeader>))]
+        [ResponseType(typeof(ReturnObject<OrderSession>))]
         public IHttpActionResult GetOrderOnline(string order_no)
         {
             if (string.IsNullOrWhiteSpace(order_no))
@@ -216,6 +210,7 @@ namespace KP.OrderMGT.API.Controllers
             catch (Exception e)
             {
                 ret.SetMessage(e);
+                ret.Tracking = new ReturnTracking();
             }
 
 
@@ -224,7 +219,7 @@ namespace KP.OrderMGT.API.Controllers
 
         [HttpGet]
         [Route("get-order-list")]
-        [ResponseType(typeof(ReturnObject<List<OrderHeader>>))]
+        [ResponseType(typeof(ReturnObject<List<OrderSession>>))]
         public IHttpActionResult GetOrderOnlineList(string airport_code, int? skip, int? take)
         {
             if (string.IsNullOrWhiteSpace(airport_code))
@@ -244,6 +239,7 @@ namespace KP.OrderMGT.API.Controllers
             catch (Exception e)
             {
                 ret.SetMessage(e);
+                ret.Tracking = new ReturnTracking();
             }
 
             return Ok(ret.Data);

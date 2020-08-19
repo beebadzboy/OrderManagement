@@ -1,8 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using KP.OrderMGT.BL.DBModel;
+using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Security.Cryptography.X509Certificates;
 
 namespace KP.OrderMGT.BL.ServiceModel
 {
+
+    [DataContract]
+    public class SaleAmountByPassport
+    {
+        [DataMember]
+        public decimal? SaleAmt { get; set; }
+
+        [DataMember]
+        public decimal? Alcohol { get; set; }
+
+        [DataMember]
+        public decimal? Tobacco { get; set; }
+
+        public SaleAmountByPassport() { }
+
+        public SaleAmountByPassport(get_sale_passport_vol2Result data)
+        {
+            this.SaleAmt = data.net;
+            this.Alcohol = data.lq;
+            this.Tobacco = data.tb;
+        }
+    }
+
     [DataContract]
     public class SaleOnlineByPassport
     {
@@ -38,9 +64,6 @@ namespace KP.OrderMGT.BL.ServiceModel
         [DataMember]
         public Flight Flight { get; set; }
 
-        //[DataMember]
-        //public POS POS { get; set; }
-
         [DataMember]
         public Billing Billing { get; set; }
 
@@ -49,10 +72,28 @@ namespace KP.OrderMGT.BL.ServiceModel
 
         [DataMember]
         public List<Payment> Payments { get; set; }
+    }
 
-        //[DataMember]
-        //public Signature Signature { get; set; }
+    [DataContract]
+    public class OrderSession
+    {
+        [DataMember]
+        public Guid SessionGuid { get; set; }
 
+        [DataMember]
+        public long SessionId { get; set; }
+
+        [DataMember]
+        public string SaleOrderNo { get; set; }
+
+        [DataMember]
+        public string POSInvoiceNo { get; set; }
+
+        [DataMember]
+        public string POSOrderNo { get; set; }
+
+        [DataMember]
+        public string POSStatus { get; set; }
     }
 
     [DataContract]
@@ -65,7 +106,10 @@ namespace KP.OrderMGT.BL.ServiceModel
         public string DeliveryCost { get; set; }
 
         [DataMember]
-        public string InvoicePromoCode { get; set; }
+        public string PassportNo { get; set; }
+
+        [DataMember]
+        public string InvoiceNo { get; set; }
 
         [DataMember]
         public string MemberID { get; set; }
@@ -91,12 +135,6 @@ namespace KP.OrderMGT.BL.ServiceModel
         [DataMember]
         public string AgentCode { get; set; }
     }
-
-    //[DataContract]
-    //public class POS
-    //{
-
-    //}
 
     [DataContract]
     public class Billing
@@ -232,25 +270,40 @@ namespace KP.OrderMGT.BL.ServiceModel
         public string MaterialCode { get; set; }
 
         [DataMember]
-        public string Quantity { get; set; }
+        public decimal Quantity { get; set; }
 
         [DataMember]
-        public string SellingPrice { get; set; }
+        public decimal SellingPrice { get; set; }
 
         [DataMember]
-        public string Amount { get; set; }
+        public decimal Amount { get; set; }
 
         [DataMember]
-        public string Discount { get; set; }
+        public decimal Discount { get; set; }
 
         [DataMember]
-        public string Net { get; set; }
+        public decimal DiscountRate { get; set; }
 
         [DataMember]
-        public string DiscountRate { get; set; }
+        public string PromoCode { get; set; }
 
         [DataMember]
-        public bool PromoCode { get; set; }
+        public decimal Net { get; set; }
+
+        [DataMember]
+        public decimal SPDiscount { get; set; }
+
+        [DataMember]
+        public decimal SPDiscountRate { get; set; }
+
+        [DataMember]
+        public string SPPromoCode { get; set; }
+
+        [DataMember]
+        public decimal TotalDiscount { get; set; } // Discount + SPDiscount = TotalDiscount
+
+        [DataMember]
+        public decimal TotalNet { get; set; } // Net + SPDiscount = TotalNet
 
         [DataMember]
         public string SellerAdjustFee { get; set; }
@@ -275,9 +328,17 @@ namespace KP.OrderMGT.BL.ServiceModel
         public decimal Amount { get; set; }
     }
 
-    //[DataContract]
-    //public class Signature
-    //{
+    [DataContract]
+    public class SaleQueae
+    {
+        [DataMember]
+        public DateTime Date { get; set; }
 
-    //}
+        [DataMember]
+        public string SKU { get; set; }
+
+        [DataMember]
+        public decimal Quantity { get; set; }
+    }
+
 }

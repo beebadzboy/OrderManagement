@@ -1,4 +1,5 @@
 ﻿using KP.OrderMGT.BL.DBModel;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -43,10 +44,13 @@ namespace KP.OrderMGT.BL.ServiceModel
     public class Flight
     {
         [DataMember]
-        public string FightCode { get; set; }
+        public string FlightCode { get; set; }
 
         [DataMember]
-        public string FightDesc { get; set; }
+        public string FlightDesc { get; set; }
+
+        [DataMember]
+        public DateTime? Date { get; set; }
 
         [DataMember]
         public string AirportCode { get; set; }
@@ -58,7 +62,7 @@ namespace KP.OrderMGT.BL.ServiceModel
         public string AirlineName { get; set; }
 
         [DataMember]
-        public string Teminal { get; set; }
+        public string Terminal { get; set; }
 
         [DataMember]
         public PickUp PickUp { get; set; }
@@ -79,14 +83,14 @@ namespace KP.OrderMGT.BL.ServiceModel
 
         public Flight(df_flight dataTable1)
         {
-            this.FightCode = dataTable1.flight_code.Trim();
-            this.FightDesc = dataTable1.flight_desc.Trim();
-            this.Teminal = dataTable1.arrdep_terminal.Trim();
-            if (this.Teminal == "D")
+            this.FlightCode = dataTable1.flight_code.Trim();
+            this.FlightDesc = dataTable1.flight_desc.Trim();
+            this.Terminal = dataTable1.arrdep_terminal.Trim();
+            if (this.Terminal == "D")
             {
                 this.AirportCode = dataTable1.arrdep_airport_code.Trim();
             }
-            else if (this.Teminal == "A")
+            else if (this.Terminal == "A")
             {
                 this.AirportCode = dataTable1.dest_airport_code.Trim();
             }
@@ -162,14 +166,14 @@ namespace KP.OrderMGT.BL.ServiceModel
 
         public Flight(df_flight dataTable1, df_airline dataTable2)
         {
-            this.FightCode = dataTable1.flight_code.Trim();
-            this.FightDesc = dataTable1.flight_desc.Trim();
-            this.Teminal = dataTable1.arrdep_terminal.Trim();
-            if (this.Teminal == "D")
+            this.FlightCode = dataTable1.flight_code.Trim();
+            this.FlightDesc = dataTable1.flight_desc.Trim();
+            this.Terminal = dataTable1.arrdep_terminal.Trim();
+            if (this.Terminal == "D")
             {
                 this.AirportCode = dataTable1.arrdep_airport_code.Trim();
             }
-            else if (this.Teminal == "A")
+            else if (this.Terminal == "A")
             {
                 this.AirportCode = dataTable1.dest_airport_code.Trim();
             }
@@ -247,6 +251,7 @@ namespace KP.OrderMGT.BL.ServiceModel
         }
 
     }
+
 
     [DataContract]
     public class FlightCarrier

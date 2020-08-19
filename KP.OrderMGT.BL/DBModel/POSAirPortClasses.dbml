@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="NDCCSVB_Train" Class="POSAirPortClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=172.17.0.3;Initial Catalog=NDCCSVB_Train;Persist Security Info=True;User ID=sa" SettingsObjectName="KP.OrderMGT.BL.Properties.Settings" SettingsPropertyName="NDCCSVB_TrainConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.df_payment_onl" Member="df_payment_onls">
     <Type Name="df_payment_onl">
       <Column Name="branch_no" Type="System.String" DbType="Char(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -101,6 +100,63 @@
       <Column Name="vat2" Type="System.Decimal" DbType="Decimal(14,2) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
+  <Table Name="dbo.runno_machine" Member="runno_machines">
+    <Type Name="runno_machine">
+      <Column Name="branch_no" Type="System.String" DbType="Char(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="machine_no" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="taxabb" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="reciept" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="time_stamp" Type="System.Data.Linq.Binary" DbType="Binary(8)" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vArticleMC" Member="vArticleMCs">
+    <Type Name="vArticleMC">
+      <Column Name="ArticleCode" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="ActivationDT" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Unit" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="GTIN" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="MCCode" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="IsQTYProhibited" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsOpenPrice" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsSaleBlock" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ArticleTypeCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="ArticleName" Type="System.String" DbType="NVarChar(80)" CanBeNull="true" />
+      <Column Name="BrandCode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="VatCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Timestamp" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="SubSectCode" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="SubSectName" Type="System.String" DbType="NVarChar(45)" CanBeNull="true" />
+      <Column Name="SectionCode" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="SectionName" Type="System.String" DbType="NVarChar(45)" CanBeNull="true" />
+      <Column Name="CateCode" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="CateName" Type="System.String" DbType="NVarChar(45)" CanBeNull="true" />
+      <Column Name="Volume" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.df_paymeth" Member="df_paymeths">
+    <Type Name="df_paymeth">
+      <Column Name="method_code" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="method_desc" Type="System.String" DbType="Char(60)" CanBeNull="true" />
+      <Column Name="method_short" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Column Name="method_hot" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="del_flag" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="remark" Type="System.String" DbType="Char(30)" CanBeNull="true" />
+      <Column Name="add_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="update_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="user_add" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="user_update" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="time_stamp" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="image" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" />
+      <Column Name="method_group" Type="System.String" DbType="Char(5) NOT NULL" CanBeNull="false" />
+      <Column Name="check_voucher" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="barcode_fix" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="not_allow_smc" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="is_cashcard" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="start_date" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="end_date" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IsWallet" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Table Name="dbo.df_header_onl" Member="df_header_onls">
     <Type Name="df_header_onl">
       <Column Name="branch_no" Type="System.String" DbType="Char(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -164,6 +220,9 @@
       <Column Name="WeChatSession" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
       <Column Name="Promoter" Type="System.String" DbType="Char(10)" CanBeNull="true" />
       <Column Name="DFA" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="OnlineNo" Type="System.String" DbType="Char(20)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="CurrStatus" Type="System.String" DbType="Char(10)" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.get_sale_passport4" Method="get_sale_passport4">
@@ -175,6 +234,28 @@
       <Column Name="net" Type="System.Decimal" DbType="Decimal(38,2)" CanBeNull="true" />
       <Column Name="lq" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="tb" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_sale_passport_vol1" Method="get_sale_passport_vol1">
+    <Parameter Name="ihour" Type="System.Int32" DbType="Int" />
+    <Parameter Name="cpass" Type="System.String" DbType="Char(20)" />
+    <Parameter Name="cdate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="cstatus" Type="System.Char" DbType="Char(1)" />
+    <ElementType Name="get_sale_passport_vol1Result">
+      <Column Name="net" Type="System.Decimal" DbType="Decimal(38,2)" CanBeNull="true" />
+      <Column Name="lq" Type="System.Decimal" DbType="Decimal(38,4)" CanBeNull="true" />
+      <Column Name="tb" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_sale_passport_vol2" Method="get_sale_passport_vol2">
+    <Parameter Name="ihour" Type="System.Int32" DbType="Int" />
+    <Parameter Name="cpass" Type="System.String" DbType="Char(20)" />
+    <Parameter Name="cdate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="cstatus" Type="System.Char" DbType="Char(1)" />
+    <ElementType Name="get_sale_passport_vol2Result">
+      <Column Name="net" Type="System.Decimal" DbType="Decimal(11,2)" CanBeNull="true" />
+      <Column Name="lq" Type="System.Decimal" DbType="Decimal(11,4)" CanBeNull="true" />
+      <Column Name="tb" Type="System.Decimal" DbType="Decimal(11,2)" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

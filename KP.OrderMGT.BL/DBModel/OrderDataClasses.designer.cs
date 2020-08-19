@@ -30,9 +30,6 @@ namespace KP.OrderMGT.BL.DBModel
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void Insertconfig_connection(config_connection instance);
-    partial void Updateconfig_connection(config_connection instance);
-    partial void Deleteconfig_connection(config_connection instance);
     partial void Insertorder_log_interface(order_log_interface instance);
     partial void Updateorder_log_interface(order_log_interface instance);
     partial void Deleteorder_log_interface(order_log_interface instance);
@@ -54,13 +51,10 @@ namespace KP.OrderMGT.BL.DBModel
     partial void Insertorder_payment(order_payment instance);
     partial void Updateorder_payment(order_payment instance);
     partial void Deleteorder_payment(order_payment instance);
+    partial void Insertconfig_connection(config_connection instance);
+    partial void Updateconfig_connection(config_connection instance);
+    partial void Deleteconfig_connection(config_connection instance);
     #endregion
-		
-		public OrderDataClassesDataContext() : 
-				base(global::KP.OrderMGT.BL.Properties.Settings.Default.KPOrderConnectionString, mappingSource)
-		{
-			OnCreated();
-		}
 		
 		public OrderDataClassesDataContext(string connection) : 
 				base(connection, mappingSource)
@@ -91,14 +85,6 @@ namespace KP.OrderMGT.BL.DBModel
 			get
 			{
 				return this.GetTable<df_flight>();
-			}
-		}
-		
-		public System.Data.Linq.Table<config_connection> config_connections
-		{
-			get
-			{
-				return this.GetTable<config_connection>();
 			}
 		}
 		
@@ -171,6 +157,14 @@ namespace KP.OrderMGT.BL.DBModel
 			get
 			{
 				return this.GetTable<order_payment>();
+			}
+		}
+		
+		public System.Data.Linq.Table<config_connection> config_connections
+		{
+			get
+			{
+				return this.GetTable<config_connection>();
 			}
 		}
 	}
@@ -594,380 +588,6 @@ namespace KP.OrderMGT.BL.DBModel
 				{
 					this._pickup_code = value;
 				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.config_connection")]
-	public partial class config_connection : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _cn_code;
-		
-		private string _cn_name;
-		
-		private string _cn_server;
-		
-		private string _cn_database;
-		
-		private string _cn_uid;
-		
-		private string _cn_pwd;
-		
-		private string _cn_branch_no;
-		
-		private string _user_add;
-		
-		private string _user_update;
-		
-		private System.DateTime _add_datetime;
-		
-		private System.DateTime _update_datetime;
-		
-		private string _remark;
-		
-		private System.Data.Linq.Binary _time_stamp;
-		
-		private char _del_flag;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Oncn_codeChanging(string value);
-    partial void Oncn_codeChanged();
-    partial void Oncn_nameChanging(string value);
-    partial void Oncn_nameChanged();
-    partial void Oncn_serverChanging(string value);
-    partial void Oncn_serverChanged();
-    partial void Oncn_databaseChanging(string value);
-    partial void Oncn_databaseChanged();
-    partial void Oncn_uidChanging(string value);
-    partial void Oncn_uidChanged();
-    partial void Oncn_pwdChanging(string value);
-    partial void Oncn_pwdChanged();
-    partial void Oncn_branch_noChanging(string value);
-    partial void Oncn_branch_noChanged();
-    partial void Onuser_addChanging(string value);
-    partial void Onuser_addChanged();
-    partial void Onuser_updateChanging(string value);
-    partial void Onuser_updateChanged();
-    partial void Onadd_datetimeChanging(System.DateTime value);
-    partial void Onadd_datetimeChanged();
-    partial void Onupdate_datetimeChanging(System.DateTime value);
-    partial void Onupdate_datetimeChanged();
-    partial void OnremarkChanging(string value);
-    partial void OnremarkChanged();
-    partial void Ontime_stampChanging(System.Data.Linq.Binary value);
-    partial void Ontime_stampChanged();
-    partial void Ondel_flagChanging(char value);
-    partial void Ondel_flagChanged();
-    #endregion
-		
-		public config_connection()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cn_code", DbType="Char(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
-		public string cn_code
-		{
-			get
-			{
-				return this._cn_code;
-			}
-			set
-			{
-				if ((this._cn_code != value))
-				{
-					this.Oncn_codeChanging(value);
-					this.SendPropertyChanging();
-					this._cn_code = value;
-					this.SendPropertyChanged("cn_code");
-					this.Oncn_codeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cn_name", DbType="Char(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string cn_name
-		{
-			get
-			{
-				return this._cn_name;
-			}
-			set
-			{
-				if ((this._cn_name != value))
-				{
-					this.Oncn_nameChanging(value);
-					this.SendPropertyChanging();
-					this._cn_name = value;
-					this.SendPropertyChanged("cn_name");
-					this.Oncn_nameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cn_server", DbType="Char(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string cn_server
-		{
-			get
-			{
-				return this._cn_server;
-			}
-			set
-			{
-				if ((this._cn_server != value))
-				{
-					this.Oncn_serverChanging(value);
-					this.SendPropertyChanging();
-					this._cn_server = value;
-					this.SendPropertyChanged("cn_server");
-					this.Oncn_serverChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cn_database", DbType="Char(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string cn_database
-		{
-			get
-			{
-				return this._cn_database;
-			}
-			set
-			{
-				if ((this._cn_database != value))
-				{
-					this.Oncn_databaseChanging(value);
-					this.SendPropertyChanging();
-					this._cn_database = value;
-					this.SendPropertyChanged("cn_database");
-					this.Oncn_databaseChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cn_uid", DbType="Char(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string cn_uid
-		{
-			get
-			{
-				return this._cn_uid;
-			}
-			set
-			{
-				if ((this._cn_uid != value))
-				{
-					this.Oncn_uidChanging(value);
-					this.SendPropertyChanging();
-					this._cn_uid = value;
-					this.SendPropertyChanged("cn_uid");
-					this.Oncn_uidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cn_pwd", DbType="Char(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string cn_pwd
-		{
-			get
-			{
-				return this._cn_pwd;
-			}
-			set
-			{
-				if ((this._cn_pwd != value))
-				{
-					this.Oncn_pwdChanging(value);
-					this.SendPropertyChanging();
-					this._cn_pwd = value;
-					this.SendPropertyChanged("cn_pwd");
-					this.Oncn_pwdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cn_branch_no", DbType="Char(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string cn_branch_no
-		{
-			get
-			{
-				return this._cn_branch_no;
-			}
-			set
-			{
-				if ((this._cn_branch_no != value))
-				{
-					this.Oncn_branch_noChanging(value);
-					this.SendPropertyChanging();
-					this._cn_branch_no = value;
-					this.SendPropertyChanged("cn_branch_no");
-					this.Oncn_branch_noChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_add", DbType="Char(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string user_add
-		{
-			get
-			{
-				return this._user_add;
-			}
-			set
-			{
-				if ((this._user_add != value))
-				{
-					this.Onuser_addChanging(value);
-					this.SendPropertyChanging();
-					this._user_add = value;
-					this.SendPropertyChanged("user_add");
-					this.Onuser_addChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_update", DbType="Char(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string user_update
-		{
-			get
-			{
-				return this._user_update;
-			}
-			set
-			{
-				if ((this._user_update != value))
-				{
-					this.Onuser_updateChanging(value);
-					this.SendPropertyChanging();
-					this._user_update = value;
-					this.SendPropertyChanged("user_update");
-					this.Onuser_updateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_add_datetime", DbType="SmallDateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-		public System.DateTime add_datetime
-		{
-			get
-			{
-				return this._add_datetime;
-			}
-			set
-			{
-				if ((this._add_datetime != value))
-				{
-					this.Onadd_datetimeChanging(value);
-					this.SendPropertyChanging();
-					this._add_datetime = value;
-					this.SendPropertyChanged("add_datetime");
-					this.Onadd_datetimeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_update_datetime", DbType="SmallDateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
-		public System.DateTime update_datetime
-		{
-			get
-			{
-				return this._update_datetime;
-			}
-			set
-			{
-				if ((this._update_datetime != value))
-				{
-					this.Onupdate_datetimeChanging(value);
-					this.SendPropertyChanging();
-					this._update_datetime = value;
-					this.SendPropertyChanged("update_datetime");
-					this.Onupdate_datetimeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string remark
-		{
-			get
-			{
-				return this._remark;
-			}
-			set
-			{
-				if ((this._remark != value))
-				{
-					this.OnremarkChanging(value);
-					this.SendPropertyChanging();
-					this._remark = value;
-					this.SendPropertyChanged("remark");
-					this.OnremarkChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_time_stamp", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-		public System.Data.Linq.Binary time_stamp
-		{
-			get
-			{
-				return this._time_stamp;
-			}
-			set
-			{
-				if ((this._time_stamp != value))
-				{
-					this.Ontime_stampChanging(value);
-					this.SendPropertyChanging();
-					this._time_stamp = value;
-					this.SendPropertyChanged("time_stamp");
-					this.Ontime_stampChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_del_flag", DbType="Char(1) NOT NULL", UpdateCheck=UpdateCheck.Never)]
-		public char del_flag
-		{
-			get
-			{
-				return this._del_flag;
-			}
-			set
-			{
-				if ((this._del_flag != value))
-				{
-					this.Ondel_flagChanging(value);
-					this.SendPropertyChanging();
-					this._del_flag = value;
-					this.SendPropertyChanged("del_flag");
-					this.Ondel_flagChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -3559,6 +3179,548 @@ namespace KP.OrderMGT.BL.DBModel
 						this._header_id = default(long);
 					}
 					this.SendPropertyChanged("order_header");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.config_connection")]
+	public partial class config_connection : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _cn_code;
+		
+		private string _cn_name;
+		
+		private string _cn_server;
+		
+		private string _cn_database;
+		
+		private string _cn_uid;
+		
+		private string _cn_pwd;
+		
+		private string _cn_branch_no;
+		
+		private string _cn_branch_name;
+		
+		private string _ref_machine_no;
+		
+		private string _ref_machine_tax;
+		
+		private string _ref_area_no;
+		
+		private string _ref_loc_no;
+		
+		private System.Nullable<decimal> _buy_limit;
+		
+		private System.Nullable<short> _buy_limit_hour;
+		
+		private string _user_add;
+		
+		private string _user_update;
+		
+		private System.DateTime _add_datetime;
+		
+		private System.DateTime _update_datetime;
+		
+		private string _remark;
+		
+		private System.Data.Linq.Binary _time_stamp;
+		
+		private char _del_flag;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Oncn_codeChanging(string value);
+    partial void Oncn_codeChanged();
+    partial void Oncn_nameChanging(string value);
+    partial void Oncn_nameChanged();
+    partial void Oncn_serverChanging(string value);
+    partial void Oncn_serverChanged();
+    partial void Oncn_databaseChanging(string value);
+    partial void Oncn_databaseChanged();
+    partial void Oncn_uidChanging(string value);
+    partial void Oncn_uidChanged();
+    partial void Oncn_pwdChanging(string value);
+    partial void Oncn_pwdChanged();
+    partial void Oncn_branch_noChanging(string value);
+    partial void Oncn_branch_noChanged();
+    partial void Oncn_branch_nameChanging(string value);
+    partial void Oncn_branch_nameChanged();
+    partial void Onref_machine_noChanging(string value);
+    partial void Onref_machine_noChanged();
+    partial void Onref_machine_taxChanging(string value);
+    partial void Onref_machine_taxChanged();
+    partial void Onref_area_noChanging(string value);
+    partial void Onref_area_noChanged();
+    partial void Onref_loc_noChanging(string value);
+    partial void Onref_loc_noChanged();
+    partial void Onbuy_limitChanging(System.Nullable<decimal> value);
+    partial void Onbuy_limitChanged();
+    partial void Onbuy_limit_hourChanging(System.Nullable<short> value);
+    partial void Onbuy_limit_hourChanged();
+    partial void Onuser_addChanging(string value);
+    partial void Onuser_addChanged();
+    partial void Onuser_updateChanging(string value);
+    partial void Onuser_updateChanged();
+    partial void Onadd_datetimeChanging(System.DateTime value);
+    partial void Onadd_datetimeChanged();
+    partial void Onupdate_datetimeChanging(System.DateTime value);
+    partial void Onupdate_datetimeChanged();
+    partial void OnremarkChanging(string value);
+    partial void OnremarkChanged();
+    partial void Ontime_stampChanging(System.Data.Linq.Binary value);
+    partial void Ontime_stampChanged();
+    partial void Ondel_flagChanging(char value);
+    partial void Ondel_flagChanged();
+    #endregion
+		
+		public config_connection()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cn_code", DbType="Char(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
+		public string cn_code
+		{
+			get
+			{
+				return this._cn_code;
+			}
+			set
+			{
+				if ((this._cn_code != value))
+				{
+					this.Oncn_codeChanging(value);
+					this.SendPropertyChanging();
+					this._cn_code = value;
+					this.SendPropertyChanged("cn_code");
+					this.Oncn_codeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cn_name", DbType="Char(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string cn_name
+		{
+			get
+			{
+				return this._cn_name;
+			}
+			set
+			{
+				if ((this._cn_name != value))
+				{
+					this.Oncn_nameChanging(value);
+					this.SendPropertyChanging();
+					this._cn_name = value;
+					this.SendPropertyChanged("cn_name");
+					this.Oncn_nameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cn_server", DbType="Char(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string cn_server
+		{
+			get
+			{
+				return this._cn_server;
+			}
+			set
+			{
+				if ((this._cn_server != value))
+				{
+					this.Oncn_serverChanging(value);
+					this.SendPropertyChanging();
+					this._cn_server = value;
+					this.SendPropertyChanged("cn_server");
+					this.Oncn_serverChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cn_database", DbType="Char(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string cn_database
+		{
+			get
+			{
+				return this._cn_database;
+			}
+			set
+			{
+				if ((this._cn_database != value))
+				{
+					this.Oncn_databaseChanging(value);
+					this.SendPropertyChanging();
+					this._cn_database = value;
+					this.SendPropertyChanged("cn_database");
+					this.Oncn_databaseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cn_uid", DbType="Char(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string cn_uid
+		{
+			get
+			{
+				return this._cn_uid;
+			}
+			set
+			{
+				if ((this._cn_uid != value))
+				{
+					this.Oncn_uidChanging(value);
+					this.SendPropertyChanging();
+					this._cn_uid = value;
+					this.SendPropertyChanged("cn_uid");
+					this.Oncn_uidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cn_pwd", DbType="Char(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string cn_pwd
+		{
+			get
+			{
+				return this._cn_pwd;
+			}
+			set
+			{
+				if ((this._cn_pwd != value))
+				{
+					this.Oncn_pwdChanging(value);
+					this.SendPropertyChanging();
+					this._cn_pwd = value;
+					this.SendPropertyChanged("cn_pwd");
+					this.Oncn_pwdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cn_branch_no", DbType="Char(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string cn_branch_no
+		{
+			get
+			{
+				return this._cn_branch_no;
+			}
+			set
+			{
+				if ((this._cn_branch_no != value))
+				{
+					this.Oncn_branch_noChanging(value);
+					this.SendPropertyChanging();
+					this._cn_branch_no = value;
+					this.SendPropertyChanged("cn_branch_no");
+					this.Oncn_branch_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cn_branch_name", DbType="Char(50)", UpdateCheck=UpdateCheck.Never)]
+		public string cn_branch_name
+		{
+			get
+			{
+				return this._cn_branch_name;
+			}
+			set
+			{
+				if ((this._cn_branch_name != value))
+				{
+					this.Oncn_branch_nameChanging(value);
+					this.SendPropertyChanging();
+					this._cn_branch_name = value;
+					this.SendPropertyChanged("cn_branch_name");
+					this.Oncn_branch_nameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ref_machine_no", DbType="NChar(10)", UpdateCheck=UpdateCheck.Never)]
+		public string ref_machine_no
+		{
+			get
+			{
+				return this._ref_machine_no;
+			}
+			set
+			{
+				if ((this._ref_machine_no != value))
+				{
+					this.Onref_machine_noChanging(value);
+					this.SendPropertyChanging();
+					this._ref_machine_no = value;
+					this.SendPropertyChanged("ref_machine_no");
+					this.Onref_machine_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ref_machine_tax", DbType="NChar(20)", UpdateCheck=UpdateCheck.Never)]
+		public string ref_machine_tax
+		{
+			get
+			{
+				return this._ref_machine_tax;
+			}
+			set
+			{
+				if ((this._ref_machine_tax != value))
+				{
+					this.Onref_machine_taxChanging(value);
+					this.SendPropertyChanging();
+					this._ref_machine_tax = value;
+					this.SendPropertyChanged("ref_machine_tax");
+					this.Onref_machine_taxChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ref_area_no", DbType="NChar(10)", UpdateCheck=UpdateCheck.Never)]
+		public string ref_area_no
+		{
+			get
+			{
+				return this._ref_area_no;
+			}
+			set
+			{
+				if ((this._ref_area_no != value))
+				{
+					this.Onref_area_noChanging(value);
+					this.SendPropertyChanging();
+					this._ref_area_no = value;
+					this.SendPropertyChanged("ref_area_no");
+					this.Onref_area_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ref_loc_no", DbType="NChar(10)", UpdateCheck=UpdateCheck.Never)]
+		public string ref_loc_no
+		{
+			get
+			{
+				return this._ref_loc_no;
+			}
+			set
+			{
+				if ((this._ref_loc_no != value))
+				{
+					this.Onref_loc_noChanging(value);
+					this.SendPropertyChanging();
+					this._ref_loc_no = value;
+					this.SendPropertyChanged("ref_loc_no");
+					this.Onref_loc_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_buy_limit", DbType="Decimal(10,2)", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<decimal> buy_limit
+		{
+			get
+			{
+				return this._buy_limit;
+			}
+			set
+			{
+				if ((this._buy_limit != value))
+				{
+					this.Onbuy_limitChanging(value);
+					this.SendPropertyChanging();
+					this._buy_limit = value;
+					this.SendPropertyChanged("buy_limit");
+					this.Onbuy_limitChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_buy_limit_hour", DbType="SmallInt", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<short> buy_limit_hour
+		{
+			get
+			{
+				return this._buy_limit_hour;
+			}
+			set
+			{
+				if ((this._buy_limit_hour != value))
+				{
+					this.Onbuy_limit_hourChanging(value);
+					this.SendPropertyChanging();
+					this._buy_limit_hour = value;
+					this.SendPropertyChanged("buy_limit_hour");
+					this.Onbuy_limit_hourChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_add", DbType="Char(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string user_add
+		{
+			get
+			{
+				return this._user_add;
+			}
+			set
+			{
+				if ((this._user_add != value))
+				{
+					this.Onuser_addChanging(value);
+					this.SendPropertyChanging();
+					this._user_add = value;
+					this.SendPropertyChanged("user_add");
+					this.Onuser_addChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_update", DbType="Char(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string user_update
+		{
+			get
+			{
+				return this._user_update;
+			}
+			set
+			{
+				if ((this._user_update != value))
+				{
+					this.Onuser_updateChanging(value);
+					this.SendPropertyChanging();
+					this._user_update = value;
+					this.SendPropertyChanged("user_update");
+					this.Onuser_updateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_add_datetime", DbType="SmallDateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public System.DateTime add_datetime
+		{
+			get
+			{
+				return this._add_datetime;
+			}
+			set
+			{
+				if ((this._add_datetime != value))
+				{
+					this.Onadd_datetimeChanging(value);
+					this.SendPropertyChanging();
+					this._add_datetime = value;
+					this.SendPropertyChanged("add_datetime");
+					this.Onadd_datetimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_update_datetime", DbType="SmallDateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public System.DateTime update_datetime
+		{
+			get
+			{
+				return this._update_datetime;
+			}
+			set
+			{
+				if ((this._update_datetime != value))
+				{
+					this.Onupdate_datetimeChanging(value);
+					this.SendPropertyChanging();
+					this._update_datetime = value;
+					this.SendPropertyChanged("update_datetime");
+					this.Onupdate_datetimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string remark
+		{
+			get
+			{
+				return this._remark;
+			}
+			set
+			{
+				if ((this._remark != value))
+				{
+					this.OnremarkChanging(value);
+					this.SendPropertyChanging();
+					this._remark = value;
+					this.SendPropertyChanged("remark");
+					this.OnremarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_time_stamp", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary time_stamp
+		{
+			get
+			{
+				return this._time_stamp;
+			}
+			set
+			{
+				if ((this._time_stamp != value))
+				{
+					this.Ontime_stampChanging(value);
+					this.SendPropertyChanging();
+					this._time_stamp = value;
+					this.SendPropertyChanged("time_stamp");
+					this.Ontime_stampChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_del_flag", DbType="Char(1) NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public char del_flag
+		{
+			get
+			{
+				return this._del_flag;
+			}
+			set
+			{
+				if ((this._del_flag != value))
+				{
+					this.Ondel_flagChanging(value);
+					this.SendPropertyChanging();
+					this._del_flag = value;
+					this.SendPropertyChanged("del_flag");
+					this.Ondel_flagChanged();
 				}
 			}
 		}

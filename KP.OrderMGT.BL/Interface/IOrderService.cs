@@ -13,10 +13,10 @@ namespace KP.OrderMGT.Service
         string GetConnectionPOSAirport(string airport_code);
 
         [OperationContract]
-        SaleOnlineByPassport ValidateAllowSaleOnline(POSAirPortClassesDataContext _posDB, char terminal, string passort, DateTime date, int time);
+        SaleAmountByPassport ValidateAllowSaleOnline(POSAirPortClassesDataContext _posDB, char terminal, string passort, DateTime date, int time);
 
         [OperationContract]
-        SaleOnlineByPassport SaveOrderOnline(POSAirPortClassesDataContext _posDB, OrderHeader order);
+        OrderSession SaveOrderOnline(POSAirPortClassesDataContext _posDB, OrderHeader order);
 
         [OperationContract]
         SaleOnlineByPassport HoleOrderOnline(OrderHeader order);

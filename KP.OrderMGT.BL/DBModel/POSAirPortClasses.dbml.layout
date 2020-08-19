@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 13.375" name="POSAirPortClasses">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 14.75, 14" name="POSAirPortClasses">
   <DataContextMoniker Name="/POSAirPortClassesDataContext" />
   <nestedChildShapes>
     <classShape Id="3d830cc1-0ed6-4da9-91af-d0df93a29efc" absoluteBounds="7.75, 0.625, 2, 6.7707340494791657">
@@ -20,10 +20,28 @@
         <elementListCompartment Id="80b7b950-39f4-4975-94cd-6d167aa7d0a5" absoluteBounds="2.7649999999999997, 1.085, 1.9700000000000002, 6.979939778645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="1986ef81-a375-4450-b78a-e62fdda079f9" absoluteBounds="0.5, 0.625, 2, 12.539777018229165">
+    <classShape Id="4e950718-25f1-4529-85ec-457c0a41e0ed" absoluteBounds="10.25, 0.625, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/POSAirPortClassesDataContext/runno_machine" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a0404c75-6988-4400-912f-4500b286fa26" absoluteBounds="10.265, 1.085, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="91190582-637c-448b-8efc-98c73a8fc5d9" absoluteBounds="10.25, 2.875, 2, 4.6554182942708326">
+      <DataClassMoniker Name="/POSAirPortClassesDataContext/vArticleMC" />
+      <nestedChildShapes>
+        <elementListCompartment Id="091f73b7-0377-4456-a033-4cab3107ef08" absoluteBounds="10.265, 3.335, 1.9700000000000002, 4.095418294270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e8bde077-97f0-4669-800d-b28485995e30" absoluteBounds="12.5, 0.625, 2, 4.6554182942708326">
+      <DataClassMoniker Name="/POSAirPortClassesDataContext/df_paymeth" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8366a550-b7ed-4e3b-bcca-31407a046a88" absoluteBounds="12.515, 1.085, 1.9700000000000002, 4.095418294270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="cbade904-f9f5-403c-ac17-6071b10ff67b" absoluteBounds="0.5, 0.625, 2, 13.116681315104165">
       <DataClassMoniker Name="/POSAirPortClassesDataContext/df_header_onl" />
       <nestedChildShapes>
-        <elementListCompartment Id="97194004-cda5-43d9-b5a1-7522ca311c68" absoluteBounds="0.51500000000000057, 1.085, 1.9700000000000002, 11.979777018229166" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="28d5119b-843c-4b87-840a-95eb3cc63103" absoluteBounds="0.51499999999999968, 1.085, 1.9700000000000002, 12.556681315104166" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
