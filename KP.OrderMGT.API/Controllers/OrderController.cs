@@ -59,7 +59,7 @@ namespace KP.OrderMGT.API.Controllers
                     posDB = new POSAirPortClassesDataContext(posConn);
                     ret.Data = omSrv.ValidateAllowSaleOnline(posDB, terminal, passport, dateTime, time);
 
-                    ret.totalCount = 1;
+                    ret.totalCount = ret.Data != null ? 1 : 0;
                     ret.isCompleted = true;
                 }
                 else
@@ -82,16 +82,26 @@ namespace KP.OrderMGT.API.Controllers
         [ResponseType(typeof(ReturnObject<OrderSession>))]
         public IHttpActionResult SaveOrderOnline(OrderHeader order)
         {
-            ReturnObject<OrderHeader> ret = new ReturnObject<OrderHeader>();
-            //ret.Data = order;
+            // validate data
+            /////
 
+            ReturnObject<OrderSession> ret = new ReturnObject<OrderSession>();
             try
             {
                 var omSrv = new OrderService(omDB);
-                var omConn = omSrv.GetConnectionPOSAirport(order.Flight.AirportCode);
+                var posConn = omSrv.GetConnectionPOSAirport(order.Flight.AirportCode);
+                if (posConn != null)
+                {
+                    posDB = new POSAirPortClassesDataContext(posConn);
+                    ret.Data = omSrv.SaveOrderOnline(posDB, order);
 
-                ret.totalCount = 1;
-                ret.isCompleted = true;
+                    ret.totalCount = ret.Data != null ? 1 : 0;
+                    ret.isCompleted = true;
+                }
+                else
+                {
+                    throw new ArgumentException("message", "connection error");
+                }
             }
             catch (Exception e)
             {
@@ -112,14 +122,90 @@ namespace KP.OrderMGT.API.Controllers
                 throw new ArgumentException("message", nameof(order_no));
             }
 
-            ReturnObject<string> ret = new ReturnObject<string>();
-            ret.Data = order_no;
+            ReturnObject<OrderSession> ret = new ReturnObject<OrderSession>();
+            try
+            {
+                var omSrv = new OrderService(omDB);
+                var posConn = omSrv.GetConnectionPOSOrder(order_no);
+                if (posConn != null)
+                {
+                    posDB = new POSAirPortClassesDataContext(posConn);
+                    ret.Data = omSrv.HoleOrderOnline(posDB, order_no);
+
+                    ret.totalCount = ret.Data != null ? 1 : 0;
+                    ret.isCompleted = true;
+                }
+                else
+                {
+                    throw new ArgumentException("message", "connection error");
+                }
+            }
+            catch (Exception e)
+            {
+                ret.SetMessage(e);
+                ret.Tracking = new ReturnTracking();
+            }
+
+
+            return Ok(ret.Data);
+        }
+
+        [HttpGet]
+        [Route("cancel-order")]
+        [ResponseType(typeof(ReturnObject<OrderSession>))]
+        public IHttpActionResult CancelOrderOnline(string order_no)
+        {
+            if (string.IsNullOrWhiteSpace(order_no))
+            {
+                throw new ArgumentException("message", nameof(order_no));
+            }
+
+            ReturnObject<OrderSession> ret = new ReturnObject<OrderSession>();
 
             try
             {
                 var omSrv = new OrderService(omDB);
+                var posConn = omSrv.GetConnectionPOSOrder(order_no);
+                if (posConn != null)
+                {
+                    posDB = new POSAirPortClassesDataContext(posConn);
+                    ret.Data = omSrv.CancelOrderOnline(posDB, order_no);
 
-                ret.totalCount = 1;
+                    ret.totalCount = ret.Data != null ? 1 : 0;
+                    ret.isCompleted = true;
+                }
+                else
+                {
+                    throw new ArgumentException("message", "connection error");
+                }
+            }
+            catch (Exception e)
+            {
+                ret.SetMessage(e);
+                ret.Tracking = new ReturnTracking();
+            }
+
+
+            return Ok(ret.Data);
+        }
+
+        [HttpGet]
+        [Route("get-order")]
+        [ResponseType(typeof(ReturnObject<OrderSession>))]
+        public IHttpActionResult GetOrderOnline(string order_no)
+        {
+            if (string.IsNullOrWhiteSpace(order_no))
+            {
+                throw new ArgumentException("message", nameof(order_no));
+            }
+
+            ReturnObject<OrderSession> ret = new ReturnObject<OrderSession>();
+
+            try
+            {
+                var omSrv = new OrderService(omDB);
+                ret.Data = omSrv.GetOrderOnline(order_no);
+                ret.totalCount = ret.Data != null? 1 : 0;
                 ret.isCompleted = true;
             }
             catch (Exception e)
@@ -132,18 +218,63 @@ namespace KP.OrderMGT.API.Controllers
             return Ok(ret.Data);
         }
 
-        [HttpPost]
-        [Route("hold-order")]
-        [ResponseType(typeof(ReturnObject<OrderSession>))]
-        public IHttpActionResult HoldOrderOnline(OrderHeader order)
+        [HttpGet]
+        [Route("get-order-list")]
+        [ResponseType(typeof(ReturnObject<List<OrderSession>>))]
+        public IHttpActionResult GetOrderOnlineList(string airport_code, int? skip, int? take)
         {
-            ReturnObject<OrderHeader> ret = new ReturnObject<OrderHeader>();
-            ret.Data = order;
+            if (string.IsNullOrWhiteSpace(airport_code))
+            {
+                throw new ArgumentException("message", nameof(airport_code));
+            }
+
+            ReturnObject<List<OrderSession>> ret = new ReturnObject<List<OrderSession>>();
 
             try
             {
                 var omSrv = new OrderService(omDB);
-                var omConn = omSrv.GetConnectionPOSAirport(order.Flight.AirportCode);
+                ret.Data = omSrv.GetOrderOnlineList(airport_code, skip,take);
+
+                ret.totalCount = ret.Data.Count;
+                ret.isCompleted = true;
+            }
+            catch (Exception e)
+            {
+                ret.SetMessage(e);
+                ret.Tracking = new ReturnTracking();
+            }
+
+            return Ok(ret.Data);
+        }
+
+        [HttpPut]
+        [Route("complate-order")]
+        [ResponseType(typeof(ReturnObject<OrderSession>))]
+        public IHttpActionResult ComplateOrderOnline(string order_no)
+        {
+            if (string.IsNullOrWhiteSpace(order_no))
+            {
+                throw new ArgumentException("message", nameof(order_no));
+            }
+
+            ReturnObject<string> ret = new ReturnObject<string>();
+            ret.Data = order_no;
+
+            try
+            {
+                var omSrv = new OrderService(omDB);
+                var order_update = omSrv.ComplateOrderOnline(order_no);
+                if (order_update != null)
+                {
+                    // send update to endpoint
+
+                    ret.totalCount = ret.Data != null ? 1 : 0;
+                    ret.isCompleted = true;
+                }
+                else
+                {
+                    throw new ArgumentException("message", "connection error");
+                }
 
                 ret.totalCount = 1;
                 ret.isCompleted = true;
@@ -174,6 +305,18 @@ namespace KP.OrderMGT.API.Controllers
             try
             {
                 var omSrv = new OrderService(omDB);
+                var order_update = omSrv.VoidOrderOnline(order_no);
+                if (order_update != null)
+                {
+                    // send update to endpoint
+
+                    ret.totalCount = ret.Data != null ? 1 : 0;
+                    ret.isCompleted = true;
+                }
+                else
+                {
+                    throw new ArgumentException("message", "connection error");
+                }
 
                 ret.totalCount = 1;
                 ret.isCompleted = true;
@@ -187,64 +330,5 @@ namespace KP.OrderMGT.API.Controllers
 
             return Ok(ret.Data);
         }
-
-        [HttpGet]
-        [Route("get-order")]
-        [ResponseType(typeof(ReturnObject<OrderSession>))]
-        public IHttpActionResult GetOrderOnline(string order_no)
-        {
-            if (string.IsNullOrWhiteSpace(order_no))
-            {
-                throw new ArgumentException("message", nameof(order_no));
-            }
-
-            ReturnObject<OrderHeader> ret = new ReturnObject<OrderHeader>();
-
-            try
-            {
-                var omSrv = new OrderService(omDB);
-
-                ret.totalCount = 1;
-                ret.isCompleted = true;
-            }
-            catch (Exception e)
-            {
-                ret.SetMessage(e);
-                ret.Tracking = new ReturnTracking();
-            }
-
-
-            return Ok(ret.Data);
-        }
-
-        [HttpGet]
-        [Route("get-order-list")]
-        [ResponseType(typeof(ReturnObject<List<OrderSession>>))]
-        public IHttpActionResult GetOrderOnlineList(string airport_code, int? skip, int? take)
-        {
-            if (string.IsNullOrWhiteSpace(airport_code))
-            {
-                throw new ArgumentException("message", nameof(airport_code));
-            }
-
-            ReturnObject<List<OrderHeader>> ret = new ReturnObject<List<OrderHeader>>();
-
-            try
-            {
-                var omSrv = new OrderService(omDB);
-
-                ret.totalCount = 1;
-                ret.isCompleted = true;
-            }
-            catch (Exception e)
-            {
-                ret.SetMessage(e);
-                ret.Tracking = new ReturnTracking();
-            }
-
-            return Ok(ret.Data);
-        }
-
-
     }
 }

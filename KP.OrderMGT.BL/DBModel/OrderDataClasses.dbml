@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="KPOrder" Class="OrderDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=devdata;Initial Catalog=KPOrder;Persist Security Info=True;User ID=sa" SettingsObjectName="KP.OrderMGT.BL.Properties.Settings" SettingsPropertyName="KPOrderConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.df_flight" Member="df_flights">
     <Type Name="df_flight">
       <Column Name="flight_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
@@ -61,21 +62,6 @@
       <Column Name="ip_address" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="create_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Association Name="order_log_interface_order_transaction" Member="order_transactions" ThisKey="id" OtherKey="log_id" Type="order_transaction" />
-    </Type>
-  </Table>
-  <Table Name="dbo.order_session" Member="order_sessions">
-    <Type Name="order_session">
-      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="session_guid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="sale_order_no" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="sale_order_status" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="sale_platform" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="pos_order_no" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="pos_order_status" Type="System.String" DbType="Char(10)" CanBeNull="true" />
-      <Column Name="create_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="modified_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="order_session_order_transaction" Member="order_transactions" ThisKey="id" OtherKey="session_id" Type="order_transaction" />
-      <Association Name="order_session_order_header" Member="order_headers" ThisKey="id" OtherKey="session_id" Type="order_header" />
     </Type>
   </Table>
   <Table Name="dbo.order_transaction" Member="order_transactions">
@@ -181,6 +167,25 @@
       <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" />
       <Column Name="time_stamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
       <Column Name="del_flag" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.order_session" Member="order_sessions">
+    <Type Name="order_session">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="session_guid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="sale_order_no" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="sale_invoice_no" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="sale_agent_code" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="sale_platform" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="sale_order_status" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="pos_order_key" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="pos_order_no" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="pos_invice_no" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="pos_order_status" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="create_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="modified_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="order_session_order_transaction" Member="order_transactions" ThisKey="id" OtherKey="session_id" Type="order_transaction" />
+      <Association Name="order_session_order_header" Member="order_headers" ThisKey="id" OtherKey="session_id" Type="order_header" />
     </Type>
   </Table>
 </Database>

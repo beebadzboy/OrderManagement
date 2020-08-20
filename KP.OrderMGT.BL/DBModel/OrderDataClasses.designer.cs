@@ -33,9 +33,6 @@ namespace KP.OrderMGT.BL.DBModel
     partial void Insertorder_log_interface(order_log_interface instance);
     partial void Updateorder_log_interface(order_log_interface instance);
     partial void Deleteorder_log_interface(order_log_interface instance);
-    partial void Insertorder_session(order_session instance);
-    partial void Updateorder_session(order_session instance);
-    partial void Deleteorder_session(order_session instance);
     partial void Insertorder_transaction(order_transaction instance);
     partial void Updateorder_transaction(order_transaction instance);
     partial void Deleteorder_transaction(order_transaction instance);
@@ -54,7 +51,16 @@ namespace KP.OrderMGT.BL.DBModel
     partial void Insertconfig_connection(config_connection instance);
     partial void Updateconfig_connection(config_connection instance);
     partial void Deleteconfig_connection(config_connection instance);
+    partial void Insertorder_session(order_session instance);
+    partial void Updateorder_session(order_session instance);
+    partial void Deleteorder_session(order_session instance);
     #endregion
+		
+		public OrderDataClassesDataContext() : 
+				base(global::KP.OrderMGT.BL.Properties.Settings.Default.KPOrderConnectionString1, mappingSource)
+		{
+			OnCreated();
+		}
 		
 		public OrderDataClassesDataContext(string connection) : 
 				base(connection, mappingSource)
@@ -112,14 +118,6 @@ namespace KP.OrderMGT.BL.DBModel
 			}
 		}
 		
-		public System.Data.Linq.Table<order_session> order_sessions
-		{
-			get
-			{
-				return this.GetTable<order_session>();
-			}
-		}
-		
 		public System.Data.Linq.Table<order_transaction> order_transactions
 		{
 			get
@@ -165,6 +163,14 @@ namespace KP.OrderMGT.BL.DBModel
 			get
 			{
 				return this.GetTable<config_connection>();
+			}
+		}
+		
+		public System.Data.Linq.Table<order_session> order_sessions
+		{
+			get
+			{
+				return this.GetTable<order_session>();
 			}
 		}
 	}
@@ -1147,316 +1153,6 @@ namespace KP.OrderMGT.BL.DBModel
 		{
 			this.SendPropertyChanging();
 			entity.order_log_interface = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.order_session")]
-	public partial class order_session : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _id;
-		
-		private System.Guid _session_guid;
-		
-		private string _sale_order_no;
-		
-		private string _sale_order_status;
-		
-		private string _sale_platform;
-		
-		private string _pos_order_no;
-		
-		private string _pos_order_status;
-		
-		private System.DateTime _create_date;
-		
-		private System.Nullable<System.DateTime> _modified_date;
-		
-		private EntitySet<order_transaction> _order_transactions;
-		
-		private EntitySet<order_header> _order_headers;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(long value);
-    partial void OnidChanged();
-    partial void Onsession_guidChanging(System.Guid value);
-    partial void Onsession_guidChanged();
-    partial void Onsale_order_noChanging(string value);
-    partial void Onsale_order_noChanged();
-    partial void Onsale_order_statusChanging(string value);
-    partial void Onsale_order_statusChanged();
-    partial void Onsale_platformChanging(string value);
-    partial void Onsale_platformChanged();
-    partial void Onpos_order_noChanging(string value);
-    partial void Onpos_order_noChanged();
-    partial void Onpos_order_statusChanging(string value);
-    partial void Onpos_order_statusChanged();
-    partial void Oncreate_dateChanging(System.DateTime value);
-    partial void Oncreate_dateChanged();
-    partial void Onmodified_dateChanging(System.Nullable<System.DateTime> value);
-    partial void Onmodified_dateChanged();
-    #endregion
-		
-		public order_session()
-		{
-			this._order_transactions = new EntitySet<order_transaction>(new Action<order_transaction>(this.attach_order_transactions), new Action<order_transaction>(this.detach_order_transactions));
-			this._order_headers = new EntitySet<order_header>(new Action<order_header>(this.attach_order_headers), new Action<order_header>(this.detach_order_headers));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_session_guid", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid session_guid
-		{
-			get
-			{
-				return this._session_guid;
-			}
-			set
-			{
-				if ((this._session_guid != value))
-				{
-					this.Onsession_guidChanging(value);
-					this.SendPropertyChanging();
-					this._session_guid = value;
-					this.SendPropertyChanged("session_guid");
-					this.Onsession_guidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sale_order_no", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string sale_order_no
-		{
-			get
-			{
-				return this._sale_order_no;
-			}
-			set
-			{
-				if ((this._sale_order_no != value))
-				{
-					this.Onsale_order_noChanging(value);
-					this.SendPropertyChanging();
-					this._sale_order_no = value;
-					this.SendPropertyChanged("sale_order_no");
-					this.Onsale_order_noChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sale_order_status", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string sale_order_status
-		{
-			get
-			{
-				return this._sale_order_status;
-			}
-			set
-			{
-				if ((this._sale_order_status != value))
-				{
-					this.Onsale_order_statusChanging(value);
-					this.SendPropertyChanging();
-					this._sale_order_status = value;
-					this.SendPropertyChanged("sale_order_status");
-					this.Onsale_order_statusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sale_platform", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string sale_platform
-		{
-			get
-			{
-				return this._sale_platform;
-			}
-			set
-			{
-				if ((this._sale_platform != value))
-				{
-					this.Onsale_platformChanging(value);
-					this.SendPropertyChanging();
-					this._sale_platform = value;
-					this.SendPropertyChanged("sale_platform");
-					this.Onsale_platformChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pos_order_no", DbType="NVarChar(50)")]
-		public string pos_order_no
-		{
-			get
-			{
-				return this._pos_order_no;
-			}
-			set
-			{
-				if ((this._pos_order_no != value))
-				{
-					this.Onpos_order_noChanging(value);
-					this.SendPropertyChanging();
-					this._pos_order_no = value;
-					this.SendPropertyChanged("pos_order_no");
-					this.Onpos_order_noChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pos_order_status", DbType="Char(10)")]
-		public string pos_order_status
-		{
-			get
-			{
-				return this._pos_order_status;
-			}
-			set
-			{
-				if ((this._pos_order_status != value))
-				{
-					this.Onpos_order_statusChanging(value);
-					this.SendPropertyChanging();
-					this._pos_order_status = value;
-					this.SendPropertyChanged("pos_order_status");
-					this.Onpos_order_statusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_create_date", DbType="DateTime NOT NULL")]
-		public System.DateTime create_date
-		{
-			get
-			{
-				return this._create_date;
-			}
-			set
-			{
-				if ((this._create_date != value))
-				{
-					this.Oncreate_dateChanging(value);
-					this.SendPropertyChanging();
-					this._create_date = value;
-					this.SendPropertyChanged("create_date");
-					this.Oncreate_dateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_modified_date", DbType="DateTime")]
-		public System.Nullable<System.DateTime> modified_date
-		{
-			get
-			{
-				return this._modified_date;
-			}
-			set
-			{
-				if ((this._modified_date != value))
-				{
-					this.Onmodified_dateChanging(value);
-					this.SendPropertyChanging();
-					this._modified_date = value;
-					this.SendPropertyChanged("modified_date");
-					this.Onmodified_dateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="order_session_order_transaction", Storage="_order_transactions", ThisKey="id", OtherKey="session_id")]
-		public EntitySet<order_transaction> order_transactions
-		{
-			get
-			{
-				return this._order_transactions;
-			}
-			set
-			{
-				this._order_transactions.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="order_session_order_header", Storage="_order_headers", ThisKey="id", OtherKey="session_id")]
-		public EntitySet<order_header> order_headers
-		{
-			get
-			{
-				return this._order_headers;
-			}
-			set
-			{
-				this._order_headers.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_order_transactions(order_transaction entity)
-		{
-			this.SendPropertyChanging();
-			entity.order_session = this;
-		}
-		
-		private void detach_order_transactions(order_transaction entity)
-		{
-			this.SendPropertyChanging();
-			entity.order_session = null;
-		}
-		
-		private void attach_order_headers(order_header entity)
-		{
-			this.SendPropertyChanging();
-			entity.order_session = this;
-		}
-		
-		private void detach_order_headers(order_header entity)
-		{
-			this.SendPropertyChanging();
-			entity.order_session = null;
 		}
 	}
 	
@@ -3743,6 +3439,412 @@ namespace KP.OrderMGT.BL.DBModel
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.order_session")]
+	public partial class order_session : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _id;
+		
+		private System.Guid _session_guid;
+		
+		private string _sale_order_no;
+		
+		private string _sale_invoice_no;
+		
+		private string _sale_agent_code;
+		
+		private string _sale_platform;
+		
+		private string _sale_order_status;
+		
+		private string _pos_order_key;
+		
+		private string _pos_order_no;
+		
+		private string _pos_invice_no;
+		
+		private string _pos_order_status;
+		
+		private System.DateTime _create_date;
+		
+		private System.Nullable<System.DateTime> _modified_date;
+		
+		private EntitySet<order_transaction> _order_transactions;
+		
+		private EntitySet<order_header> _order_headers;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(long value);
+    partial void OnidChanged();
+    partial void Onsession_guidChanging(System.Guid value);
+    partial void Onsession_guidChanged();
+    partial void Onsale_order_noChanging(string value);
+    partial void Onsale_order_noChanged();
+    partial void Onsale_invoice_noChanging(string value);
+    partial void Onsale_invoice_noChanged();
+    partial void Onsale_agent_codeChanging(string value);
+    partial void Onsale_agent_codeChanged();
+    partial void Onsale_platformChanging(string value);
+    partial void Onsale_platformChanged();
+    partial void Onsale_order_statusChanging(string value);
+    partial void Onsale_order_statusChanged();
+    partial void Onpos_order_keyChanging(string value);
+    partial void Onpos_order_keyChanged();
+    partial void Onpos_order_noChanging(string value);
+    partial void Onpos_order_noChanged();
+    partial void Onpos_invice_noChanging(string value);
+    partial void Onpos_invice_noChanged();
+    partial void Onpos_order_statusChanging(string value);
+    partial void Onpos_order_statusChanged();
+    partial void Oncreate_dateChanging(System.DateTime value);
+    partial void Oncreate_dateChanged();
+    partial void Onmodified_dateChanging(System.Nullable<System.DateTime> value);
+    partial void Onmodified_dateChanged();
+    #endregion
+		
+		public order_session()
+		{
+			this._order_transactions = new EntitySet<order_transaction>(new Action<order_transaction>(this.attach_order_transactions), new Action<order_transaction>(this.detach_order_transactions));
+			this._order_headers = new EntitySet<order_header>(new Action<order_header>(this.attach_order_headers), new Action<order_header>(this.detach_order_headers));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_session_guid", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid session_guid
+		{
+			get
+			{
+				return this._session_guid;
+			}
+			set
+			{
+				if ((this._session_guid != value))
+				{
+					this.Onsession_guidChanging(value);
+					this.SendPropertyChanging();
+					this._session_guid = value;
+					this.SendPropertyChanged("session_guid");
+					this.Onsession_guidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sale_order_no", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string sale_order_no
+		{
+			get
+			{
+				return this._sale_order_no;
+			}
+			set
+			{
+				if ((this._sale_order_no != value))
+				{
+					this.Onsale_order_noChanging(value);
+					this.SendPropertyChanging();
+					this._sale_order_no = value;
+					this.SendPropertyChanged("sale_order_no");
+					this.Onsale_order_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sale_invoice_no", DbType="NChar(10)")]
+		public string sale_invoice_no
+		{
+			get
+			{
+				return this._sale_invoice_no;
+			}
+			set
+			{
+				if ((this._sale_invoice_no != value))
+				{
+					this.Onsale_invoice_noChanging(value);
+					this.SendPropertyChanging();
+					this._sale_invoice_no = value;
+					this.SendPropertyChanged("sale_invoice_no");
+					this.Onsale_invoice_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sale_agent_code", DbType="NChar(10)")]
+		public string sale_agent_code
+		{
+			get
+			{
+				return this._sale_agent_code;
+			}
+			set
+			{
+				if ((this._sale_agent_code != value))
+				{
+					this.Onsale_agent_codeChanging(value);
+					this.SendPropertyChanging();
+					this._sale_agent_code = value;
+					this.SendPropertyChanged("sale_agent_code");
+					this.Onsale_agent_codeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sale_platform", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string sale_platform
+		{
+			get
+			{
+				return this._sale_platform;
+			}
+			set
+			{
+				if ((this._sale_platform != value))
+				{
+					this.Onsale_platformChanging(value);
+					this.SendPropertyChanging();
+					this._sale_platform = value;
+					this.SendPropertyChanged("sale_platform");
+					this.Onsale_platformChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sale_order_status", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string sale_order_status
+		{
+			get
+			{
+				return this._sale_order_status;
+			}
+			set
+			{
+				if ((this._sale_order_status != value))
+				{
+					this.Onsale_order_statusChanging(value);
+					this.SendPropertyChanging();
+					this._sale_order_status = value;
+					this.SendPropertyChanged("sale_order_status");
+					this.Onsale_order_statusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pos_order_key", DbType="NVarChar(50)")]
+		public string pos_order_key
+		{
+			get
+			{
+				return this._pos_order_key;
+			}
+			set
+			{
+				if ((this._pos_order_key != value))
+				{
+					this.Onpos_order_keyChanging(value);
+					this.SendPropertyChanging();
+					this._pos_order_key = value;
+					this.SendPropertyChanged("pos_order_key");
+					this.Onpos_order_keyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pos_order_no", DbType="NVarChar(50)")]
+		public string pos_order_no
+		{
+			get
+			{
+				return this._pos_order_no;
+			}
+			set
+			{
+				if ((this._pos_order_no != value))
+				{
+					this.Onpos_order_noChanging(value);
+					this.SendPropertyChanging();
+					this._pos_order_no = value;
+					this.SendPropertyChanged("pos_order_no");
+					this.Onpos_order_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pos_invice_no", DbType="NVarChar(50)")]
+		public string pos_invice_no
+		{
+			get
+			{
+				return this._pos_invice_no;
+			}
+			set
+			{
+				if ((this._pos_invice_no != value))
+				{
+					this.Onpos_invice_noChanging(value);
+					this.SendPropertyChanging();
+					this._pos_invice_no = value;
+					this.SendPropertyChanged("pos_invice_no");
+					this.Onpos_invice_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pos_order_status", DbType="Char(10)")]
+		public string pos_order_status
+		{
+			get
+			{
+				return this._pos_order_status;
+			}
+			set
+			{
+				if ((this._pos_order_status != value))
+				{
+					this.Onpos_order_statusChanging(value);
+					this.SendPropertyChanging();
+					this._pos_order_status = value;
+					this.SendPropertyChanged("pos_order_status");
+					this.Onpos_order_statusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_create_date", DbType="DateTime NOT NULL")]
+		public System.DateTime create_date
+		{
+			get
+			{
+				return this._create_date;
+			}
+			set
+			{
+				if ((this._create_date != value))
+				{
+					this.Oncreate_dateChanging(value);
+					this.SendPropertyChanging();
+					this._create_date = value;
+					this.SendPropertyChanged("create_date");
+					this.Oncreate_dateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_modified_date", DbType="DateTime")]
+		public System.Nullable<System.DateTime> modified_date
+		{
+			get
+			{
+				return this._modified_date;
+			}
+			set
+			{
+				if ((this._modified_date != value))
+				{
+					this.Onmodified_dateChanging(value);
+					this.SendPropertyChanging();
+					this._modified_date = value;
+					this.SendPropertyChanged("modified_date");
+					this.Onmodified_dateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="order_session_order_transaction", Storage="_order_transactions", ThisKey="id", OtherKey="session_id")]
+		public EntitySet<order_transaction> order_transactions
+		{
+			get
+			{
+				return this._order_transactions;
+			}
+			set
+			{
+				this._order_transactions.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="order_session_order_header", Storage="_order_headers", ThisKey="id", OtherKey="session_id")]
+		public EntitySet<order_header> order_headers
+		{
+			get
+			{
+				return this._order_headers;
+			}
+			set
+			{
+				this._order_headers.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_order_transactions(order_transaction entity)
+		{
+			this.SendPropertyChanging();
+			entity.order_session = this;
+		}
+		
+		private void detach_order_transactions(order_transaction entity)
+		{
+			this.SendPropertyChanging();
+			entity.order_session = null;
+		}
+		
+		private void attach_order_headers(order_header entity)
+		{
+			this.SendPropertyChanging();
+			entity.order_session = this;
+		}
+		
+		private void detach_order_headers(order_header entity)
+		{
+			this.SendPropertyChanging();
+			entity.order_session = null;
 		}
 	}
 }

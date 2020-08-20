@@ -50,6 +50,12 @@ namespace KP.OrderMGT.BL.DBModel
     partial void Deletedf_header_onl(df_header_onl instance);
     #endregion
 		
+		public POSAirPortClassesDataContext() : 
+				base(global::KP.OrderMGT.BL.Properties.Settings.Default.NDCCSVB_TrainConnectionString, mappingSource)
+		{
+			OnCreated();
+		}
+		
 		public POSAirPortClassesDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
@@ -220,6 +226,8 @@ namespace KP.OrderMGT.BL.DBModel
 		
 		private System.Nullable<bool> _AlipayCancel;
 		
+		private EntityRef<df_header_onl> _df_header_onl;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -290,6 +298,7 @@ namespace KP.OrderMGT.BL.DBModel
 		
 		public df_payment_onl()
 		{
+			this._df_header_onl = default(EntityRef<df_header_onl>);
 			OnCreated();
 		}
 		
@@ -304,6 +313,10 @@ namespace KP.OrderMGT.BL.DBModel
 			{
 				if ((this._branch_no != value))
 				{
+					if (this._df_header_onl.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.Onbranch_noChanging(value);
 					this.SendPropertyChanging();
 					this._branch_no = value;
@@ -324,6 +337,10 @@ namespace KP.OrderMGT.BL.DBModel
 			{
 				if ((this._data_date != value))
 				{
+					if (this._df_header_onl.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.Ondata_dateChanging(value);
 					this.SendPropertyChanging();
 					this._data_date = value;
@@ -344,6 +361,10 @@ namespace KP.OrderMGT.BL.DBModel
 			{
 				if ((this._machine_no != value))
 				{
+					if (this._df_header_onl.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.Onmachine_noChanging(value);
 					this.SendPropertyChanging();
 					this._machine_no = value;
@@ -364,6 +385,10 @@ namespace KP.OrderMGT.BL.DBModel
 			{
 				if ((this._doc_no != value))
 				{
+					if (this._df_header_onl.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.Ondoc_noChanging(value);
 					this.SendPropertyChanging();
 					this._doc_no = value;
@@ -913,6 +938,46 @@ namespace KP.OrderMGT.BL.DBModel
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="df_header_onl_df_payment_onl", Storage="_df_header_onl", ThisKey="branch_no,data_date,machine_no,doc_no", OtherKey="branch_no,data_date,machine_no,doc_no", IsForeignKey=true)]
+		public df_header_onl df_header_onl
+		{
+			get
+			{
+				return this._df_header_onl.Entity;
+			}
+			set
+			{
+				df_header_onl previousValue = this._df_header_onl.Entity;
+				if (((previousValue != value) 
+							|| (this._df_header_onl.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._df_header_onl.Entity = null;
+						previousValue.df_payment_onls.Remove(this);
+					}
+					this._df_header_onl.Entity = value;
+					if ((value != null))
+					{
+						value.df_payment_onls.Add(this);
+						this._branch_no = value.branch_no;
+						this._data_date = value.data_date;
+						this._machine_no = value.machine_no;
+						this._doc_no = value.doc_no;
+					}
+					else
+					{
+						this._branch_no = default(string);
+						this._data_date = default(System.DateTime);
+						this._machine_no = default(string);
+						this._doc_no = default(string);
+					}
+					this.SendPropertyChanged("df_header_onl");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -986,6 +1051,8 @@ namespace KP.OrderMGT.BL.DBModel
 		
 		private System.Nullable<decimal> _subsidize;
 		
+		private EntityRef<df_trans_onl> _df_trans_onl;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1040,6 +1107,7 @@ namespace KP.OrderMGT.BL.DBModel
 		
 		public df_pdiscount_onl()
 		{
+			this._df_trans_onl = default(EntityRef<df_trans_onl>);
 			OnCreated();
 		}
 		
@@ -1054,6 +1122,10 @@ namespace KP.OrderMGT.BL.DBModel
 			{
 				if ((this._branch_no != value))
 				{
+					if (this._df_trans_onl.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.Onbranch_noChanging(value);
 					this.SendPropertyChanging();
 					this._branch_no = value;
@@ -1074,6 +1146,10 @@ namespace KP.OrderMGT.BL.DBModel
 			{
 				if ((this._data_date != value))
 				{
+					if (this._df_trans_onl.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.Ondata_dateChanging(value);
 					this.SendPropertyChanging();
 					this._data_date = value;
@@ -1094,6 +1170,10 @@ namespace KP.OrderMGT.BL.DBModel
 			{
 				if ((this._machine_no != value))
 				{
+					if (this._df_trans_onl.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.Onmachine_noChanging(value);
 					this.SendPropertyChanging();
 					this._machine_no = value;
@@ -1114,6 +1194,10 @@ namespace KP.OrderMGT.BL.DBModel
 			{
 				if ((this._doc_no != value))
 				{
+					if (this._df_trans_onl.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.Ondoc_noChanging(value);
 					this.SendPropertyChanging();
 					this._doc_no = value;
@@ -1134,6 +1218,10 @@ namespace KP.OrderMGT.BL.DBModel
 			{
 				if ((this._plu_line_no != value))
 				{
+					if (this._df_trans_onl.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.Onplu_line_noChanging(value);
 					this.SendPropertyChanging();
 					this._plu_line_no = value;
@@ -1503,6 +1591,48 @@ namespace KP.OrderMGT.BL.DBModel
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="df_trans_onl_df_pdiscount_onl", Storage="_df_trans_onl", ThisKey="doc_no,branch_no,data_date,machine_no,plu_line_no", OtherKey="doc_no,branch_no,data_date,machine_no,line_no", IsForeignKey=true)]
+		public df_trans_onl df_trans_onl
+		{
+			get
+			{
+				return this._df_trans_onl.Entity;
+			}
+			set
+			{
+				df_trans_onl previousValue = this._df_trans_onl.Entity;
+				if (((previousValue != value) 
+							|| (this._df_trans_onl.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._df_trans_onl.Entity = null;
+						previousValue.df_pdiscount_onls.Remove(this);
+					}
+					this._df_trans_onl.Entity = value;
+					if ((value != null))
+					{
+						value.df_pdiscount_onls.Add(this);
+						this._doc_no = value.doc_no;
+						this._branch_no = value.branch_no;
+						this._data_date = value.data_date;
+						this._machine_no = value.machine_no;
+						this._plu_line_no = value.line_no;
+					}
+					else
+					{
+						this._doc_no = default(string);
+						this._branch_no = default(string);
+						this._data_date = default(System.DateTime);
+						this._machine_no = default(string);
+						this._plu_line_no = default(int);
+					}
+					this.SendPropertyChanged("df_trans_onl");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1600,6 +1730,10 @@ namespace KP.OrderMGT.BL.DBModel
 		
 		private decimal _vat2;
 		
+		private EntitySet<df_pdiscount_onl> _df_pdiscount_onls;
+		
+		private EntityRef<df_header_onl> _df_header_onl;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1678,6 +1812,8 @@ namespace KP.OrderMGT.BL.DBModel
 		
 		public df_trans_onl()
 		{
+			this._df_pdiscount_onls = new EntitySet<df_pdiscount_onl>(new Action<df_pdiscount_onl>(this.attach_df_pdiscount_onls), new Action<df_pdiscount_onl>(this.detach_df_pdiscount_onls));
+			this._df_header_onl = default(EntityRef<df_header_onl>);
 			OnCreated();
 		}
 		
@@ -1692,6 +1828,10 @@ namespace KP.OrderMGT.BL.DBModel
 			{
 				if ((this._branch_no != value))
 				{
+					if (this._df_header_onl.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.Onbranch_noChanging(value);
 					this.SendPropertyChanging();
 					this._branch_no = value;
@@ -1712,6 +1852,10 @@ namespace KP.OrderMGT.BL.DBModel
 			{
 				if ((this._data_date != value))
 				{
+					if (this._df_header_onl.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.Ondata_dateChanging(value);
 					this.SendPropertyChanging();
 					this._data_date = value;
@@ -1732,6 +1876,10 @@ namespace KP.OrderMGT.BL.DBModel
 			{
 				if ((this._area_code != value))
 				{
+					if (this._df_header_onl.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.Onarea_codeChanging(value);
 					this.SendPropertyChanging();
 					this._area_code = value;
@@ -1752,6 +1900,10 @@ namespace KP.OrderMGT.BL.DBModel
 			{
 				if ((this._loc_code != value))
 				{
+					if (this._df_header_onl.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.Onloc_codeChanging(value);
 					this.SendPropertyChanging();
 					this._loc_code = value;
@@ -1772,6 +1924,10 @@ namespace KP.OrderMGT.BL.DBModel
 			{
 				if ((this._machine_no != value))
 				{
+					if (this._df_header_onl.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.Onmachine_noChanging(value);
 					this.SendPropertyChanging();
 					this._machine_no = value;
@@ -1792,6 +1948,10 @@ namespace KP.OrderMGT.BL.DBModel
 			{
 				if ((this._doc_no != value))
 				{
+					if (this._df_header_onl.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.Ondoc_noChanging(value);
 					this.SendPropertyChanging();
 					this._doc_no = value;
@@ -2381,6 +2541,63 @@ namespace KP.OrderMGT.BL.DBModel
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="df_trans_onl_df_pdiscount_onl", Storage="_df_pdiscount_onls", ThisKey="doc_no,branch_no,data_date,machine_no,line_no", OtherKey="doc_no,branch_no,data_date,machine_no,plu_line_no")]
+		public EntitySet<df_pdiscount_onl> df_pdiscount_onls
+		{
+			get
+			{
+				return this._df_pdiscount_onls;
+			}
+			set
+			{
+				this._df_pdiscount_onls.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="df_header_onl_df_trans_onl", Storage="_df_header_onl", ThisKey="branch_no,data_date,loc_code,area_code,machine_no,doc_no", OtherKey="branch_no,data_date,loc_code,area_code,machine_no,doc_no", IsForeignKey=true)]
+		public df_header_onl df_header_onl
+		{
+			get
+			{
+				return this._df_header_onl.Entity;
+			}
+			set
+			{
+				df_header_onl previousValue = this._df_header_onl.Entity;
+				if (((previousValue != value) 
+							|| (this._df_header_onl.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._df_header_onl.Entity = null;
+						previousValue.df_trans_onls.Remove(this);
+					}
+					this._df_header_onl.Entity = value;
+					if ((value != null))
+					{
+						value.df_trans_onls.Add(this);
+						this._branch_no = value.branch_no;
+						this._data_date = value.data_date;
+						this._loc_code = value.loc_code;
+						this._area_code = value.area_code;
+						this._machine_no = value.machine_no;
+						this._doc_no = value.doc_no;
+					}
+					else
+					{
+						this._branch_no = default(string);
+						this._data_date = default(System.DateTime);
+						this._loc_code = default(string);
+						this._area_code = default(string);
+						this._machine_no = default(string);
+						this._doc_no = default(string);
+					}
+					this.SendPropertyChanged("df_header_onl");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -2399,6 +2616,18 @@ namespace KP.OrderMGT.BL.DBModel
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_df_pdiscount_onls(df_pdiscount_onl entity)
+		{
+			this.SendPropertyChanging();
+			entity.df_trans_onl = this;
+		}
+		
+		private void detach_df_pdiscount_onls(df_pdiscount_onl entity)
+		{
+			this.SendPropertyChanging();
+			entity.df_trans_onl = null;
 		}
 	}
 	
@@ -3577,9 +3806,13 @@ namespace KP.OrderMGT.BL.DBModel
 		
 		private string _OnlineNo;
 		
-		private string _Status;
+		private string _LastStatus;
 		
-		private string _CurrStatus;
+		private string _TerminelCode;
+		
+		private EntitySet<df_payment_onl> _df_payment_onls;
+		
+		private EntitySet<df_trans_onl> _df_trans_onls;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -3709,14 +3942,16 @@ namespace KP.OrderMGT.BL.DBModel
     partial void OnDFAChanged();
     partial void OnOnlineNoChanging(string value);
     partial void OnOnlineNoChanged();
-    partial void OnStatusChanging(string value);
-    partial void OnStatusChanged();
-    partial void OnCurrStatusChanging(string value);
-    partial void OnCurrStatusChanged();
+    partial void OnLastStatusChanging(string value);
+    partial void OnLastStatusChanged();
+    partial void OnTerminelCodeChanging(string value);
+    partial void OnTerminelCodeChanged();
     #endregion
 		
 		public df_header_onl()
 		{
+			this._df_payment_onls = new EntitySet<df_payment_onl>(new Action<df_payment_onl>(this.attach_df_payment_onls), new Action<df_payment_onl>(this.detach_df_payment_onls));
+			this._df_trans_onls = new EntitySet<df_trans_onl>(new Action<df_trans_onl>(this.attach_df_trans_onls), new Action<df_trans_onl>(this.detach_df_trans_onls));
 			OnCreated();
 		}
 		
@@ -4960,43 +5195,69 @@ namespace KP.OrderMGT.BL.DBModel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Char(10)", UpdateCheck=UpdateCheck.Never)]
-		public string Status
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastStatus", DbType="Char(10)", UpdateCheck=UpdateCheck.Never)]
+		public string LastStatus
 		{
 			get
 			{
-				return this._Status;
+				return this._LastStatus;
 			}
 			set
 			{
-				if ((this._Status != value))
+				if ((this._LastStatus != value))
 				{
-					this.OnStatusChanging(value);
+					this.OnLastStatusChanging(value);
 					this.SendPropertyChanging();
-					this._Status = value;
-					this.SendPropertyChanged("Status");
-					this.OnStatusChanged();
+					this._LastStatus = value;
+					this.SendPropertyChanged("LastStatus");
+					this.OnLastStatusChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CurrStatus", DbType="Char(10)", UpdateCheck=UpdateCheck.Never)]
-		public string CurrStatus
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TerminelCode", DbType="Char(1)", CanBeNull=false)]
+		public string TerminelCode
 		{
 			get
 			{
-				return this._CurrStatus;
+				return this._TerminelCode;
 			}
 			set
 			{
-				if ((this._CurrStatus != value))
+				if ((this._TerminelCode != value))
 				{
-					this.OnCurrStatusChanging(value);
+					this.OnTerminelCodeChanging(value);
 					this.SendPropertyChanging();
-					this._CurrStatus = value;
-					this.SendPropertyChanged("CurrStatus");
-					this.OnCurrStatusChanged();
+					this._TerminelCode = value;
+					this.SendPropertyChanged("TerminelCode");
+					this.OnTerminelCodeChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="df_header_onl_df_payment_onl", Storage="_df_payment_onls", ThisKey="branch_no,data_date,machine_no,doc_no", OtherKey="branch_no,data_date,machine_no,doc_no")]
+		public EntitySet<df_payment_onl> df_payment_onls
+		{
+			get
+			{
+				return this._df_payment_onls;
+			}
+			set
+			{
+				this._df_payment_onls.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="df_header_onl_df_trans_onl", Storage="_df_trans_onls", ThisKey="branch_no,data_date,loc_code,area_code,machine_no,doc_no", OtherKey="branch_no,data_date,loc_code,area_code,machine_no,doc_no")]
+		public EntitySet<df_trans_onl> df_trans_onls
+		{
+			get
+			{
+				return this._df_trans_onls;
+			}
+			set
+			{
+				this._df_trans_onls.Assign(value);
 			}
 		}
 		
@@ -5018,6 +5279,30 @@ namespace KP.OrderMGT.BL.DBModel
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_df_payment_onls(df_payment_onl entity)
+		{
+			this.SendPropertyChanging();
+			entity.df_header_onl = this;
+		}
+		
+		private void detach_df_payment_onls(df_payment_onl entity)
+		{
+			this.SendPropertyChanging();
+			entity.df_header_onl = null;
+		}
+		
+		private void attach_df_trans_onls(df_trans_onl entity)
+		{
+			this.SendPropertyChanging();
+			entity.df_header_onl = this;
+		}
+		
+		private void detach_df_trans_onls(df_trans_onl entity)
+		{
+			this.SendPropertyChanging();
+			entity.df_header_onl = null;
 		}
 	}
 	

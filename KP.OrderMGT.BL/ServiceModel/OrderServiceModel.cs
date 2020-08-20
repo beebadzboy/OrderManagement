@@ -1,11 +1,24 @@
 ﻿using KP.OrderMGT.BL.DBModel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Security.Cryptography.X509Certificates;
 
 namespace KP.OrderMGT.BL.ServiceModel
 {
+
+    [DataContract]
+    public enum StatusOrderPOS
+    {
+        Created = 002,
+        HoldOrder = 0025,
+        CancelCreated = 0021,
+        Saved = 003,
+        VoidSaved = 0031,
+        Complete = 006
+    }
 
     [DataContract]
     public class SaleAmountByPassport
@@ -87,6 +100,9 @@ namespace KP.OrderMGT.BL.ServiceModel
         public string SaleOrderNo { get; set; }
 
         [DataMember]
+        public string POSSessionKey { get; set; }
+
+        [DataMember]
         public string POSInvoiceNo { get; set; }
 
         [DataMember]
@@ -94,6 +110,20 @@ namespace KP.OrderMGT.BL.ServiceModel
 
         [DataMember]
         public string POSStatus { get; set; }
+
+        public OrderSession() { 
+        }
+
+        public OrderSession(order_session session)
+        {
+            this.SessionGuid = session.session_guid;
+            this.SessionId = session.id;
+            this.SaleOrderNo = session.sale_order_no;
+            this.POSInvoiceNo = session.pos_invice_no;
+            this.POSOrderNo = session.pos_order_no;
+            this.POSStatus = session.pos_order_status;
+            this.POSSessionKey = session.pos_order_key;
+        }
     }
 
     [DataContract]
@@ -329,16 +359,72 @@ namespace KP.OrderMGT.BL.ServiceModel
     }
 
     [DataContract]
-    public class SaleQueae
+    public class SaleQueue
     {
-        [DataMember]
-        public DateTime Date { get; set; }
-
         [DataMember]
         public string SKU { get; set; }
 
         [DataMember]
         public decimal Quantity { get; set; }
+
+        [DataMember]
+        public List<DetailSaleQueue> Details { get; set; }
+
+        public SaleQueue(string sku , List<df_trans_onl> trans){
+
+            this.SKU = sku.Trim();
+            this.Quantity = trans.Sum(x => x.quantity);
+            this.Details = new List<DetailSaleQueue>();
+            foreach (var item in trans.OrderBy(x=>x.data_date))
+            {
+                var newItem = new DetailSaleQueue();
+                newItem.Date = item.data_date;
+                newItem.DocNo = item.doc_no.Trim();
+                newItem.MacNo = item.machine_no.Trim();
+                this.Details.Add(newItem);
+            }
+        }
+    }
+
+    [DataContract]
+    public class DetailSaleQueue
+    {
+        [DataMember]
+        public DateTime Date { get; set; }
+
+
+        [DataMember]
+        public string MacNo { get; set; }
+
+        [DataMember]
+        public string DocNo { get; set; }
+
+    }
+
+    [DataContract]
+    public class OrderKey
+    {
+        [DataMember]
+        public string MacNo { get; set; }
+
+        [DataMember]
+        public string DocNO { get; set; }
+
+        [DataMember]
+        public DateTime Dete { get; set; }
+
+        public OrderKey()
+        {
+
+        }
+
+        public OrderKey(OrderSession orderSession)
+        {
+            var jsonObj = JsonConvert.DeserializeObject<OrderKey>(orderSession.POSSessionKey);
+            this.MacNo = jsonObj.MacNo;
+            this.DocNO = jsonObj.DocNO;
+            this.Dete = jsonObj.Dete;
+        }
     }
 
 }
