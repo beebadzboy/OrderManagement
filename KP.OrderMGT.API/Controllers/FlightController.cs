@@ -25,18 +25,18 @@ namespace KP.OrderMGT.API.Controllers
         [HttpGet]
         [Route("validate-code")]
         [ResponseType(typeof(ReturnObject<Flight>))]
-        public IHttpActionResult ValidateFlights(string fight_code)
+        public IHttpActionResult ValidateFlights(string flight_code)
         {
             ReturnObject<Flight> ret = new ReturnObject<Flight>();
             try
             {
-                if (string.IsNullOrEmpty(fight_code))
+                if (string.IsNullOrEmpty(flight_code))
                 {
-                    throw new ArgumentException("message", nameof(fight_code));
+                    throw new ArgumentException("message", nameof(flight_code));
                 }
 
                 var srv = new FlightService(orderDB);
-                ret.Data = srv.CheckFlights(fight_code);
+                ret.Data = srv.CheckFlights(flight_code);
                 ret.totalCount = 1;
                 ret.isCompleted = true;
             }
@@ -53,24 +53,24 @@ namespace KP.OrderMGT.API.Controllers
         [HttpGet]
         [Route("check-flight")]
         [ResponseType(typeof(ReturnObject<Flight>))]
-        public IHttpActionResult CheckFlights(string fight_code, string fight_date)
+        public IHttpActionResult CheckFlights(string flight_code, string flight_date)
         {
             ReturnObject<Flight> ret = new ReturnObject<Flight>();
             try
             {
-                if (string.IsNullOrEmpty(fight_code))
+                if (string.IsNullOrEmpty(flight_code))
                 {
-                    throw new ArgumentException("fight code", nameof(fight_code));
+                    throw new ArgumentException("flight code", nameof(flight_code));
                 }
 
-                if (string.IsNullOrEmpty(fight_date))
+                if (string.IsNullOrEmpty(flight_date))
                 {
-                    throw new ArgumentException("fight date", nameof(fight_date));
+                    throw new ArgumentException("flight date", nameof(flight_date));
                 }
 
 
                 var srv = new FlightService(orderDB);
-                ret.Data = srv.CheckFlights(fight_code, fight_date);
+                ret.Data = srv.CheckFlights(flight_code, flight_date);
                 ret.totalCount = 1;
                 ret.isCompleted = true;
             }

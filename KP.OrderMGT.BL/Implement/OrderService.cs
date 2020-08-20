@@ -1,5 +1,6 @@
 ﻿using KP.OrderMGT.BL.DBModel;
 using KP.OrderMGT.BL.ServiceModel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -138,8 +139,13 @@ namespace KP.OrderMGT.Service
             {
                 try
                 {
+                    var connObj = _omDB.config_connections.FirstOrDefault(x => x.cn_code == order.Flight.AirportCode);
+                    if (connObj == null)
+                    {
+                        throw new System.ArgumentException("message", nameof(order.Flight.AirportCode));
+                    }
+
                     // pos airport save
-                    int status = (int)StatusOrderPOS.Saved;
                     char sale_status = Char.Parse("");
                     if (order.Flight.Terminal == "D")
                     {
@@ -151,11 +157,11 @@ namespace KP.OrderMGT.Service
                     // new df_header_onl
                     df_header_onl new_order = new df_header_onl
                     {
-                        branch_no = "01",
+                        branch_no = connObj.cn_branch_no,
                         data_date = DateTime.Now,
-                        area_code = "online",
-                        loc_code = "online",
-                        machine_no = "OL01",
+                        area_code = connObj.ref_area_no,
+                        loc_code = connObj.ref_loc_no,
+                        machine_no = connObj.ref_machine_no,
                         doc_no = runno,
                         shift_no = 1,
                         cust_type = "",
@@ -181,10 +187,10 @@ namespace KP.OrderMGT.Service
                         runno = runno,
                         data_time = DateTime.Now.ToString("HH:mm", ci),
                         trans_date = DateTime.Now.Date,
-                        //rec_no = "",
+                        rec_no = 0,
                         tour_barcode = "",
                         tour_code = "",
-                        machine_tax = "XXXXX",
+                        machine_tax = connObj.ref_machine_tax,
                         //rcv_data_date = "",
                         //rcv_loc_code = "",
                         //rcv_machine_no = "",
@@ -213,7 +219,7 @@ namespace KP.OrderMGT.Service
                         //DFA = "",
                         OnlineNo = order.NewOrder.OrderNo,
                         TerminelCode = order.Flight.Terminal,
-                        LastStatus = status.ToString()
+                        LastStatus = "003".ToString()
                     };
                     _posDB.df_header_onls.InsertOnSubmit(new_order);
 
@@ -389,17 +395,9 @@ namespace KP.OrderMGT.Service
                         _posDB.df_payment_onls.InsertOnSubmit(new_payment);
                     }
 
+                    order_session = SaveSessionOrder(order, new_order);
+
                     tran.Complete();
-
-                    // order db save
-                    var new_session_order = new order_session();
-                    new_session_order.session_guid = Guid.NewGuid();
-
-
-                    // return output order_session
-                    order_session.SessionId = new_session_order.id;
-                    order_session.SessionGuid = new_session_order.session_guid;
-
                 }
                 catch (Exception ex)
                 {
@@ -409,6 +407,46 @@ namespace KP.OrderMGT.Service
             }
 
             return order_session;
+        }
+
+        private OrderSession SaveSessionOrder(OrderHeader order, df_header_onl pos_order)
+        {
+            // order_session db save
+            var new_session_order = new order_session();
+            new_session_order.session_guid = Guid.NewGuid();
+            new_session_order.sale_agent_code = order.NewOrder.AgentCode;
+            new_session_order.sale_order_no = order.NewOrder.OrderNo;
+            new_session_order.sale_order_status = "Create";
+            new_session_order.sale_invoice_no = order.NewOrder.InvoiceNo;
+            new_session_order.sale_platform = "online";
+            var obj_key = new OrderKey();
+            obj_key.Dete = pos_order.data_date;
+            obj_key.DocNO = pos_order.doc_no;
+            obj_key.MacNo = pos_order.machine_no;
+            new_session_order.pos_order_key = JsonConvert.SerializeObject(obj_key);
+            new_session_order.pos_order_no = pos_order.machine_no + "-" + pos_order.doc_no;
+            new_session_order.pos_order_status = pos_order.LastStatus;
+            new_session_order.pos_invice_no = pos_order.rec_no == 0 ? "" : pos_order.machine_no + "-" + pos_order.rec_no;
+            new_session_order.create_date = DateTime.Now;
+            new_session_order.modified_date = DateTime.Now;
+            _omDB.order_sessions.InsertOnSubmit(new_session_order);
+            // order_tran db save
+            var new_tren_order = new order_transaction();
+            new_tren_order.create_date = DateTime.Now;
+            new_tren_order.session_id = new_session_order.id;
+            new_tren_order.datail = "Create Sale Order Online ["+ new_session_order.sale_order_no +"] <---> POS Order [" + new_session_order.pos_order_no + "]";
+            _omDB.order_transactions.InsertOnSubmit(new_tren_order);
+
+            var new_retrun = new OrderSession();
+            new_retrun.SessionId = new_session_order.id;
+            new_retrun.SessionGuid = new_session_order.session_guid;
+            new_retrun.SaleOrderNo = new_session_order.sale_order_no;
+            new_retrun.POSOrderNo = new_session_order.pos_order_no;
+            new_retrun.POSInvoiceNo = new_session_order.pos_invice_no;
+            new_retrun.POSStatus = new_session_order.pos_order_status;
+            new_retrun.POSSessionKey = new_session_order.pos_order_key;
+
+            return new_retrun;
         }
 
         public SaleAmountByPassport ValidateAllowSaleOnline(POSAirPortClassesDataContext _posDB, char terminal, string passort, DateTime date, int time)
@@ -503,10 +541,15 @@ namespace KP.OrderMGT.Service
                 throw new System.ArgumentException("data not found.", nameof(saleObj));
             }
 
-            int status_int = (int)status;
-            saleObj.pos_order_status = status_int.ToString();
+            saleObj.pos_order_status = status.ToString();
             saleObj.modified_date = DateTime.Now;
             _omDB.SubmitChanges();
+
+            var tran = new order_transaction();
+            tran.create_date = DateTime.Now;
+            tran.session_id = saleObj.id;
+            tran.datail = "Update Status POS Order ["+ saleObj.pos_order_no + "] : " + status.ToString();
+            _omDB.order_transactions.InsertOnSubmit(tran);
 
             return new OrderSession(saleObj);
         }

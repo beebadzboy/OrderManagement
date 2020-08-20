@@ -942,8 +942,6 @@ namespace KP.OrderMGT.BL.DBModel
 		
 		private System.DateTime _create_date;
 		
-		private EntitySet<order_transaction> _order_transactions;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -966,7 +964,6 @@ namespace KP.OrderMGT.BL.DBModel
 		
 		public order_log_interface()
 		{
-			this._order_transactions = new EntitySet<order_transaction>(new Action<order_transaction>(this.attach_order_transactions), new Action<order_transaction>(this.detach_order_transactions));
 			OnCreated();
 		}
 		
@@ -1110,19 +1107,6 @@ namespace KP.OrderMGT.BL.DBModel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="order_log_interface_order_transaction", Storage="_order_transactions", ThisKey="id", OtherKey="log_id")]
-		public EntitySet<order_transaction> order_transactions
-		{
-			get
-			{
-				return this._order_transactions;
-			}
-			set
-			{
-				this._order_transactions.Assign(value);
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1142,18 +1126,6 @@ namespace KP.OrderMGT.BL.DBModel
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
-		
-		private void attach_order_transactions(order_transaction entity)
-		{
-			this.SendPropertyChanging();
-			entity.order_log_interface = this;
-		}
-		
-		private void detach_order_transactions(order_transaction entity)
-		{
-			this.SendPropertyChanging();
-			entity.order_log_interface = null;
-		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.order_transaction")]
@@ -1166,13 +1138,9 @@ namespace KP.OrderMGT.BL.DBModel
 		
 		private long _session_id;
 		
-		private long _log_id;
-		
 		private string _datail;
 		
 		private System.DateTime _create_date;
-		
-		private EntityRef<order_log_interface> _order_log_interface;
 		
 		private EntityRef<order_session> _order_session;
 		
@@ -1184,8 +1152,6 @@ namespace KP.OrderMGT.BL.DBModel
     partial void OnidChanged();
     partial void Onsession_idChanging(long value);
     partial void Onsession_idChanged();
-    partial void Onlog_idChanging(long value);
-    partial void Onlog_idChanged();
     partial void OndatailChanging(string value);
     partial void OndatailChanged();
     partial void Oncreate_dateChanging(System.DateTime value);
@@ -1194,7 +1160,6 @@ namespace KP.OrderMGT.BL.DBModel
 		
 		public order_transaction()
 		{
-			this._order_log_interface = default(EntityRef<order_log_interface>);
 			this._order_session = default(EntityRef<order_session>);
 			OnCreated();
 		}
@@ -1243,30 +1208,6 @@ namespace KP.OrderMGT.BL.DBModel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_log_id", DbType="BigInt NOT NULL")]
-		public long log_id
-		{
-			get
-			{
-				return this._log_id;
-			}
-			set
-			{
-				if ((this._log_id != value))
-				{
-					if (this._order_log_interface.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onlog_idChanging(value);
-					this.SendPropertyChanging();
-					this._log_id = value;
-					this.SendPropertyChanged("log_id");
-					this.Onlog_idChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_datail", DbType="NText", UpdateCheck=UpdateCheck.Never)]
 		public string datail
 		{
@@ -1303,40 +1244,6 @@ namespace KP.OrderMGT.BL.DBModel
 					this._create_date = value;
 					this.SendPropertyChanged("create_date");
 					this.Oncreate_dateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="order_log_interface_order_transaction", Storage="_order_log_interface", ThisKey="log_id", OtherKey="id", IsForeignKey=true)]
-		public order_log_interface order_log_interface
-		{
-			get
-			{
-				return this._order_log_interface.Entity;
-			}
-			set
-			{
-				order_log_interface previousValue = this._order_log_interface.Entity;
-				if (((previousValue != value) 
-							|| (this._order_log_interface.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._order_log_interface.Entity = null;
-						previousValue.order_transactions.Remove(this);
-					}
-					this._order_log_interface.Entity = value;
-					if ((value != null))
-					{
-						value.order_transactions.Add(this);
-						this._log_id = value.id;
-					}
-					else
-					{
-						this._log_id = default(long);
-					}
-					this.SendPropertyChanged("order_log_interface");
 				}
 			}
 		}
