@@ -424,8 +424,9 @@ namespace KP.OrderMGT.Service
 
         public List<SaleQueue> SaleQueue(POSAirPortClassesDataContext _posDB, char terminal)
         {
+            string[] status = new string[] { "003" };
             var saleList = new List<SaleQueue>();
-            var saleObj = _posDB.df_trans_onls.Where(y => y.cancel_status != true && y.df_header_onl.TerminelCode == terminal.ToString() && y.df_header_onl.LastStatus == "003").GroupBy(p => p.item_code, (key, g) => new { SKU = key, ListData = g.ToList() });
+            var saleObj = _posDB.df_trans_onls.Where(y => y.cancel_status != true && y.df_header_onl.TerminelCode == terminal.ToString() && status.Contains(y.df_header_onl.LastStatus)).GroupBy(p => p.item_code, (key, g) => new { SKU = key, ListData = g.ToList() });
             foreach (var sale in saleObj.ToList())
             {
                 var newSale = new SaleQueue(sale.SKU, sale.ListData);
