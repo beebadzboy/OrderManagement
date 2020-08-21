@@ -1,6 +1,7 @@
 ﻿using KP.OrderMGT.BL.DBModel;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace KP.OrderMGT.BL.ServiceModel
@@ -89,21 +90,39 @@ namespace KP.OrderMGT.BL.ServiceModel
             if (this.Terminal == "D")
             {
                 this.AirportCode = dataTable1.arrdep_airport_code.Trim();
+                this.DepartureAirport = dataTable1.arrdep_airport_code.Trim();
+                this.ArrivalAirport = dataTable1.dest_airport_code.Trim();
             }
             else if (this.Terminal == "A")
             {
                 this.AirportCode = dataTable1.dest_airport_code.Trim();
+                this.DepartureAirport = dataTable1.arrdep_airport_code.Trim();
+                this.ArrivalAirport = dataTable1.dest_airport_code.Trim();
             }
             else
             {
-                this.AirportCode = dataTable1.arrdep_airport_code.Trim();
+                string[] airport = new string[] {"BKK", "DMK", "HKT", "UTP" };
+                if (airport.Contains(dataTable1.dest_airport_code.Trim()))
+                {
+                    // remark Z(A)
+                    this.AirportCode = dataTable1.dest_airport_code.Trim();
+                    this.DepartureAirport = dataTable1.dest_airport_code.Trim();
+                    this.ArrivalAirport = dataTable1.arrdep_airport_code.Trim();
+                }
+                else
+                {
+                    // remark Z(D)
+                    this.AirportCode = dataTable1.arrdep_airport_code.Trim();
+                    this.DepartureAirport = dataTable1.arrdep_airport_code.Trim();
+                    this.ArrivalAirport = dataTable1.dest_airport_code.Trim();
+                }
             }
 
-            this.DepartureAirport = dataTable1.dest_airport_code.Trim();
-            this.ArrivalAirport = dataTable1.arrdep_airport_code.Trim();
             this.Time = new FlightTime();
             this.Time.Time24 = dataTable1.arrdep_time.Trim();
-            this.Time.TimeAMPM = dataTable1.arrdep_time.Trim();
+            TimeSpan timespan = TimeSpan.Parse(dataTable1.arrdep_time.Trim());
+            DateTime time = DateTime.Today.Add(timespan);
+            this.Time.TimeAMPM = time.ToString("hh:mm tt"); // It will give "03:00 AM"
             this.WeekDays = new List<FlightWeekDays>();
             if (dataTable1.d1)
             {
@@ -172,24 +191,42 @@ namespace KP.OrderMGT.BL.ServiceModel
             if (this.Terminal == "D")
             {
                 this.AirportCode = dataTable1.arrdep_airport_code.Trim();
+                this.DepartureAirport = dataTable1.arrdep_airport_code.Trim();
+                this.ArrivalAirport = dataTable1.dest_airport_code.Trim();
             }
             else if (this.Terminal == "A")
             {
                 this.AirportCode = dataTable1.dest_airport_code.Trim();
+                this.DepartureAirport = dataTable1.arrdep_airport_code.Trim();
+                this.ArrivalAirport = dataTable1.dest_airport_code.Trim();
             }
             else
             {
-                this.AirportCode = dataTable1.arrdep_airport_code.Trim();
+                string[] airport = new string[] { "BKK", "DMK", "HKT", "UTP" };
+                if (airport.Contains(dataTable1.dest_airport_code.Trim()))
+                {
+                    // remark Z(A)
+                    this.AirportCode = dataTable1.dest_airport_code.Trim();
+                    this.DepartureAirport = dataTable1.arrdep_airport_code.Trim();
+                    this.ArrivalAirport = dataTable1.dest_airport_code.Trim();
+                }
+                else
+                {
+                    // remark Z(D)
+                    this.AirportCode = dataTable1.arrdep_airport_code.Trim();
+                    this.DepartureAirport = dataTable1.arrdep_airport_code.Trim();
+                    this.ArrivalAirport = dataTable1.dest_airport_code.Trim();
+                }
             }
             // รอใส่ค่า
             this.PickUp = null;
             this.AirlineCode = dataTable2.airline_code.Trim();
             this.AirlineName = dataTable2.airline_desc.Trim();
-            this.DepartureAirport = dataTable1.dest_airport_code.Trim();
-            this.ArrivalAirport = dataTable1.arrdep_airport_code.Trim();
             this.Time = new FlightTime();
             this.Time.Time24 = dataTable1.arrdep_time.Trim();
-            this.Time.TimeAMPM = dataTable1.arrdep_time.Trim();
+            TimeSpan timespan = TimeSpan.Parse(dataTable1.arrdep_time.Trim());
+            DateTime time = DateTime.Today.Add(timespan);
+            this.Time.TimeAMPM = time.ToString("hh:mm tt"); // It will give "03:00 AM"
             this.WeekDays = new List<FlightWeekDays>();
             if (dataTable1.d1)
             {
