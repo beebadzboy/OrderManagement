@@ -28,11 +28,11 @@ namespace KP.OrderMGT.Service
 
             var data2 = _db.df_airlines.AsQueryable().ToList();
             string airline_substring = data.flight_code.Trim().Length > 3 ? data.flight_code.Trim().Substring(0, 3) : data.flight_code.Trim();
-            var airline_data3 = data2.FirstOrDefault(x => x.airline_code == airline_substring);
+            var airline_data3 = data2.FirstOrDefault(x => x.airline_code.Trim() == airline_substring);
             if (airline_data3 == null)
             {
                 airline_substring = data.flight_code.Trim().Length > 2 ? data.flight_code.Trim().Substring(0, 2) : data.flight_code.Trim();
-                var airline_data2 = data2.FirstOrDefault(x => x.airline_code == airline_substring);
+                var airline_data2 = data2.FirstOrDefault(x => x.airline_code.Trim() == airline_substring);
                 if (airline_data2 != null)
                 {
                     newData = new Flight(data, airline_data2);
@@ -93,11 +93,11 @@ namespace KP.OrderMGT.Service
             }
             var data2 = _db.df_airlines.AsQueryable().ToList();
             string airline_substring = data.flight_code.Trim().Length > 3 ? data.flight_code.Trim().Substring(0, 3) : data.flight_code.Trim();
-            var airline_data3 = data2.FirstOrDefault(x => x.airline_code == airline_substring);
+            var airline_data3 = data2.FirstOrDefault(x => x.airline_code.Trim() == airline_substring);
             if (airline_data3 == null)
             {
                 airline_substring = data.flight_code.Trim().Length > 2 ? data.flight_code.Trim().Substring(0, 2) : data.flight_code.Trim();
-                var airline_data2 = data2.FirstOrDefault(x => x.airline_code == airline_substring);
+                var airline_data2 = data2.FirstOrDefault(x => x.airline_code.Trim() == airline_substring);
                 if (airline_data2 != null)
                 {
                     newData = new Flight(data, airline_data2);
@@ -118,11 +118,11 @@ namespace KP.OrderMGT.Service
             var data = _db.df_flights.FirstOrDefault(x => x.flight_code == fight_code);
             var data2 = _db.df_airlines.AsQueryable().ToList();
             string airline_substring = data.flight_code.Trim().Length > 3 ? data.flight_code.Trim().Substring(0, 3) : data.flight_code.Trim();
-            var airline_data3 = data2.FirstOrDefault(x => x.airline_code == airline_substring);
+            var airline_data3 = data2.FirstOrDefault(x => x.airline_code.Trim() == airline_substring);
             if (airline_data3 == null)
             {
                 airline_substring = data.flight_code.Trim().Length > 2 ? data.flight_code.Trim().Substring(0, 2) : data.flight_code.Trim();
-                var airline_data2 = data2.FirstOrDefault(x => x.airline_code == airline_substring);
+                var airline_data2 = data2.FirstOrDefault(x => x.airline_code.Trim() == airline_substring);
                 if (airline_data2 != null)
                 {
                     newData = new Flight(data, airline_data2);
@@ -149,11 +149,11 @@ namespace KP.OrderMGT.Service
             {
                 var newData = new Flight();
                 string airline_substring = item.flight_code.Trim().Length > 3 ? item.flight_code.Trim().Substring(0, 3) : item.flight_code.Trim();
-                var airline_data3 = data2.FirstOrDefault(x => x.airline_code == airline_substring);
+                var airline_data3 = data2.FirstOrDefault(x => x.airline_code.Trim() == airline_substring);
                 if (airline_data3 == null)
                 {
                     airline_substring = item.flight_code.Trim().Length > 2 ? item.flight_code.Trim().Substring(0, 2) : item.flight_code.Trim();
-                    var airline_data2 = data2.FirstOrDefault(x => x.airline_code == airline_substring);
+                    var airline_data2 = data2.FirstOrDefault(x => x.airline_code.Trim() == airline_substring);
                     if (airline_data2 != null)
                     {
                         newData = new Flight(item, airline_data2);
