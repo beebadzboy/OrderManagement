@@ -74,7 +74,7 @@ namespace KP.OrderMGT.API.Controllers
                 ret.Tracking = new ReturnTracking();
             }
 
-            return Ok(ret.Data);
+            return Ok(ret);
         }
 
         [HttpPost]
@@ -109,7 +109,7 @@ namespace KP.OrderMGT.API.Controllers
                 ret.Tracking = new ReturnTracking();
             }
 
-            return Ok(ret.Data);
+            return Ok(ret);
         }
 
         [HttpGet]
@@ -186,7 +186,7 @@ namespace KP.OrderMGT.API.Controllers
             }
 
 
-            return Ok(ret.Data);
+            return Ok(ret);
         }
 
         [HttpGet]
@@ -215,7 +215,7 @@ namespace KP.OrderMGT.API.Controllers
             }
 
 
-            return Ok(ret.Data);
+            return Ok(ret);
         }
 
         [HttpGet]
@@ -244,7 +244,7 @@ namespace KP.OrderMGT.API.Controllers
                 ret.Tracking = new ReturnTracking();
             }
 
-            return Ok(ret.Data);
+            return Ok(ret);
         }
 
         [HttpPut]
@@ -286,7 +286,7 @@ namespace KP.OrderMGT.API.Controllers
             }
 
 
-            return Ok(ret.Data);
+            return Ok(ret);
         }
 
         [HttpPut]
@@ -328,7 +328,7 @@ namespace KP.OrderMGT.API.Controllers
             }
 
 
-            return Ok(ret.Data);
+            return Ok(ret);
         }
     }
 }

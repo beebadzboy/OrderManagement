@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="KPOrder" Class="OrderDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=devdata;Initial Catalog=KPOrder;Persist Security Info=True;User ID=sa" SettingsObjectName="KP.OrderMGT.BL.Properties.Settings" SettingsPropertyName="KPOrderConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.df_flight" Member="df_flights">
     <Type Name="df_flight">
       <Column Name="flight_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />

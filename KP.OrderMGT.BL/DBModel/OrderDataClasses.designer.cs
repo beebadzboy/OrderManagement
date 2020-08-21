@@ -56,12 +56,6 @@ namespace KP.OrderMGT.BL.DBModel
     partial void Deleteorder_session(order_session instance);
     #endregion
 		
-		public OrderDataClassesDataContext() : 
-				base(global::KP.OrderMGT.BL.Properties.Settings.Default.KPOrderConnectionString1, mappingSource)
-		{
-			OnCreated();
-		}
-		
 		public OrderDataClassesDataContext(string connection) : 
 				base(connection, mappingSource)
 		{

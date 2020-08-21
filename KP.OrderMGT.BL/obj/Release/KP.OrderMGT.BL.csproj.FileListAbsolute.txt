@@ -65,3 +65,4 @@ C:\Code\OrderManagement\KP.OrderMGT.BL\obj\Release\KP.OrderMGT.BL.csproj.CoreCom
 C:\Code\OrderManagement\KP.OrderMGT.BL\obj\Release\KP.OrderMGT.BL.csproj.CopyComplete
 C:\Code\OrderManagement\KP.OrderMGT.BL\obj\Release\KP.OrderMGT.BL.dll
 C:\Code\OrderManagement\KP.OrderMGT.BL\obj\Release\KP.OrderMGT.BL.pdb
+C:\Code\OrderManagement\KP.OrderMGT.BL\obj\Release\KP.OrderMGT.BL.csprojAssemblyReference.cache

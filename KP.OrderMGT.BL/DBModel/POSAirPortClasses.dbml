@@ -227,9 +227,65 @@
       <Column Name="DFA" Type="System.String" DbType="Char(10)" CanBeNull="true" />
       <Column Name="OnlineNo" Type="System.String" DbType="Char(20)" CanBeNull="true" />
       <Column Name="LastStatus" Type="System.String" DbType="Char(10)" CanBeNull="true" />
-      <Column Name="TerminelCode" Type="System.String" DbType="Char(1)" CanBeNull="false" UpdateCheck="Always" />
+      <Column Name="TerminelCode" Member="TerminalCode" Storage="_TerminelCode" Type="System.String" DbType="Char(1)" CanBeNull="false" UpdateCheck="Always" />
       <Association Name="df_header_onl_df_payment_onl" Member="df_payment_onls" ThisKey="branch_no,data_date,machine_no,doc_no" OtherKey="branch_no,data_date,machine_no,doc_no" Type="df_payment_onl" />
       <Association Name="df_header_onl_df_trans_onl" Member="df_trans_onls" ThisKey="branch_no,data_date,loc_code,area_code,machine_no,doc_no" OtherKey="branch_no,data_date,loc_code,area_code,machine_no,doc_no" Type="df_trans_onl" />
+    </Type>
+  </Table>
+  <Table Name="dbo.df_machine" Member="df_machines">
+    <Type Name="df_machine">
+      <Column Name="branch_no" Type="System.String" DbType="Char(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="machine_no" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="machine_name" Type="System.String" DbType="Char(25) NOT NULL" CanBeNull="false" />
+      <Column Name="machine_ip" Type="System.String" DbType="Char(25) NOT NULL" CanBeNull="false" />
+      <Column Name="machine_tax" Type="System.String" DbType="Char(15) NOT NULL" CanBeNull="false" />
+      <Column Name="vat_rate" Type="System.Decimal" DbType="Decimal(5,2) NOT NULL" CanBeNull="false" />
+      <Column Name="print_barcode" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="del_flag" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" />
+      <Column Name="update_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="add_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="user_add" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="user_update" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="time_stamp" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="loc_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="vat_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="max_shift" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="channel" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="curr_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="preorder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="print_slip" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="print_invoice" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="date_remove" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="d2" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="d3" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="d4" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="d5" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="d6" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="d7" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="d1" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="server_center" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
+      <Column Name="data_center" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
+      <Column Name="switch_loc" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="na_delete" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="na_esc" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="na_change_qty" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="arrdep_terminal" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Column Name="mac_status" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="allow_rcv" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="allow_deposit" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="PriceList" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="DChannel" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="allow_sale" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="allow_vat_refund" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="allow_MPOS" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="allow_SerialNo" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="UpdateLoginSale" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="SerialNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RequestRC" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="concession_code" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="print_newslip" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SignPad" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
   <Function Name="dbo.get_sale_passport4" Method="get_sale_passport4">

@@ -48,6 +48,9 @@ namespace KP.OrderMGT.BL.DBModel
     partial void Insertdf_header_onl(df_header_onl instance);
     partial void Updatedf_header_onl(df_header_onl instance);
     partial void Deletedf_header_onl(df_header_onl instance);
+    partial void Insertdf_machine(df_machine instance);
+    partial void Updatedf_machine(df_machine instance);
+    partial void Deletedf_machine(df_machine instance);
     #endregion
 		
 		public POSAirPortClassesDataContext() : 
@@ -133,6 +136,14 @@ namespace KP.OrderMGT.BL.DBModel
 			get
 			{
 				return this.GetTable<df_header_onl>();
+			}
+		}
+		
+		public System.Data.Linq.Table<df_machine> df_machines
+		{
+			get
+			{
+				return this.GetTable<df_machine>();
 			}
 		}
 		
@@ -3944,8 +3955,8 @@ namespace KP.OrderMGT.BL.DBModel
     partial void OnOnlineNoChanged();
     partial void OnLastStatusChanging(string value);
     partial void OnLastStatusChanged();
-    partial void OnTerminelCodeChanging(string value);
-    partial void OnTerminelCodeChanged();
+    partial void OnTerminalCodeChanging(string value);
+    partial void OnTerminalCodeChanged();
     #endregion
 		
 		public df_header_onl()
@@ -5215,8 +5226,8 @@ namespace KP.OrderMGT.BL.DBModel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TerminelCode", DbType="Char(1)", CanBeNull=false)]
-		public string TerminelCode
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="TerminelCode", Storage="_TerminelCode", DbType="Char(1)", CanBeNull=false)]
+		public string TerminalCode
 		{
 			get
 			{
@@ -5226,11 +5237,11 @@ namespace KP.OrderMGT.BL.DBModel
 			{
 				if ((this._TerminelCode != value))
 				{
-					this.OnTerminelCodeChanging(value);
+					this.OnTerminalCodeChanging(value);
 					this.SendPropertyChanging();
 					this._TerminelCode = value;
-					this.SendPropertyChanged("TerminelCode");
-					this.OnTerminelCodeChanged();
+					this.SendPropertyChanged("TerminalCode");
+					this.OnTerminalCodeChanged();
 				}
 			}
 		}
@@ -5303,6 +5314,1292 @@ namespace KP.OrderMGT.BL.DBModel
 		{
 			this.SendPropertyChanging();
 			entity.df_header_onl = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.df_machine")]
+	public partial class df_machine : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _branch_no;
+		
+		private string _machine_no;
+		
+		private string _machine_name;
+		
+		private string _machine_ip;
+		
+		private string _machine_tax;
+		
+		private decimal _vat_rate;
+		
+		private int _print_barcode;
+		
+		private char _del_flag;
+		
+		private string _remark;
+		
+		private System.DateTime _update_datetime;
+		
+		private System.DateTime _add_datetime;
+		
+		private string _user_add;
+		
+		private string _user_update;
+		
+		private System.Data.Linq.Binary _time_stamp;
+		
+		private string _loc_code;
+		
+		private string _vat_code;
+		
+		private short _max_shift;
+		
+		private short _channel;
+		
+		private string _curr_code;
+		
+		private int _preorder;
+		
+		private int _print_slip;
+		
+		private int _print_invoice;
+		
+		private int _date_remove;
+		
+		private bool _d2;
+		
+		private bool _d3;
+		
+		private bool _d4;
+		
+		private bool _d5;
+		
+		private bool _d6;
+		
+		private bool _d7;
+		
+		private bool _d1;
+		
+		private string _server_center;
+		
+		private string _data_center;
+		
+		private string _switch_loc;
+		
+		private bool _na_delete;
+		
+		private bool _na_esc;
+		
+		private bool _na_change_qty;
+		
+		private string _arrdep_terminal;
+		
+		private char _mac_status;
+		
+		private bool _allow_rcv;
+		
+		private bool _allow_deposit;
+		
+		private string _PriceList;
+		
+		private string _DChannel;
+		
+		private bool _allow_sale;
+		
+		private bool _allow_vat_refund;
+		
+		private bool _allow_MPOS;
+		
+		private bool _allow_SerialNo;
+		
+		private bool _UpdateLoginSale;
+		
+		private string _SerialNo;
+		
+		private bool _RequestRC;
+		
+		private string _concession_code;
+		
+		private int _print_newslip;
+		
+		private bool _SignPad;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Onbranch_noChanging(string value);
+    partial void Onbranch_noChanged();
+    partial void Onmachine_noChanging(string value);
+    partial void Onmachine_noChanged();
+    partial void Onmachine_nameChanging(string value);
+    partial void Onmachine_nameChanged();
+    partial void Onmachine_ipChanging(string value);
+    partial void Onmachine_ipChanged();
+    partial void Onmachine_taxChanging(string value);
+    partial void Onmachine_taxChanged();
+    partial void Onvat_rateChanging(decimal value);
+    partial void Onvat_rateChanged();
+    partial void Onprint_barcodeChanging(int value);
+    partial void Onprint_barcodeChanged();
+    partial void Ondel_flagChanging(char value);
+    partial void Ondel_flagChanged();
+    partial void OnremarkChanging(string value);
+    partial void OnremarkChanged();
+    partial void Onupdate_datetimeChanging(System.DateTime value);
+    partial void Onupdate_datetimeChanged();
+    partial void Onadd_datetimeChanging(System.DateTime value);
+    partial void Onadd_datetimeChanged();
+    partial void Onuser_addChanging(string value);
+    partial void Onuser_addChanged();
+    partial void Onuser_updateChanging(string value);
+    partial void Onuser_updateChanged();
+    partial void Ontime_stampChanging(System.Data.Linq.Binary value);
+    partial void Ontime_stampChanged();
+    partial void Onloc_codeChanging(string value);
+    partial void Onloc_codeChanged();
+    partial void Onvat_codeChanging(string value);
+    partial void Onvat_codeChanged();
+    partial void Onmax_shiftChanging(short value);
+    partial void Onmax_shiftChanged();
+    partial void OnchannelChanging(short value);
+    partial void OnchannelChanged();
+    partial void Oncurr_codeChanging(string value);
+    partial void Oncurr_codeChanged();
+    partial void OnpreorderChanging(int value);
+    partial void OnpreorderChanged();
+    partial void Onprint_slipChanging(int value);
+    partial void Onprint_slipChanged();
+    partial void Onprint_invoiceChanging(int value);
+    partial void Onprint_invoiceChanged();
+    partial void Ondate_removeChanging(int value);
+    partial void Ondate_removeChanged();
+    partial void Ond2Changing(bool value);
+    partial void Ond2Changed();
+    partial void Ond3Changing(bool value);
+    partial void Ond3Changed();
+    partial void Ond4Changing(bool value);
+    partial void Ond4Changed();
+    partial void Ond5Changing(bool value);
+    partial void Ond5Changed();
+    partial void Ond6Changing(bool value);
+    partial void Ond6Changed();
+    partial void Ond7Changing(bool value);
+    partial void Ond7Changed();
+    partial void Ond1Changing(bool value);
+    partial void Ond1Changed();
+    partial void Onserver_centerChanging(string value);
+    partial void Onserver_centerChanged();
+    partial void Ondata_centerChanging(string value);
+    partial void Ondata_centerChanged();
+    partial void Onswitch_locChanging(string value);
+    partial void Onswitch_locChanged();
+    partial void Onna_deleteChanging(bool value);
+    partial void Onna_deleteChanged();
+    partial void Onna_escChanging(bool value);
+    partial void Onna_escChanged();
+    partial void Onna_change_qtyChanging(bool value);
+    partial void Onna_change_qtyChanged();
+    partial void Onarrdep_terminalChanging(string value);
+    partial void Onarrdep_terminalChanged();
+    partial void Onmac_statusChanging(char value);
+    partial void Onmac_statusChanged();
+    partial void Onallow_rcvChanging(bool value);
+    partial void Onallow_rcvChanged();
+    partial void Onallow_depositChanging(bool value);
+    partial void Onallow_depositChanged();
+    partial void OnPriceListChanging(string value);
+    partial void OnPriceListChanged();
+    partial void OnDChannelChanging(string value);
+    partial void OnDChannelChanged();
+    partial void Onallow_saleChanging(bool value);
+    partial void Onallow_saleChanged();
+    partial void Onallow_vat_refundChanging(bool value);
+    partial void Onallow_vat_refundChanged();
+    partial void Onallow_MPOSChanging(bool value);
+    partial void Onallow_MPOSChanged();
+    partial void Onallow_SerialNoChanging(bool value);
+    partial void Onallow_SerialNoChanged();
+    partial void OnUpdateLoginSaleChanging(bool value);
+    partial void OnUpdateLoginSaleChanged();
+    partial void OnSerialNoChanging(string value);
+    partial void OnSerialNoChanged();
+    partial void OnRequestRCChanging(bool value);
+    partial void OnRequestRCChanged();
+    partial void Onconcession_codeChanging(string value);
+    partial void Onconcession_codeChanged();
+    partial void Onprint_newslipChanging(int value);
+    partial void Onprint_newslipChanged();
+    partial void OnSignPadChanging(bool value);
+    partial void OnSignPadChanged();
+    #endregion
+		
+		public df_machine()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_branch_no", DbType="Char(2) NOT NULL", CanBeNull=false, IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
+		public string branch_no
+		{
+			get
+			{
+				return this._branch_no;
+			}
+			set
+			{
+				if ((this._branch_no != value))
+				{
+					this.Onbranch_noChanging(value);
+					this.SendPropertyChanging();
+					this._branch_no = value;
+					this.SendPropertyChanged("branch_no");
+					this.Onbranch_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_machine_no", DbType="Char(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true, UpdateCheck=UpdateCheck.Never)]
+		public string machine_no
+		{
+			get
+			{
+				return this._machine_no;
+			}
+			set
+			{
+				if ((this._machine_no != value))
+				{
+					this.Onmachine_noChanging(value);
+					this.SendPropertyChanging();
+					this._machine_no = value;
+					this.SendPropertyChanged("machine_no");
+					this.Onmachine_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_machine_name", DbType="Char(25) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string machine_name
+		{
+			get
+			{
+				return this._machine_name;
+			}
+			set
+			{
+				if ((this._machine_name != value))
+				{
+					this.Onmachine_nameChanging(value);
+					this.SendPropertyChanging();
+					this._machine_name = value;
+					this.SendPropertyChanged("machine_name");
+					this.Onmachine_nameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_machine_ip", DbType="Char(25) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string machine_ip
+		{
+			get
+			{
+				return this._machine_ip;
+			}
+			set
+			{
+				if ((this._machine_ip != value))
+				{
+					this.Onmachine_ipChanging(value);
+					this.SendPropertyChanging();
+					this._machine_ip = value;
+					this.SendPropertyChanged("machine_ip");
+					this.Onmachine_ipChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_machine_tax", DbType="Char(15) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string machine_tax
+		{
+			get
+			{
+				return this._machine_tax;
+			}
+			set
+			{
+				if ((this._machine_tax != value))
+				{
+					this.Onmachine_taxChanging(value);
+					this.SendPropertyChanging();
+					this._machine_tax = value;
+					this.SendPropertyChanged("machine_tax");
+					this.Onmachine_taxChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_vat_rate", DbType="Decimal(5,2) NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public decimal vat_rate
+		{
+			get
+			{
+				return this._vat_rate;
+			}
+			set
+			{
+				if ((this._vat_rate != value))
+				{
+					this.Onvat_rateChanging(value);
+					this.SendPropertyChanging();
+					this._vat_rate = value;
+					this.SendPropertyChanged("vat_rate");
+					this.Onvat_rateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_print_barcode", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public int print_barcode
+		{
+			get
+			{
+				return this._print_barcode;
+			}
+			set
+			{
+				if ((this._print_barcode != value))
+				{
+					this.Onprint_barcodeChanging(value);
+					this.SendPropertyChanging();
+					this._print_barcode = value;
+					this.SendPropertyChanged("print_barcode");
+					this.Onprint_barcodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_del_flag", DbType="Char(1) NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public char del_flag
+		{
+			get
+			{
+				return this._del_flag;
+			}
+			set
+			{
+				if ((this._del_flag != value))
+				{
+					this.Ondel_flagChanging(value);
+					this.SendPropertyChanging();
+					this._del_flag = value;
+					this.SendPropertyChanged("del_flag");
+					this.Ondel_flagChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string remark
+		{
+			get
+			{
+				return this._remark;
+			}
+			set
+			{
+				if ((this._remark != value))
+				{
+					this.OnremarkChanging(value);
+					this.SendPropertyChanging();
+					this._remark = value;
+					this.SendPropertyChanged("remark");
+					this.OnremarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_update_datetime", DbType="SmallDateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public System.DateTime update_datetime
+		{
+			get
+			{
+				return this._update_datetime;
+			}
+			set
+			{
+				if ((this._update_datetime != value))
+				{
+					this.Onupdate_datetimeChanging(value);
+					this.SendPropertyChanging();
+					this._update_datetime = value;
+					this.SendPropertyChanged("update_datetime");
+					this.Onupdate_datetimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_add_datetime", DbType="SmallDateTime NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public System.DateTime add_datetime
+		{
+			get
+			{
+				return this._add_datetime;
+			}
+			set
+			{
+				if ((this._add_datetime != value))
+				{
+					this.Onadd_datetimeChanging(value);
+					this.SendPropertyChanging();
+					this._add_datetime = value;
+					this.SendPropertyChanged("add_datetime");
+					this.Onadd_datetimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_add", DbType="Char(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string user_add
+		{
+			get
+			{
+				return this._user_add;
+			}
+			set
+			{
+				if ((this._user_add != value))
+				{
+					this.Onuser_addChanging(value);
+					this.SendPropertyChanging();
+					this._user_add = value;
+					this.SendPropertyChanged("user_add");
+					this.Onuser_addChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_update", DbType="Char(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string user_update
+		{
+			get
+			{
+				return this._user_update;
+			}
+			set
+			{
+				if ((this._user_update != value))
+				{
+					this.Onuser_updateChanging(value);
+					this.SendPropertyChanging();
+					this._user_update = value;
+					this.SendPropertyChanged("user_update");
+					this.Onuser_updateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_time_stamp", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary time_stamp
+		{
+			get
+			{
+				return this._time_stamp;
+			}
+			set
+			{
+				if ((this._time_stamp != value))
+				{
+					this.Ontime_stampChanging(value);
+					this.SendPropertyChanging();
+					this._time_stamp = value;
+					this.SendPropertyChanged("time_stamp");
+					this.Ontime_stampChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_loc_code", DbType="Char(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string loc_code
+		{
+			get
+			{
+				return this._loc_code;
+			}
+			set
+			{
+				if ((this._loc_code != value))
+				{
+					this.Onloc_codeChanging(value);
+					this.SendPropertyChanging();
+					this._loc_code = value;
+					this.SendPropertyChanged("loc_code");
+					this.Onloc_codeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_vat_code", DbType="Char(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string vat_code
+		{
+			get
+			{
+				return this._vat_code;
+			}
+			set
+			{
+				if ((this._vat_code != value))
+				{
+					this.Onvat_codeChanging(value);
+					this.SendPropertyChanging();
+					this._vat_code = value;
+					this.SendPropertyChanged("vat_code");
+					this.Onvat_codeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_max_shift", DbType="SmallInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public short max_shift
+		{
+			get
+			{
+				return this._max_shift;
+			}
+			set
+			{
+				if ((this._max_shift != value))
+				{
+					this.Onmax_shiftChanging(value);
+					this.SendPropertyChanging();
+					this._max_shift = value;
+					this.SendPropertyChanged("max_shift");
+					this.Onmax_shiftChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_channel", DbType="SmallInt NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public short channel
+		{
+			get
+			{
+				return this._channel;
+			}
+			set
+			{
+				if ((this._channel != value))
+				{
+					this.OnchannelChanging(value);
+					this.SendPropertyChanging();
+					this._channel = value;
+					this.SendPropertyChanged("channel");
+					this.OnchannelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_curr_code", DbType="Char(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string curr_code
+		{
+			get
+			{
+				return this._curr_code;
+			}
+			set
+			{
+				if ((this._curr_code != value))
+				{
+					this.Oncurr_codeChanging(value);
+					this.SendPropertyChanging();
+					this._curr_code = value;
+					this.SendPropertyChanged("curr_code");
+					this.Oncurr_codeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_preorder", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public int preorder
+		{
+			get
+			{
+				return this._preorder;
+			}
+			set
+			{
+				if ((this._preorder != value))
+				{
+					this.OnpreorderChanging(value);
+					this.SendPropertyChanging();
+					this._preorder = value;
+					this.SendPropertyChanged("preorder");
+					this.OnpreorderChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_print_slip", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public int print_slip
+		{
+			get
+			{
+				return this._print_slip;
+			}
+			set
+			{
+				if ((this._print_slip != value))
+				{
+					this.Onprint_slipChanging(value);
+					this.SendPropertyChanging();
+					this._print_slip = value;
+					this.SendPropertyChanged("print_slip");
+					this.Onprint_slipChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_print_invoice", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public int print_invoice
+		{
+			get
+			{
+				return this._print_invoice;
+			}
+			set
+			{
+				if ((this._print_invoice != value))
+				{
+					this.Onprint_invoiceChanging(value);
+					this.SendPropertyChanging();
+					this._print_invoice = value;
+					this.SendPropertyChanged("print_invoice");
+					this.Onprint_invoiceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_date_remove", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public int date_remove
+		{
+			get
+			{
+				return this._date_remove;
+			}
+			set
+			{
+				if ((this._date_remove != value))
+				{
+					this.Ondate_removeChanging(value);
+					this.SendPropertyChanging();
+					this._date_remove = value;
+					this.SendPropertyChanged("date_remove");
+					this.Ondate_removeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_d2", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public bool d2
+		{
+			get
+			{
+				return this._d2;
+			}
+			set
+			{
+				if ((this._d2 != value))
+				{
+					this.Ond2Changing(value);
+					this.SendPropertyChanging();
+					this._d2 = value;
+					this.SendPropertyChanged("d2");
+					this.Ond2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_d3", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public bool d3
+		{
+			get
+			{
+				return this._d3;
+			}
+			set
+			{
+				if ((this._d3 != value))
+				{
+					this.Ond3Changing(value);
+					this.SendPropertyChanging();
+					this._d3 = value;
+					this.SendPropertyChanged("d3");
+					this.Ond3Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_d4", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public bool d4
+		{
+			get
+			{
+				return this._d4;
+			}
+			set
+			{
+				if ((this._d4 != value))
+				{
+					this.Ond4Changing(value);
+					this.SendPropertyChanging();
+					this._d4 = value;
+					this.SendPropertyChanged("d4");
+					this.Ond4Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_d5", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public bool d5
+		{
+			get
+			{
+				return this._d5;
+			}
+			set
+			{
+				if ((this._d5 != value))
+				{
+					this.Ond5Changing(value);
+					this.SendPropertyChanging();
+					this._d5 = value;
+					this.SendPropertyChanged("d5");
+					this.Ond5Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_d6", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public bool d6
+		{
+			get
+			{
+				return this._d6;
+			}
+			set
+			{
+				if ((this._d6 != value))
+				{
+					this.Ond6Changing(value);
+					this.SendPropertyChanging();
+					this._d6 = value;
+					this.SendPropertyChanged("d6");
+					this.Ond6Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_d7", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public bool d7
+		{
+			get
+			{
+				return this._d7;
+			}
+			set
+			{
+				if ((this._d7 != value))
+				{
+					this.Ond7Changing(value);
+					this.SendPropertyChanging();
+					this._d7 = value;
+					this.SendPropertyChanged("d7");
+					this.Ond7Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_d1", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public bool d1
+		{
+			get
+			{
+				return this._d1;
+			}
+			set
+			{
+				if ((this._d1 != value))
+				{
+					this.Ond1Changing(value);
+					this.SendPropertyChanging();
+					this._d1 = value;
+					this.SendPropertyChanged("d1");
+					this.Ond1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_server_center", DbType="Char(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string server_center
+		{
+			get
+			{
+				return this._server_center;
+			}
+			set
+			{
+				if ((this._server_center != value))
+				{
+					this.Onserver_centerChanging(value);
+					this.SendPropertyChanging();
+					this._server_center = value;
+					this.SendPropertyChanged("server_center");
+					this.Onserver_centerChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_data_center", DbType="Char(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string data_center
+		{
+			get
+			{
+				return this._data_center;
+			}
+			set
+			{
+				if ((this._data_center != value))
+				{
+					this.Ondata_centerChanging(value);
+					this.SendPropertyChanging();
+					this._data_center = value;
+					this.SendPropertyChanged("data_center");
+					this.Ondata_centerChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_switch_loc", DbType="Char(10) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string switch_loc
+		{
+			get
+			{
+				return this._switch_loc;
+			}
+			set
+			{
+				if ((this._switch_loc != value))
+				{
+					this.Onswitch_locChanging(value);
+					this.SendPropertyChanging();
+					this._switch_loc = value;
+					this.SendPropertyChanged("switch_loc");
+					this.Onswitch_locChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_na_delete", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public bool na_delete
+		{
+			get
+			{
+				return this._na_delete;
+			}
+			set
+			{
+				if ((this._na_delete != value))
+				{
+					this.Onna_deleteChanging(value);
+					this.SendPropertyChanging();
+					this._na_delete = value;
+					this.SendPropertyChanged("na_delete");
+					this.Onna_deleteChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_na_esc", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public bool na_esc
+		{
+			get
+			{
+				return this._na_esc;
+			}
+			set
+			{
+				if ((this._na_esc != value))
+				{
+					this.Onna_escChanging(value);
+					this.SendPropertyChanging();
+					this._na_esc = value;
+					this.SendPropertyChanged("na_esc");
+					this.Onna_escChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_na_change_qty", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public bool na_change_qty
+		{
+			get
+			{
+				return this._na_change_qty;
+			}
+			set
+			{
+				if ((this._na_change_qty != value))
+				{
+					this.Onna_change_qtyChanging(value);
+					this.SendPropertyChanging();
+					this._na_change_qty = value;
+					this.SendPropertyChanged("na_change_qty");
+					this.Onna_change_qtyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_arrdep_terminal", DbType="Char(5)", UpdateCheck=UpdateCheck.Never)]
+		public string arrdep_terminal
+		{
+			get
+			{
+				return this._arrdep_terminal;
+			}
+			set
+			{
+				if ((this._arrdep_terminal != value))
+				{
+					this.Onarrdep_terminalChanging(value);
+					this.SendPropertyChanging();
+					this._arrdep_terminal = value;
+					this.SendPropertyChanged("arrdep_terminal");
+					this.Onarrdep_terminalChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_mac_status", DbType="Char(1) NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public char mac_status
+		{
+			get
+			{
+				return this._mac_status;
+			}
+			set
+			{
+				if ((this._mac_status != value))
+				{
+					this.Onmac_statusChanging(value);
+					this.SendPropertyChanging();
+					this._mac_status = value;
+					this.SendPropertyChanged("mac_status");
+					this.Onmac_statusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_allow_rcv", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public bool allow_rcv
+		{
+			get
+			{
+				return this._allow_rcv;
+			}
+			set
+			{
+				if ((this._allow_rcv != value))
+				{
+					this.Onallow_rcvChanging(value);
+					this.SendPropertyChanging();
+					this._allow_rcv = value;
+					this.SendPropertyChanged("allow_rcv");
+					this.Onallow_rcvChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_allow_deposit", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public bool allow_deposit
+		{
+			get
+			{
+				return this._allow_deposit;
+			}
+			set
+			{
+				if ((this._allow_deposit != value))
+				{
+					this.Onallow_depositChanging(value);
+					this.SendPropertyChanging();
+					this._allow_deposit = value;
+					this.SendPropertyChanged("allow_deposit");
+					this.Onallow_depositChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PriceList", DbType="VarChar(2)", UpdateCheck=UpdateCheck.Never)]
+		public string PriceList
+		{
+			get
+			{
+				return this._PriceList;
+			}
+			set
+			{
+				if ((this._PriceList != value))
+				{
+					this.OnPriceListChanging(value);
+					this.SendPropertyChanging();
+					this._PriceList = value;
+					this.SendPropertyChanged("PriceList");
+					this.OnPriceListChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DChannel", DbType="VarChar(2)", UpdateCheck=UpdateCheck.Never)]
+		public string DChannel
+		{
+			get
+			{
+				return this._DChannel;
+			}
+			set
+			{
+				if ((this._DChannel != value))
+				{
+					this.OnDChannelChanging(value);
+					this.SendPropertyChanging();
+					this._DChannel = value;
+					this.SendPropertyChanged("DChannel");
+					this.OnDChannelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_allow_sale", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public bool allow_sale
+		{
+			get
+			{
+				return this._allow_sale;
+			}
+			set
+			{
+				if ((this._allow_sale != value))
+				{
+					this.Onallow_saleChanging(value);
+					this.SendPropertyChanging();
+					this._allow_sale = value;
+					this.SendPropertyChanged("allow_sale");
+					this.Onallow_saleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_allow_vat_refund", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public bool allow_vat_refund
+		{
+			get
+			{
+				return this._allow_vat_refund;
+			}
+			set
+			{
+				if ((this._allow_vat_refund != value))
+				{
+					this.Onallow_vat_refundChanging(value);
+					this.SendPropertyChanging();
+					this._allow_vat_refund = value;
+					this.SendPropertyChanged("allow_vat_refund");
+					this.Onallow_vat_refundChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_allow_MPOS", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public bool allow_MPOS
+		{
+			get
+			{
+				return this._allow_MPOS;
+			}
+			set
+			{
+				if ((this._allow_MPOS != value))
+				{
+					this.Onallow_MPOSChanging(value);
+					this.SendPropertyChanging();
+					this._allow_MPOS = value;
+					this.SendPropertyChanged("allow_MPOS");
+					this.Onallow_MPOSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_allow_SerialNo", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public bool allow_SerialNo
+		{
+			get
+			{
+				return this._allow_SerialNo;
+			}
+			set
+			{
+				if ((this._allow_SerialNo != value))
+				{
+					this.Onallow_SerialNoChanging(value);
+					this.SendPropertyChanging();
+					this._allow_SerialNo = value;
+					this.SendPropertyChanged("allow_SerialNo");
+					this.Onallow_SerialNoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdateLoginSale", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public bool UpdateLoginSale
+		{
+			get
+			{
+				return this._UpdateLoginSale;
+			}
+			set
+			{
+				if ((this._UpdateLoginSale != value))
+				{
+					this.OnUpdateLoginSaleChanging(value);
+					this.SendPropertyChanging();
+					this._UpdateLoginSale = value;
+					this.SendPropertyChanged("UpdateLoginSale");
+					this.OnUpdateLoginSaleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SerialNo", DbType="NVarChar(50)", UpdateCheck=UpdateCheck.Never)]
+		public string SerialNo
+		{
+			get
+			{
+				return this._SerialNo;
+			}
+			set
+			{
+				if ((this._SerialNo != value))
+				{
+					this.OnSerialNoChanging(value);
+					this.SendPropertyChanging();
+					this._SerialNo = value;
+					this.SendPropertyChanged("SerialNo");
+					this.OnSerialNoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestRC", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public bool RequestRC
+		{
+			get
+			{
+				return this._RequestRC;
+			}
+			set
+			{
+				if ((this._RequestRC != value))
+				{
+					this.OnRequestRCChanging(value);
+					this.SendPropertyChanging();
+					this._RequestRC = value;
+					this.SendPropertyChanged("RequestRC");
+					this.OnRequestRCChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_concession_code", DbType="Char(10)", UpdateCheck=UpdateCheck.Never)]
+		public string concession_code
+		{
+			get
+			{
+				return this._concession_code;
+			}
+			set
+			{
+				if ((this._concession_code != value))
+				{
+					this.Onconcession_codeChanging(value);
+					this.SendPropertyChanging();
+					this._concession_code = value;
+					this.SendPropertyChanged("concession_code");
+					this.Onconcession_codeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_print_newslip", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public int print_newslip
+		{
+			get
+			{
+				return this._print_newslip;
+			}
+			set
+			{
+				if ((this._print_newslip != value))
+				{
+					this.Onprint_newslipChanging(value);
+					this.SendPropertyChanging();
+					this._print_newslip = value;
+					this.SendPropertyChanged("print_newslip");
+					this.Onprint_newslipChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SignPad", DbType="Bit NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		public bool SignPad
+		{
+			get
+			{
+				return this._SignPad;
+			}
+			set
+			{
+				if ((this._SignPad != value))
+				{
+					this.OnSignPadChanging(value);
+					this.SendPropertyChanging();
+					this._SignPad = value;
+					this.SendPropertyChanged("SignPad");
+					this.OnSignPadChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 	
