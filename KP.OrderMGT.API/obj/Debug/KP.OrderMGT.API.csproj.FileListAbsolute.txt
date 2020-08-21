@@ -868,3 +868,4 @@ C:\Code\OrderManagement\KP.OrderMGT.API\bin\ServiceStack.Api.Swagger.dll
 C:\Code\OrderManagement\KP.OrderMGT.API\bin\ServiceStack.Api.Swagger.xml
 C:\Users\Bee\source\repos\OrderManagement\KP.OrderMGT.API\bin\EntityFramework.dll
 C:\Users\Bee\source\repos\OrderManagement\KP.OrderMGT.API\bin\EntityFramework.xml
+C:\Code\OrderManagement\KP.OrderMGT.API\bin\KP.Caller.ServiceModels.dll
