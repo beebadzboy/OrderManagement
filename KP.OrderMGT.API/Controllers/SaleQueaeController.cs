@@ -13,11 +13,11 @@ using System.Web.Http.Description;
 
 namespace KP.OrderMGT.API.Controllers
 {
-    [RoutePrefix("api/sale")]
-    public class SaleQueaeController : ApiController
+    [RoutePrefix("api/queue")]
+    public class SaleQueueController : ApiController
     {
         public OrderDataClassesDataContext orderDB { get; set; }
-        public SaleQueaeController()
+        public SaleQueueController()
         {
             string connStr = ConfigurationManager.ConnectionStrings["OrderConnectionString"].ConnectionString;
             orderDB = new OrderDataClassesDataContext(connStr);
@@ -25,22 +25,43 @@ namespace KP.OrderMGT.API.Controllers
 
         [HttpGet]
         [Route("sale-by-sku")]
-        [ResponseType(typeof(ReturnObject<List<SaleQueae>>))]
-        public IHttpActionResult SaveOrderOnline([FromBody] string terminal)
+        [ResponseType(typeof(ReturnObject<List<SaleQueue>>))]
+        public IHttpActionResult SaleQueueOnline(string airport_code, char terminal)
         {
-            ReturnObject<List<SaleQueae>> ret = new ReturnObject<List<SaleQueae>>();
+
+            ReturnObject<List<SaleQueue>> ret = new ReturnObject<List<SaleQueue>>();
 
             try
             {
-                var omSrv = new OrderService(orderDB);
-                //var omConn = omSrv.GetConnectionPOSAirport(order.Flight.AirportCode);
+                if (string.IsNullOrWhiteSpace(airport_code))
+                {
+                    throw new ArgumentException("message", nameof(airport_code));
+                }
 
-                ret.totalCount = 1;
-                ret.isCompleted = true;
+                if (char.IsWhiteSpace(terminal))
+                {
+                    throw new ArgumentException("message", nameof(terminal));
+                }
+
+                var omSrv = new OrderService(orderDB);
+                var posConn = omSrv.GetConnectionPOSAirport(airport_code);
+                if (posConn != null)
+                {
+                    var posDB = new POSAirPortClassesDataContext(posConn);
+                    ret.Data = omSrv.SaleQueue(posDB, terminal);
+                    ret.totalCount = ret.Data.Count();
+                    ret.isCompleted = true;
+                }
+                else
+                {
+                    throw new ArgumentException("message", "connection error");
+                }
+
             }
             catch (Exception e)
             {
                 ret.SetMessage(e);
+                ret.Tracking = new ReturnTracking();
             }
 
             return Ok(ret.Data);

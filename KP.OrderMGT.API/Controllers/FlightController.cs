@@ -60,12 +60,12 @@ namespace KP.OrderMGT.API.Controllers
             {
                 if (string.IsNullOrEmpty(flight_code))
                 {
-                    throw new ArgumentException("fight code", nameof(flight_code));
+                    throw new ArgumentException("flight code", nameof(flight_code));
                 }
 
                 if (string.IsNullOrEmpty(flight_date))
                 {
-                    throw new ArgumentException("fight date", nameof(flight_date));
+                    throw new ArgumentException("flight date", nameof(flight_date));
                 }
 
 

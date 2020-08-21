@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="NDCCSVB_Train" Class="POSAirPortClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=172.17.0.3;Initial Catalog=NDCCSVB_Train;Persist Security Info=True;User ID=sa" SettingsObjectName="KP.OrderMGT.BL.Properties.Settings" SettingsPropertyName="NDCCSVB_TrainConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.df_payment_onl" Member="df_payment_onls">
     <Type Name="df_payment_onl">
       <Column Name="branch_no" Type="System.String" DbType="Char(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -32,6 +33,7 @@
       <Column Name="AliMerchantID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="AliTransID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="AlipayCancel" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="df_header_onl_df_payment_onl" Member="df_header_onl" ThisKey="branch_no,data_date,machine_no,doc_no" OtherKey="branch_no,data_date,machine_no,doc_no" Type="df_header_onl" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.df_pdiscount_onl" Member="df_pdiscount_onls">
@@ -59,6 +61,7 @@
       <Column Name="QRCode" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="method_code" Type="System.String" DbType="Char(10)" CanBeNull="true" />
       <Column Name="subsidize" Type="System.Decimal" DbType="Decimal(14,2)" CanBeNull="true" />
+      <Association Name="df_trans_onl_df_pdiscount_onl" Member="df_trans_onl" ThisKey="doc_no,branch_no,data_date,machine_no,plu_line_no" OtherKey="doc_no,branch_no,data_date,machine_no,line_no" Type="df_trans_onl" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.df_trans_onl" Member="df_trans_onls">
@@ -98,6 +101,8 @@
       <Column Name="disc_rate2" Type="System.Decimal" DbType="Decimal(14,2) NOT NULL" CanBeNull="false" />
       <Column Name="net2" Type="System.Decimal" DbType="Decimal(14,2) NOT NULL" CanBeNull="false" />
       <Column Name="vat2" Type="System.Decimal" DbType="Decimal(14,2) NOT NULL" CanBeNull="false" />
+      <Association Name="df_trans_onl_df_pdiscount_onl" Member="df_pdiscount_onls" ThisKey="doc_no,branch_no,data_date,machine_no,line_no" OtherKey="doc_no,branch_no,data_date,machine_no,plu_line_no" Type="df_pdiscount_onl" />
+      <Association Name="df_header_onl_df_trans_onl" Member="df_header_onl" ThisKey="branch_no,data_date,loc_code,area_code,machine_no,doc_no" OtherKey="branch_no,data_date,loc_code,area_code,machine_no,doc_no" Type="df_header_onl" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.runno_machine" Member="runno_machines">
@@ -221,8 +226,10 @@
       <Column Name="Promoter" Type="System.String" DbType="Char(10)" CanBeNull="true" />
       <Column Name="DFA" Type="System.String" DbType="Char(10)" CanBeNull="true" />
       <Column Name="OnlineNo" Type="System.String" DbType="Char(20)" CanBeNull="true" />
-      <Column Name="Status" Type="System.String" DbType="Char(10)" CanBeNull="true" />
-      <Column Name="CurrStatus" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="LastStatus" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="TerminelCode" Type="System.String" DbType="Char(1)" CanBeNull="false" UpdateCheck="Always" />
+      <Association Name="df_header_onl_df_payment_onl" Member="df_payment_onls" ThisKey="branch_no,data_date,machine_no,doc_no" OtherKey="branch_no,data_date,machine_no,doc_no" Type="df_payment_onl" />
+      <Association Name="df_header_onl_df_trans_onl" Member="df_trans_onls" ThisKey="branch_no,data_date,loc_code,area_code,machine_no,doc_no" OtherKey="branch_no,data_date,loc_code,area_code,machine_no,doc_no" Type="df_trans_onl" />
     </Type>
   </Table>
   <Function Name="dbo.get_sale_passport4" Method="get_sale_passport4">
