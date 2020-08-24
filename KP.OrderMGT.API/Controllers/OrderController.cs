@@ -273,20 +273,32 @@ namespace KP.OrderMGT.API.Controllers
                 ret.Data = omSrv.ComplateOrderOnline(order_no);
                 if (ret.Data != null)
                 {
-                    // send update to endpoint COMPLETED
+                    // send update to endpoint COMPLETED 
                     var client = new RestClient("http://10.3.26.32:5000");
-                    var request = new RestRequest(String.Format("dev/api/Orders/{0}/Status", order_no),Method.POST);
+                    var request = new RestRequest(String.Format("dev/api/Orders/{0}/Status", order_no), Method.POST);
                     request.AddHeader("AccessToken", "A64803F0A7CEDAC8407538D341BDBE23");
                     request.AddHeader("Content-Type", "application/json");
                     request.AddJsonBody(new { statuscode = "COMPLETED" });
                     var restResponse = await client.ExecutePostTaskAsync(request);
                     if (restResponse.ErrorException != null)
                     {
-                        throw restResponse.ErrorException;
+                        throw restResponse.ErrorException.InnerException;
                     }
-
-                    ret.totalCount = ret.Data != null ? 1 : 0;
-                    ret.isCompleted = true;
+                    else
+                    {
+                        if (restResponse.StatusCode != HttpStatusCode.OK)
+                        {
+                            ret.Data = omSrv.UpdateStatusOrderOnline(order_no, restResponse.StatusCode.ToString());
+                            ret.totalCount = 0;
+                            ret.isCompleted = false;
+                        }
+                        else
+                        {
+                            ret.Data = omSrv.UpdateStatusOrderOnline(order_no, "COMPLETED");
+                            ret.totalCount = 1;
+                            ret.isCompleted = true;
+                        }
+                    }
                 }
                 else
                 {
@@ -324,6 +336,7 @@ namespace KP.OrderMGT.API.Controllers
             {
                 var omSrv = new OrderService(omDB);
                 ret.Data = omSrv.VoidOrderOnline(order_no);
+                ret.Data = new OrderSession();
                 if (ret.Data != null)
                 {
                     // send update to endpoint CANCELED 
@@ -335,19 +348,28 @@ namespace KP.OrderMGT.API.Controllers
                     var restResponse = await client.ExecutePostTaskAsync(request);
                     if (restResponse.ErrorException != null)
                     {
-                        throw restResponse.ErrorException;
+                        throw restResponse.ErrorException.InnerException;
                     }
-
-                    ret.totalCount = ret.Data != null ? 1 : 0;
-                    ret.isCompleted = true;
+                    else
+                    {
+                        if (restResponse.StatusCode != HttpStatusCode.OK)
+                        {
+                            ret.Data = omSrv.UpdateStatusOrderOnline(order_no,restResponse.StatusCode.ToString());
+                            ret.totalCount = 0;
+                            ret.isCompleted = false;
+                        }
+                        else
+                        {
+                            ret.Data = omSrv.UpdateStatusOrderOnline(order_no, "CANCELED");
+                            ret.totalCount =  1;
+                            ret.isCompleted = true;
+                        }
+                    }
                 }
                 else
                 {
                     throw new ArgumentException("message", "connection error");
                 }
-
-                ret.totalCount = 1;
-                ret.isCompleted = true;
             }
             catch (Exception e)
             {

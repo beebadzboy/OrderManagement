@@ -462,18 +462,9 @@ namespace KP.OrderMGT.Service
             _omDB.order_transactions.InsertOnSubmit(new_tren_order);
             _omDB.SubmitChanges();
 
-            var order_result = new OrderSession();
-            order_result.SessionId = new_session_order.id;
-            order_result.SessionGuid = new_session_order.session_guid;
-            order_result.SaleOrderNo = new_session_order.sale_order_no;
-            order_result.POSOrderNo = new_session_order.pos_order_no;
-            order_result.POSInvoiceNo = new_session_order.pos_invice_no;
-            order_result.POSStatus = new_session_order.pos_order_status;
-            order_result.POSSessionKey = new_session_order.pos_order_key;
-
             SaveLogInterface(order);
 
-            return order_result;
+            return new OrderSession(new_session_order);
         }
 
 
@@ -567,7 +558,6 @@ namespace KP.OrderMGT.Service
 
         private OrderSession UdpateOrderSession(string order_no, StatusOrderPOS status)
         {
-            var saleList = new List<SaleQueue>();
             var saleObj = _omDB.order_sessions.FirstOrDefault(x => x.sale_order_no == order_no);
             if (saleObj == null)
             {
@@ -582,6 +572,27 @@ namespace KP.OrderMGT.Service
             tran.create_date = DateTime.Now;
             tran.session_id = saleObj.id;
             tran.datail = "Update Status POS Order ["+ saleObj.pos_order_no + "] : " + status.ToString();
+            _omDB.order_transactions.InsertOnSubmit(tran);
+
+            return new OrderSession(saleObj);
+        }
+
+        public OrderSession UpdateStatusOrderOnline(string order_no,string status)
+        {
+            var saleObj = _omDB.order_sessions.FirstOrDefault(x => x.sale_order_no == order_no);
+            if (saleObj == null)
+            {
+                throw new System.ArgumentException("data not found.", nameof(saleObj));
+            }
+
+            saleObj.sale_order_status = status.ToString();
+            saleObj.modified_date = DateTime.Now;
+            _omDB.SubmitChanges();
+
+            var tran = new order_transaction();
+            tran.create_date = DateTime.Now;
+            tran.session_id = saleObj.id;
+            tran.datail = "Update Status Online Order [" + saleObj.sale_order_no + "] : " + status.ToString();
             _omDB.order_transactions.InsertOnSubmit(tran);
 
             return new OrderSession(saleObj);

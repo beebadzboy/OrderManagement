@@ -107,6 +107,9 @@ namespace KP.OrderMGT.BL.ServiceModel
         public string SaleOrderNo { get; set; }
 
         [DataMember]
+        public string SaleOrderStatus { get; set; }
+
+        [DataMember]
         public string POSSessionKey { get; set; }
 
         [DataMember]
@@ -126,6 +129,7 @@ namespace KP.OrderMGT.BL.ServiceModel
             this.SessionGuid = session.session_guid;
             this.SessionId = session.id;
             this.SaleOrderNo = session.sale_order_no;
+            this.SaleOrderStatus = session.sale_order_status;
             this.POSInvoiceNo = session.pos_invice_no;
             this.POSOrderNo = session.pos_order_no;
             this.POSStatus = session.pos_order_status;

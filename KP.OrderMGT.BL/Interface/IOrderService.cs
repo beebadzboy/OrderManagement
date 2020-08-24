@@ -42,6 +42,9 @@ namespace KP.OrderMGT.Service
 
         [OperationContract]
         List<SaleQueue> SaleQueue(POSAirPortClassesDataContext _posDB, char terminal);
+
+        [OperationContract]
+        OrderSession UpdateStatusOrderOnline(string order_no, string status);
     }
 
 
