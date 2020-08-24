@@ -273,7 +273,7 @@ namespace KP.OrderMGT.API.Controllers
                 ret.Data = omSrv.ComplateOrderOnline(order_no);
                 if (ret.Data != null)
                 {
-                    // send update to endpoint Create Request
+                    // send update to endpoint COMPLETED
                     var client = new RestClient("http://10.3.26.32:5000");
                     var request = new RestRequest(String.Format("dev/api/Orders/{0}/Status", order_no),Method.POST);
                     request.AddHeader("AccessToken", "A64803F0A7CEDAC8407538D341BDBE23");
@@ -326,7 +326,7 @@ namespace KP.OrderMGT.API.Controllers
                 ret.Data = omSrv.VoidOrderOnline(order_no);
                 if (ret.Data != null)
                 {
-                    // send update to endpoint Create Request
+                    // send update to endpoint CANCELED 
                     var client = new RestClient("http://10.3.26.32:5000");
                     var request = new RestRequest(String.Format("dev/api/Orders/{0}/Status", order_no), Method.POST);
                     request.AddHeader("AccessToken", "A64803F0A7CEDAC8407538D341BDBE23");

@@ -50,15 +50,15 @@ namespace KP.OrderMGT.Service
             {
                 throw new System.ArgumentException(order_no + ": data not found.", nameof(sessionObj));
             }
-            
+
             return GetConnectionPOSAirport(airportCoode);
         }
 
         public OrderSession GetOrderOnline(string order_no)
         {
             var saleList = new List<SaleQueue>();
-            var saleObj = _omDB.order_sessions.FirstOrDefault(x=>x.sale_order_no == order_no);
-            if(saleObj == null)
+            var saleObj = _omDB.order_sessions.FirstOrDefault(x => x.sale_order_no == order_no);
+            if (saleObj == null)
             {
                 throw new System.ArgumentException("data not found.", nameof(saleObj));
             }
@@ -87,7 +87,7 @@ namespace KP.OrderMGT.Service
                     saleList.Add(obj);
                 }
             }
-            
+
             return saleList;
         }
 
@@ -155,278 +155,278 @@ namespace KP.OrderMGT.Service
             //{
             //    try
             //    {
-                    // pos airport save
-                    char sale_status = Char.Parse("R");
-                    if (order.Flight.Terminal == "D")
+            // pos airport save
+            char sale_status = Char.Parse("R");
+            if (order.Flight.Terminal == "D")
+            {
+                sale_status = Char.Parse("D");
+            }
+
+            var docno = RunningNumber(_posDB, last_number, "taxabb");
+            var runno = RunningNumber(_posDB, last_number, "revdoc");
+
+            last_number.taxabb = docno;
+            last_number.reciept = runno;
+            _posDB.SubmitChanges();
+
+            CultureInfo ci = CultureInfo.InvariantCulture;
+            // new df_header_onl
+            df_header_onl new_order = new df_header_onl
+            {
+                branch_no = connObj.cn_branch_no,
+                data_date = DateTime.Now,
+                area_code = connObj.ref_area_no,
+                loc_code = connObj.ref_loc_no,
+                machine_no = connObj.ref_machine_no,
+                doc_no = docno.ToString("00000"),
+                shift_no = 1,
+                cust_type = "",
+                flight_code = order.Flight.FlightCode,
+                flight_date = order.Flight.Date,
+                flight_time = order.Flight.Time.Time24,
+                country_code = order.Billing.CountryCode,
+                cust_name = order.Billing.FirstName + " " + order.Billing.LastName,
+                passport_no = order.Billing.PassportNo,
+                member_id = order.NewOrder.MemberID,
+                shopping_card = "",
+                cashier_code = "online",
+                sale_code = "online",
+                update_date_sale = null,
+                add_datetime = DateTime.Now,
+                update_datetime = DateTime.Now,
+                user_add = "online",
+                user_update = "online",
+                //time_stamp = "",
+                void_status = false,
+                cancel_to_doc = "",
+                cancel_to_date = null,
+                cancel_to_mac = "",
+                runno = runno.ToString("00000"),
+                data_time = DateTime.Now.ToString("HH:mm", ci),
+                trans_date = DateTime.Now.Date,
+                //rec_no = 0,
+                tour_barcode = "",
+                tour_code = "",
+                machine_tax = connObj.ref_machine_tax,
+                rcv_data_date = null,
+                rcv_loc_code = "",
+                rcv_machine_no = "",
+                rcv_doc_no = "",
+                rcv_datetime = null,
+                sale_status = sale_status,
+                //DiscAuthUser = "",
+                //CardTypeCode = "",
+                //EmBossID = "",
+                //CardTypeID = "",
+                //PersonalID = "",
+                //Gender = "",
+                //BirthDate = "",
+                //PassportExpire = "",
+                //rcv_status = "",
+                //LVHeaderKey = "",
+                //DeliveryType = "",
+                //DeliveryAuth = "",
+                //ReferDate = DateTime.Now.Date,
+                //ReferMac = "online",
+                //ReferDoc = order.NewOrder.OrderNo,
+                //RCCode = "",
+                //AlipaySession = "",
+                //WeChatSession = "",
+                //Promoter = "",
+                //DFA = "",
+                OnlineNo = order.NewOrder.OrderNo,
+                TerminalCode = order.Flight.Terminal,
+                LastStatus = "003".ToString()
+            };
+            _posDB.df_header_onls.InsertOnSubmit(new_order);
+            _posDB.SubmitChanges();
+
+            // new df_tran_onl and new pdiscount_onl
+            var item_code_list = order.Items.Select(x => x.MaterialCode).ToList();
+            var master_article = _posDB.vArticleMCs.Where(x => item_code_list.Contains(x.ArticleCode)).ToList();
+            var line_disc_no = 0;
+            foreach (var item in order.Items.Select((value, index) => new { Value = value, Index = index }))
+            {
+                var item_code = master_article.FirstOrDefault(x => x.ArticleCode == item.Value.MaterialCode);
+
+                df_trans_onl new_item = new df_trans_onl() {
+                    branch_no = new_order.branch_no.Trim(),
+                    data_date = DateTime.Now,
+                    area_code = new_order.area_code.Trim(),
+                    loc_code = new_order.loc_code,
+                    machine_no = new_order.machine_no.Trim(),
+                    doc_no = docno.ToString("00000"),
+                    line_no = item.Index + 1,
+                    item_code = item_code.GTIN,
+                    bar_code = "",
+                    mat_code = item.Value.MaterialCode,
+                    quantity = item.Value.Quantity,
+                    selling_price = item.Value.SellingPrice,
+                    curr_code = "",
+                    amount = item.Value.Amount,
+                    discount = item.Value.Discount,
+                    net = item.Value.Net,
+                    vat = 0,
+                    vat_code = "2",
+                    vat_rate = 0,
+                    disc_code = "",
+                    disc_rate = item.Value.DiscountRate,
+                    promo_code = item.Value.PromoCode,
+                    staff_code = new_order.sale_code,
+                    staff_comm_rate = 0,
+                    cancel_status = false,
+                    add_datetime = DateTime.Now,
+                    update_datetime = DateTime.Now,
+                    user_add = new_order.sale_code,
+                    user_update = new_order.sale_code,
+                    //time_stamp = "",
+                    line_cancel = false,
+                    discount2 = item.Value.SPDiscount,
+                    disc_rate2 = item.Value.SPDiscountRate,
+                    net2 = item.Value.TotalNet,
+                    vat2 = 0
+                };
+
+                _posDB.df_trans_onls.InsertOnSubmit(new_item);
+
+                if (item.Value.Discount > 0)
+                {
+                    line_disc_no = line_disc_no + 1;
+                    df_pdiscount_onl new_pdiscount = new df_pdiscount_onl()
                     {
-                        sale_status = Char.Parse("D");
-                    }
-
-                    var docno = RunningNumber(_posDB, last_number, "taxabb");
-                    var runno = RunningNumber(_posDB, last_number, "revdoc");
-
-                    last_number.taxabb = docno;
-                    last_number.reciept = runno;
-                    _posDB.SubmitChanges();
-
-                    CultureInfo ci = CultureInfo.InvariantCulture;
-                    // new df_header_onl
-                    df_header_onl new_order = new df_header_onl
-                    {
-                        branch_no = connObj.cn_branch_no,
+                        branch_no = new_order.branch_no.Trim(),
                         data_date = DateTime.Now,
-                        area_code = connObj.ref_area_no,
-                        loc_code = connObj.ref_loc_no,
-                        machine_no = connObj.ref_machine_no,
+                        machine_no = new_order.machine_no.Trim(),
                         doc_no = docno.ToString("00000"),
-                        shift_no = 1,
-                        cust_type = "",
-                        flight_code = order.Flight.FlightCode,
-                        flight_date = order.Flight.Date,
-                        flight_time = order.Flight.Time.Time24,
-                        country_code = order.Billing.CountryCode,
-                        cust_name = order.Billing.FirstName + " " + order.Billing.LastName,
-                        passport_no = order.Billing.PassportNo,
-                        member_id = order.NewOrder.MemberID,
-                        shopping_card = "",
-                        cashier_code = "online",
-                        sale_code = "online",
-                        update_date_sale = null,
+                        plu_line_no = new_item.line_no,
+                        disc_line_no = line_disc_no,
+                        disc_rate = (decimal)new_item.disc_rate,
+                        disc_per = (decimal)new_item.disc_rate > 0 ? (decimal)new_item.discount : 0,
+                        disc_amount = (decimal)new_item.disc_rate <= 0 ? (decimal)new_item.discount : 0,
+                        promo_code = item.Value.PromoCode,
+                        bybill_flag = false,
+                        bybill_runno = 1,
+                        disc_type = 1,
+                        del_flag = null,
+                        cancel_status = false,
                         add_datetime = DateTime.Now,
                         update_datetime = DateTime.Now,
-                        user_add = "online",
-                        user_update = "online",
+                        user_add = new_item.user_add,
+                        user_update = new_item.user_update,
                         //time_stamp = "",
-                        void_status = false,
-                        cancel_to_doc = "",
-                        cancel_to_date = null,
-                        cancel_to_mac = "",
-                        runno = runno.ToString("00000"),
-                        data_time = DateTime.Now.ToString("HH:mm", ci),
-                        trans_date = DateTime.Now.Date,
-                        //rec_no = 0,
-                        tour_barcode = "",
-                        tour_code = "",
-                        machine_tax = connObj.ref_machine_tax,
-                        rcv_data_date = null,
-                        rcv_loc_code = "",
-                        rcv_machine_no = "",
-                        rcv_doc_no = "",
-                        rcv_datetime = null,
-                        sale_status = sale_status,
-                        //DiscAuthUser = "",
-                        //CardTypeCode = "",
-                        //EmBossID = "",
-                        //CardTypeID = "",
-                        //PersonalID = "",
-                        //Gender = "",
-                        //BirthDate = "",
-                        //PassportExpire = "",
-                        //rcv_status = "",
-                        //LVHeaderKey = "",
-                        //DeliveryType = "",
-                        //DeliveryAuth = "",
-                        //ReferDate = DateTime.Now.Date,
-                        //ReferMac = "online",
-                        //ReferDoc = order.NewOrder.OrderNo,
-                        //RCCode = "",
-                        //AlipaySession = "",
-                        //WeChatSession = "",
-                        //Promoter = "",
-                        //DFA = "",
-                        OnlineNo = order.NewOrder.OrderNo,
-                        TerminalCode = order.Flight.Terminal,
-                        LastStatus = "003".ToString()
+                        QRCode = new Guid("00000000-0000-0000-0000-000000000000"),
+                        method_code = "",
+                        subsidize = 0
                     };
-                    _posDB.df_header_onls.InsertOnSubmit(new_order);
+
+                    _posDB.df_pdiscount_onls.InsertOnSubmit(new_pdiscount);
                     _posDB.SubmitChanges();
+                }
 
-                    // new df_tran_onl and new pdiscount_onl
-                    var item_code_list = order.Items.Select(x => x.MaterialCode).ToList();
-                    var master_article = _posDB.vArticleMCs.Where(x => item_code_list.Contains(x.ArticleCode)).ToList();
-                    var line_disc_no = 0;
-                    foreach (var item in order.Items.Select((value, index) => new { Value = value, Index = index }))
+                if (item.Value.SPDiscount > 0)
+                {
+                    line_disc_no = line_disc_no + 1;
+                    df_pdiscount_onl new_pdiscount = new df_pdiscount_onl()
                     {
-                        var item_code = master_article.FirstOrDefault(x => x.ArticleCode == item.Value.MaterialCode);
+                        branch_no = new_order.branch_no,
+                        data_date = DateTime.Now,
+                        machine_no = new_order.machine_no,
+                        doc_no = docno.ToString("00000"),
+                        plu_line_no = new_item.line_no,
+                        disc_line_no = line_disc_no,
+                        disc_rate = (decimal)item.Value.SPDiscountRate,
+                        disc_per = (decimal)item.Value.SPDiscountRate > 0 ? (decimal)item.Value.SPDiscount : 0,
+                        disc_amount = (decimal)item.Value.SPDiscount <= 0 ? (decimal)item.Value.SPDiscount : 0,
+                        promo_code = item.Value.SPPromoCode,
+                        bybill_flag = true,
+                        bybill_runno = 2,
+                        disc_type = 2,
+                        del_flag = null,
+                        add_datetime = DateTime.Now,
+                        update_datetime = DateTime.Now,
+                        user_add = new_item.user_add,
+                        user_update = new_item.user_update,
+                        //time_stamp = "",
+                        //QRCode = "",
+                        //method_code = "",
+                        //subsidize = ""
+                    };
 
-                        df_trans_onl new_item = new df_trans_onl() {
-                            branch_no = new_order.branch_no.Trim(),
-                            data_date = DateTime.Now,
-                            area_code = new_order.area_code.Trim(),
-                            loc_code = new_order.loc_code,
-                            machine_no = new_order.machine_no.Trim(),
-                            doc_no = docno.ToString("00000"),
-                            line_no = item.Index + 1,
-                            item_code = item_code.GTIN,
-                            bar_code = "",
-                            mat_code = item.Value.MaterialCode,
-                            quantity = item.Value.Quantity,
-                            selling_price = item.Value.SellingPrice,
-                            curr_code = "",
-                            amount = item.Value.Amount,
-                            discount = item.Value.Discount,
-                            net = item.Value.Net,
-                            vat = 0,
-                            vat_code = "2",
-                            vat_rate = 0,
-                            disc_code = "",
-                            disc_rate = item.Value.DiscountRate,
-                            promo_code = item.Value.PromoCode,
-                            staff_code = new_order.sale_code,
-                            staff_comm_rate = 0,
-                            cancel_status = false,
-                            add_datetime = DateTime.Now,
-                            update_datetime = DateTime.Now,
-                            user_add = new_order.sale_code,
-                            user_update = new_order.sale_code,
-                            //time_stamp = "",
-                            line_cancel = false,
-                            discount2 = item.Value.SPDiscount,
-                            disc_rate2 = item.Value.SPDiscountRate,
-                            net2 = item.Value.TotalNet,
-                            vat2 = 0
-                        };
+                    _posDB.df_pdiscount_onls.InsertOnSubmit(new_pdiscount);
+                    _posDB.SubmitChanges();
+                }
+            }
 
-                        _posDB.df_trans_onls.InsertOnSubmit(new_item);
-
-                        if (item.Value.Discount > 0)
-                        {
-                            line_disc_no = line_disc_no + 1;
-                            df_pdiscount_onl new_pdiscount = new df_pdiscount_onl()
-                            {
-                                branch_no = new_order.branch_no.Trim(),
-                                data_date = DateTime.Now,
-                                machine_no = new_order.machine_no.Trim(),
-                                doc_no = docno.ToString("00000"),
-                                plu_line_no = new_item.line_no,
-                                disc_line_no = line_disc_no,
-                                disc_rate = (decimal)new_item.disc_rate,
-                                disc_per = (decimal)new_item.disc_rate > 0 ? (decimal)new_item.discount : 0,
-                                disc_amount = (decimal)new_item.disc_rate <= 0 ? (decimal)new_item.discount : 0,
-                                promo_code = item.Value.PromoCode,
-                                bybill_flag = false,
-                                bybill_runno = 1,
-                                disc_type = 1,
-                                del_flag = null,
-                                cancel_status = false,
-                                add_datetime = DateTime.Now,
-                                update_datetime = DateTime.Now,
-                                user_add = new_item.user_add,
-                                user_update = new_item.user_update,
-                                //time_stamp = "",
-                                QRCode = new Guid("00000000-0000-0000-0000-000000000000"),
-                                method_code = "",
-                                subsidize = 0
-                            };
-
-                            _posDB.df_pdiscount_onls.InsertOnSubmit(new_pdiscount);
-                            _posDB.SubmitChanges();
-                        }
-
-                        if (item.Value.SPDiscount > 0)
-                        {
-                            line_disc_no = line_disc_no + 1;
-                            df_pdiscount_onl new_pdiscount = new df_pdiscount_onl()
-                            {
-                                branch_no = new_order.branch_no,
-                                data_date = DateTime.Now,
-                                machine_no = new_order.machine_no,
-                                doc_no = docno.ToString("00000"),
-                                plu_line_no = new_item.line_no,
-                                disc_line_no = line_disc_no,
-                                disc_rate = (decimal)item.Value.SPDiscountRate,
-                                disc_per = (decimal)item.Value.SPDiscountRate > 0 ? (decimal)item.Value.SPDiscount : 0,
-                                disc_amount = (decimal)item.Value.SPDiscount <= 0 ? (decimal)item.Value.SPDiscount : 0,
-                                promo_code = item.Value.SPPromoCode,
-                                bybill_flag = true,
-                                bybill_runno = 2,
-                                disc_type = 2,
-                                del_flag = null,
-                                add_datetime = DateTime.Now,
-                                update_datetime = DateTime.Now,
-                                user_add = new_item.user_add,
-                                user_update = new_item.user_update,
-                                //time_stamp = "",
-                                //QRCode = "",
-                                //method_code = "",
-                                //subsidize = ""
-                            };
-
-                            _posDB.df_pdiscount_onls.InsertOnSubmit(new_pdiscount);
-                            _posDB.SubmitChanges();
-                        }
-                    }
-
-                    // new df_payment_onl
-                    var master_paymath = _posDB.df_paymeths.ToList();
-                    foreach (var payment in order.Payments.Select((value, index) => new { Value = value, Index = index }))
+            // new df_payment_onl
+            var master_paymath = _posDB.df_paymeths.ToList();
+            foreach (var payment in order.Payments.Select((value, index) => new { Value = value, Index = index }))
+            {
+                decimal amt_curr = 0;
+                var paymath = master_paymath.FirstOrDefault(x => x.method_code.Trim() == payment.Value.Code.Trim());
+                if (paymath != null)
+                {
+                    if (paymath.check_voucher || paymath.is_cashcard)
                     {
-                        decimal amt_curr = 0;
-                        var paymath = master_paymath.FirstOrDefault(x => x.method_code.Trim() == payment.Value.Code.Trim());
-                        if (paymath != null)
-                        {
-                            if (paymath.check_voucher || paymath.is_cashcard)
-                            {
-                                amt_curr = 0;
-                            }
-                            else
-                            {
-                                amt_curr = payment.Value.Amount * 1;
-                            }
-                        }
-
-                        df_payment_onl new_payment = new df_payment_onl()
-                        {
-                            branch_no = new_order.branch_no.Trim(),
-                            data_date = DateTime.Now,
-                            machine_no = new_order.machine_no.Trim(),
-                            doc_no = docno.ToString("00000"),
-                            line_no = payment.Index + 1,
-                            method_code = payment.Value.Code.Trim(),
-                            payment_date = DateTime.Now,
-                            amount = payment.Value.Amount,
-                            amount_round = 0,
-                            amount_curr = amt_curr,
-                            curr_code = "THB",
-                            curr_rate = 1,
-                            cashier_code = new_order.cashier_code.Trim(),
-                            posid = new_order.machine_no.Trim(),
-                            cred_card_no = "",
-                            cred_card_name = "",
-                            expiry_date = null,
-                            approve_code = "",
-                            del_flag = null,
-                            add_datetime = DateTime.Now,
-                            update_datetime = DateTime.Now,
-                            user_add = new_order.user_add,
-                            user_update = new_order.user_update,
-                            //time_stamp = "",
-                            amount2 = payment.Value.Amount,
-                            amount_curr2 = amt_curr,
-                            BankOfEDC = "",
-                            AliBarcode = "",
-                            AliMerchantID = "",
-                            AliTransID = "",
-                            AlipayCancel = false
-                        };
-
-
-                        _posDB.df_payment_onls.InsertOnSubmit(new_payment);
-                        _posDB.SubmitChanges();
+                        amt_curr = 0;
                     }
+                    else
+                    {
+                        amt_curr = payment.Value.Amount * 1;
+                    }
+                }
 
-                    // order_session db save
-                    order_result = SaveSessionOrder(order, new_order);
+                df_payment_onl new_payment = new df_payment_onl()
+                {
+                    branch_no = new_order.branch_no.Trim(),
+                    data_date = DateTime.Now,
+                    machine_no = new_order.machine_no.Trim(),
+                    doc_no = docno.ToString("00000"),
+                    line_no = payment.Index + 1,
+                    method_code = payment.Value.Code.Trim(),
+                    payment_date = DateTime.Now,
+                    amount = payment.Value.Amount,
+                    amount_round = 0,
+                    amount_curr = amt_curr,
+                    curr_code = "THB",
+                    curr_rate = 1,
+                    cashier_code = new_order.cashier_code.Trim(),
+                    posid = new_order.machine_no.Trim(),
+                    cred_card_no = "",
+                    cred_card_name = "",
+                    expiry_date = null,
+                    approve_code = "",
+                    del_flag = null,
+                    add_datetime = DateTime.Now,
+                    update_datetime = DateTime.Now,
+                    user_add = new_order.user_add,
+                    user_update = new_order.user_update,
+                    //time_stamp = "",
+                    amount2 = payment.Value.Amount,
+                    amount_curr2 = amt_curr,
+                    BankOfEDC = "",
+                    AliBarcode = "",
+                    AliMerchantID = "",
+                    AliTransID = "",
+                    AlipayCancel = false
+                };
 
 
-                //    tran.Complete();
-                //}
-                //catch (Exception ex)
-                //{
-                //    tran.Dispose();
-                //    throw ex;
-                //}
-                //}
+                _posDB.df_payment_onls.InsertOnSubmit(new_payment);
+                _posDB.SubmitChanges();
+            }
+
+            // order_session db save
+            order_result = SaveSessionOrder(order, new_order);
+
+
+            //    tran.Complete();
+            //}
+            //catch (Exception ex)
+            //{
+            //    tran.Dispose();
+            //    throw ex;
+            //}
+            //}
 
 
             return order_result;
@@ -471,7 +471,15 @@ namespace KP.OrderMGT.Service
             order_result.POSStatus = new_session_order.pos_order_status;
             order_result.POSSessionKey = new_session_order.pos_order_key;
 
+            SaveLogInterface(order);
+
             return order_result;
+        }
+
+
+        private void SaveLogInterface(OrderHeader order)
+        {
+
         }
 
         public SaleAmountByPassport ValidateAllowSaleOnline(POSAirPortClassesDataContext _posDB, char terminal, string passort, DateTime date, int time)

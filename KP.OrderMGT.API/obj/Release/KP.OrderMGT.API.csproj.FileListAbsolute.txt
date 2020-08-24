@@ -551,3 +551,5 @@ C:\Code\OrderManagement\KP.OrderMGT.API\obj\Release\KP.OrderMGT.API.pdb
 C:\Users\Bee\source\repos\OrderManagement\KP.OrderMGT.API\bin\EntityFramework.dll
 C:\Users\Bee\source\repos\OrderManagement\KP.OrderMGT.API\bin\EntityFramework.xml
 C:\Code\OrderManagement\KP.OrderMGT.API\bin\KP.Caller.ServiceModels.dll
+C:\Code\OrderManagement\KP.OrderMGT.API\bin\RestSharp.dll
+C:\Code\OrderManagement\KP.OrderMGT.API\bin\RestSharp.xml
