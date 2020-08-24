@@ -3819,7 +3819,7 @@ namespace KP.OrderMGT.BL.DBModel
 		
 		private string _LastStatus;
 		
-		private string _TerminelCode;
+		private string _TerminalCode;
 		
 		private EntitySet<df_payment_onl> _df_payment_onls;
 		
@@ -5226,20 +5226,20 @@ namespace KP.OrderMGT.BL.DBModel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="TerminelCode", Storage="_TerminelCode", DbType="Char(1)", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TerminalCode", DbType="Char(1)", CanBeNull=false)]
 		public string TerminalCode
 		{
 			get
 			{
-				return this._TerminelCode;
+				return this._TerminalCode;
 			}
 			set
 			{
-				if ((this._TerminelCode != value))
+				if ((this._TerminalCode != value))
 				{
 					this.OnTerminalCodeChanging(value);
 					this.SendPropertyChanging();
-					this._TerminelCode = value;
+					this._TerminalCode = value;
 					this.SendPropertyChanged("TerminalCode");
 					this.OnTerminalCodeChanged();
 				}

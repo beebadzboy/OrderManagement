@@ -227,7 +227,7 @@
       <Column Name="DFA" Type="System.String" DbType="Char(10)" CanBeNull="true" />
       <Column Name="OnlineNo" Type="System.String" DbType="Char(20)" CanBeNull="true" />
       <Column Name="LastStatus" Type="System.String" DbType="Char(10)" CanBeNull="true" />
-      <Column Name="TerminelCode" Member="TerminalCode" Storage="_TerminelCode" Type="System.String" DbType="Char(1)" CanBeNull="false" UpdateCheck="Always" />
+      <Column Name="TerminalCode" Storage="_TerminelCode" Type="System.String" DbType="Char(1)" CanBeNull="false" UpdateCheck="Always" />
       <Association Name="df_header_onl_df_payment_onl" Member="df_payment_onls" ThisKey="branch_no,data_date,machine_no,doc_no" OtherKey="branch_no,data_date,machine_no,doc_no" Type="df_payment_onl" />
       <Association Name="df_header_onl_df_trans_onl" Member="df_trans_onls" ThisKey="branch_no,data_date,loc_code,area_code,machine_no,doc_no" OtherKey="branch_no,data_date,loc_code,area_code,machine_no,doc_no" Type="df_trans_onl" />
     </Type>

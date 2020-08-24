@@ -10,13 +10,13 @@ namespace KP.OrderMGT.BL.ServiceModel
     [DataContract]
     public enum WeekDays
     {
-        Monday = 1,
-        Tuesday = 2,
-        Wednesday = 3,
-        Thursday = 4,
-        Friday = 5,
-        Saturday = 6,
-        Sunday = 7
+        Monday = 2,
+        Tuesday = 3,
+        Wednesday = 4,
+        Thursday = 5,
+        Friday = 6,
+        Saturday = 7,
+        Sunday = 1
     }
 
     [DataContract]
@@ -124,60 +124,60 @@ namespace KP.OrderMGT.BL.ServiceModel
             DateTime time = DateTime.Today.Add(timespan);
             this.Time.TimeAMPM = time.ToString("hh:mm tt"); // It will give "03:00 AM"
             this.WeekDays = new List<FlightWeekDays>();
-            if (dataTable1.d1)
-            {
-                var d1 = new FlightWeekDays();
-                d1.ShortName = "MON";
-                d1.FullName = ServiceModel.WeekDays.Monday.ToString();
-                this.WeekDays.Add(d1);
-            }
-
             if (dataTable1.d2)
             {
                 var d2 = new FlightWeekDays();
-                d2.ShortName = "TUE";
-                d2.FullName = ServiceModel.WeekDays.Tuesday.ToString();
+                d2.ShortName = "MON";
+                d2.FullName = ServiceModel.WeekDays.Monday.ToString();
                 this.WeekDays.Add(d2);
             }
 
             if (dataTable1.d3)
             {
                 var d3 = new FlightWeekDays();
-                d3.ShortName = "WED";
-                d3.FullName = ServiceModel.WeekDays.Wednesday.ToString();
+                d3.ShortName = "TUE";
+                d3.FullName = ServiceModel.WeekDays.Tuesday.ToString();
                 this.WeekDays.Add(d3);
             }
 
             if (dataTable1.d4)
             {
                 var d4 = new FlightWeekDays();
-                d4.ShortName = "THU";
-                d4.FullName = ServiceModel.WeekDays.Thursday.ToString();
+                d4.ShortName = "WED";
+                d4.FullName = ServiceModel.WeekDays.Wednesday.ToString();
                 this.WeekDays.Add(d4);
             }
 
             if (dataTable1.d5)
             {
                 var d5 = new FlightWeekDays();
-                d5.ShortName = "FRI";
-                d5.FullName = ServiceModel.WeekDays.Friday.ToString();
+                d5.ShortName = "THU";
+                d5.FullName = ServiceModel.WeekDays.Thursday.ToString();
                 this.WeekDays.Add(d5);
             }
 
             if (dataTable1.d6)
             {
                 var d6 = new FlightWeekDays();
-                d6.ShortName = "STU";
-                d6.FullName = ServiceModel.WeekDays.Saturday.ToString();
+                d6.ShortName = "FRI";
+                d6.FullName = ServiceModel.WeekDays.Friday.ToString();
                 this.WeekDays.Add(d6);
             }
 
             if (dataTable1.d7)
             {
                 var d7 = new FlightWeekDays();
-                d7.ShortName = "SUN";
-                d7.FullName = ServiceModel.WeekDays.Sunday.ToString();
+                d7.ShortName = "STU";
+                d7.FullName = ServiceModel.WeekDays.Saturday.ToString();
                 this.WeekDays.Add(d7);
+            }
+
+            if (dataTable1.d7)
+            {
+                var d1 = new FlightWeekDays();
+                d1.ShortName = "SUN";
+                d1.FullName = ServiceModel.WeekDays.Sunday.ToString();
+                this.WeekDays.Add(d1);
             }
 
 
@@ -228,60 +228,60 @@ namespace KP.OrderMGT.BL.ServiceModel
             DateTime time = DateTime.Today.Add(timespan);
             this.Time.TimeAMPM = time.ToString("hh:mm tt"); // It will give "03:00 AM"
             this.WeekDays = new List<FlightWeekDays>();
-            if (dataTable1.d1)
-            {
-                var d1 = new FlightWeekDays();
-                d1.ShortName = "MON";
-                d1.FullName = ServiceModel.WeekDays.Monday.ToString();
-                this.WeekDays.Add(d1);
-            }
-
             if (dataTable1.d2)
             {
                 var d2 = new FlightWeekDays();
-                d2.ShortName = "TUE";
-                d2.FullName = ServiceModel.WeekDays.Tuesday.ToString();
+                d2.ShortName = "MON";
+                d2.FullName = ServiceModel.WeekDays.Monday.ToString();
                 this.WeekDays.Add(d2);
             }
 
             if (dataTable1.d3)
             {
                 var d3 = new FlightWeekDays();
-                d3.ShortName = "WED";
-                d3.FullName = ServiceModel.WeekDays.Wednesday.ToString();
+                d3.ShortName = "TUE";
+                d3.FullName = ServiceModel.WeekDays.Tuesday.ToString();
                 this.WeekDays.Add(d3);
             }
 
             if (dataTable1.d4)
             {
                 var d4 = new FlightWeekDays();
-                d4.ShortName = "THU";
-                d4.FullName = ServiceModel.WeekDays.Thursday.ToString();
+                d4.ShortName = "WED";
+                d4.FullName = ServiceModel.WeekDays.Wednesday.ToString();
                 this.WeekDays.Add(d4);
             }
 
             if (dataTable1.d5)
             {
                 var d5 = new FlightWeekDays();
-                d5.ShortName = "FRI";
-                d5.FullName = ServiceModel.WeekDays.Friday.ToString();
+                d5.ShortName = "THU";
+                d5.FullName = ServiceModel.WeekDays.Thursday.ToString();
                 this.WeekDays.Add(d5);
             }
 
             if (dataTable1.d6)
             {
                 var d6 = new FlightWeekDays();
-                d6.ShortName = "STU";
-                d6.FullName = ServiceModel.WeekDays.Saturday.ToString();
+                d6.ShortName = "FRI";
+                d6.FullName = ServiceModel.WeekDays.Friday.ToString();
                 this.WeekDays.Add(d6);
             }
 
             if (dataTable1.d7)
             {
                 var d7 = new FlightWeekDays();
-                d7.ShortName = "SUN";
-                d7.FullName = ServiceModel.WeekDays.Sunday.ToString();
+                d7.ShortName = "STU";
+                d7.FullName = ServiceModel.WeekDays.Saturday.ToString();
                 this.WeekDays.Add(d7);
+            }
+
+            if (dataTable1.d7)
+            {
+                var d1 = new FlightWeekDays();
+                d1.ShortName = "SUN";
+                d1.FullName = ServiceModel.WeekDays.Sunday.ToString();
+                this.WeekDays.Add(d1);
             }
 
 

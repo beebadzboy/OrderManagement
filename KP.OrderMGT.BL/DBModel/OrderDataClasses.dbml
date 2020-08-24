@@ -1,34 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="KPOrder" Class="OrderDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Table Name="dbo.df_flight" Member="df_flights">
-    <Type Name="df_flight">
-      <Column Name="flight_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
-      <Column Name="del_flag" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
-      <Column Name="flight_desc" Type="System.String" DbType="Char(50) NOT NULL" CanBeNull="false" />
-      <Column Name="dest_airport_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
-      <Column Name="arrdep_airport_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
-      <Column Name="arrdep_terminal" Type="System.String" DbType="Char(5)" CanBeNull="true" />
-      <Column Name="d2" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="d3" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="d4" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="d5" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="d6" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="d7" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="d1" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="arrdep_time" Type="System.String" DbType="Char(5) NOT NULL" CanBeNull="false" />
-      <Column Name="open_flight" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" />
-      <Column Name="add_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
-      <Column Name="update_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=devdata;Initial Catalog=KPOrder;Persist Security Info=True;User ID=sa" SettingsObjectName="KP.OrderMGT.BL.Properties.Settings" SettingsPropertyName="KPOrderConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.config_connection" Member="config_connections">
+    <Type Name="config_connection">
+      <Column Name="cn_code" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="cn_name" Type="System.String" DbType="Char(50) NOT NULL" CanBeNull="false" />
+      <Column Name="cn_server" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
+      <Column Name="cn_database" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
+      <Column Name="cn_uid" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
+      <Column Name="cn_pwd" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
+      <Column Name="cn_branch_no" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="cn_branch_name" Type="System.String" DbType="Char(50)" CanBeNull="true" />
+      <Column Name="ref_machine_no" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="ref_machine_tax" Type="System.String" DbType="NChar(20)" CanBeNull="true" />
+      <Column Name="ref_area_no" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="ref_loc_no" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="buy_limit" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="buy_limit_hour" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Column Name="user_add" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
       <Column Name="user_update" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="add_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="update_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" />
       <Column Name="time_stamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
-      <Column Name="CutOffTime" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="pickup_code" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="del_flag" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.order_transaction" Member="order_transactions">
+    <Type Name="order_transaction">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="session_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="datail" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="create_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="order_session_order_transaction" Member="order_session" ThisKey="session_id" OtherKey="id" Type="order_session" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.df_airline" Member="df_airlines">
     <Type Name="df_airline">
-      <Column Name="airline_code" Type="System.String" DbType="Char(3) NOT NULL" CanBeNull="false" />
+      <Column Name="airline_code" Type="System.String" DbType="NVarChar(3) NOT NULL" CanBeNull="false" />
       <Column Name="del_flag" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
       <Column Name="airline_desc" Type="System.String" DbType="Char(50) NOT NULL" CanBeNull="false" />
       <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
@@ -51,24 +59,31 @@
       <Column Name="user_update" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.order_log_interface" Member="order_log_interfaces">
-    <Type Name="order_log_interface">
-      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="method" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
-      <Column Name="api_function" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Column Name="api_data_header" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Column Name="api_data_detail" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
-      <Column Name="ip_address" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="create_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.order_transaction" Member="order_transactions">
-    <Type Name="order_transaction">
-      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="session_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="datail" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="create_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="order_session_order_transaction" Member="order_session" ThisKey="session_id" OtherKey="id" Type="order_session" IsForeignKey="true" />
+  <Table Name="dbo.df_flight" Member="df_flights">
+    <Type Name="df_flight">
+      <Column Name="flight_code" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="del_flag" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="flight_desc" Type="System.String" DbType="Char(50) NOT NULL" CanBeNull="false" />
+      <Column Name="dest_airport_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="arrdep_airport_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="arrdep_terminal" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Column Name="d2" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="d3" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="d4" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="d5" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="d6" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="d7" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="d1" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="arrdep_time" Type="System.String" DbType="Char(5) NOT NULL" CanBeNull="false" />
+      <Column Name="open_flight" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" />
+      <Column Name="add_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="update_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="user_add" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="user_update" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="time_stamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="CutOffTime" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="pickup_code" Type="System.String" DbType="Char(10)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.order_detail" Member="order_details">
@@ -126,6 +141,17 @@
       <Association Name="order_session_order_header" Member="order_session" ThisKey="session_id" OtherKey="id" Type="order_session" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.order_log_interface" Member="order_log_interfaces">
+    <Type Name="order_log_interface">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="method" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="api_function" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="api_data_header" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="api_data_detail" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="ip_address" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="create_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Table Name="dbo.order_payment" Member="order_payments">
     <Type Name="order_payment">
       <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -140,41 +166,16 @@
       <Association Name="order_header_order_payment" Member="order_header" ThisKey="header_id" OtherKey="id" Type="order_header" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.config_connection" Member="config_connections">
-    <Type Name="config_connection">
-      <Column Name="cn_code" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="cn_name" Type="System.String" DbType="Char(50) NOT NULL" CanBeNull="false" />
-      <Column Name="cn_server" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
-      <Column Name="cn_database" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
-      <Column Name="cn_uid" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
-      <Column Name="cn_pwd" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
-      <Column Name="cn_branch_no" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
-      <Column Name="cn_branch_name" Type="System.String" DbType="Char(50)" CanBeNull="true" />
-      <Column Name="ref_machine_no" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="ref_machine_tax" Type="System.String" DbType="NChar(20)" CanBeNull="true" />
-      <Column Name="ref_area_no" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="ref_loc_no" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="buy_limit" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
-      <Column Name="buy_limit_hour" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="user_add" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
-      <Column Name="user_update" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
-      <Column Name="add_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
-      <Column Name="update_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
-      <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" />
-      <Column Name="time_stamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
-      <Column Name="del_flag" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
   <Table Name="dbo.order_session" Member="order_sessions">
     <Type Name="order_session">
       <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="session_guid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="sale_order_no" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="sale_invoice_no" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="sale_agent_code" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="sale_invoice_no" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="sale_agent_code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="sale_platform" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="sale_order_status" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="pos_order_key" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="pos_order_key" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="pos_order_no" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="pos_invice_no" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="pos_order_status" Type="System.String" DbType="Char(10)" CanBeNull="true" />

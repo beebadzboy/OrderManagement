@@ -57,31 +57,31 @@ namespace KP.OrderMGT.Service
             Expression<Func<df_flight, bool>> rightexp = x => true;
             if (week_day == "Monday")
             {
-                rightexp = x => x.d1 == true;
+                rightexp = x => x.d2 == true;
             }
             else if (week_day == "Tuesday")
             {
-                rightexp = x => x.d2 == true;
+                rightexp = x => x.d3 == true;
             }
             else if (week_day == "Wednesday")
             {
-                rightexp = x => x.d3 == true;
+                rightexp = x => x.d4 == true;
             }
             else if (week_day == "Thursday")
             {
-                rightexp = x => x.d4 == true;
+                rightexp = x => x.d5 == true;
             }
             else if (week_day == "Friday")
             {
-                rightexp = x => x.d5 == true;
+                rightexp = x => x.d6 == true;
             }
             else if (week_day == "Saturday")
             {
-                rightexp = x => x.d6 == true;
+                rightexp = x => x.d7 == true;
             }
             else if (week_day == "Sunday")
             {
-                rightexp = x => x.d7 == true;
+                rightexp = x => x.d1 == true;
             }
 
             var newData = new Flight();

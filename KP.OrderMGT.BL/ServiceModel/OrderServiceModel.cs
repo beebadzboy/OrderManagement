@@ -136,9 +136,6 @@ namespace KP.OrderMGT.BL.ServiceModel
         public string DeliveryCost { get; set; }
 
         [DataMember]
-        public string PassportNo { get; set; }
-
-        [DataMember]
         public string InvoiceNo { get; set; }
 
         [DataMember]
@@ -192,6 +189,15 @@ namespace KP.OrderMGT.BL.ServiceModel
 
         [DataMember]
         public string PostalCode { get; set; }
+
+        [DataMember]
+        public string CountryCode { get; set; }
+
+        [DataMember]
+        public string CountryName { get; set; }
+
+        [DataMember]
+        public string PassportNo { get; set; }
 
         [DataMember]
         public string Birthday { get; set; }
@@ -362,26 +368,26 @@ namespace KP.OrderMGT.BL.ServiceModel
     public class SaleQueue
     {
         [DataMember]
-        public string SKU { get; set; }
+        public string sku { get; set; }
 
         [DataMember]
-        public decimal Quantity { get; set; }
+        public decimal qty { get; set; }
 
         [DataMember]
-        public List<DetailSaleQueue> Details { get; set; }
+        public List<DetailSaleQueue> details { get; set; }
 
         public SaleQueue(string sku , List<df_trans_onl> trans){
 
-            this.SKU = sku.Trim();
-            this.Quantity = trans.Sum(x => x.quantity);
-            this.Details = new List<DetailSaleQueue>();
-            foreach (var item in trans.OrderBy(x=>x.data_date))
+            this.sku = sku.Trim();
+            this.qty = trans.Sum(x => x.quantity);
+            this.details = new List<DetailSaleQueue>();
+            foreach (var item in trans.OrderBy(x => x.data_date))
             {
                 var newItem = new DetailSaleQueue();
                 newItem.Date = item.data_date;
                 newItem.DocNo = item.doc_no.Trim();
                 newItem.MacNo = item.machine_no.Trim();
-                this.Details.Add(newItem);
+                this.details.Add(newItem);
             }
         }
     }
@@ -411,7 +417,7 @@ namespace KP.OrderMGT.BL.ServiceModel
         public string DocNO { get; set; }
 
         [DataMember]
-        public DateTime Dete { get; set; }
+        public string Dete { get; set; }
 
         public OrderKey()
         {
