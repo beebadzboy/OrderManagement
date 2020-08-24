@@ -21,6 +21,13 @@ namespace KP.OrderMGT.BL.ServiceModel
     }
 
     [DataContract]
+    public class StatusUpdate {
+
+        [DataMember]
+        public string statuscode { get; set; }
+    }
+
+    [DataContract]
     public class SaleAmountByPassport
     {
         [DataMember]

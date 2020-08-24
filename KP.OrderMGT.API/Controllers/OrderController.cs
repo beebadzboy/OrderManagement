@@ -2,12 +2,19 @@
 using KP.OrderMGT.BL.DBModel;
 using KP.OrderMGT.BL.ServiceModel;
 using KP.OrderMGT.Service;
+using Newtonsoft.Json;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
+using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Threading.Tasks;
 
 namespace KP.OrderMGT.API.Controllers
 {
@@ -248,25 +255,35 @@ namespace KP.OrderMGT.API.Controllers
         }
 
         [HttpPut]
+        [Obsolete]
         [Route("complate-order")]
         [ResponseType(typeof(ReturnObject<OrderSession>))]
-        public IHttpActionResult ComplateOrderOnline(string order_no)
+        public async Task<IHttpActionResult> ComplateOrderOnlineAsync(string order_no)
         {
             if (string.IsNullOrWhiteSpace(order_no))
             {
                 throw new ArgumentException("message", nameof(order_no));
             }
 
-            ReturnObject<string> ret = new ReturnObject<string>();
-            ret.Data = order_no;
+            ReturnObject<OrderSession> ret = new ReturnObject<OrderSession>();
 
             try
             {
                 var omSrv = new OrderService(omDB);
-                var order_update = omSrv.ComplateOrderOnline(order_no);
-                if (order_update != null)
+                ret.Data = omSrv.ComplateOrderOnline(order_no);
+                if (ret.Data != null)
                 {
-                    // send update to endpoint
+                    // send update to endpoint Create Request
+                    var client = new RestClient("http://10.3.26.32:5000");
+                    var request = new RestRequest(String.Format("dev/api/Orders/{0}/Status", order_no),Method.POST);
+                    request.AddHeader("AccessToken", "A64803F0A7CEDAC8407538D341BDBE23");
+                    request.AddHeader("Content-Type", "application/json");
+                    request.AddJsonBody(new { statuscode = "COMPLETED" });
+                    var restResponse = await client.ExecutePostTaskAsync(request);
+                    if (restResponse.ErrorException != null)
+                    {
+                        throw restResponse.ErrorException;
+                    }
 
                     ret.totalCount = ret.Data != null ? 1 : 0;
                     ret.isCompleted = true;
@@ -275,6 +292,7 @@ namespace KP.OrderMGT.API.Controllers
                 {
                     throw new ArgumentException("message", "connection error");
                 }
+
 
                 ret.totalCount = 1;
                 ret.isCompleted = true;
@@ -290,25 +308,35 @@ namespace KP.OrderMGT.API.Controllers
         }
 
         [HttpPut]
+        [Obsolete]
         [Route("void-order")]
         [ResponseType(typeof(ReturnObject<OrderSession>))]
-        public IHttpActionResult VoidOrderOnline(string order_no)
+        public async Task<IHttpActionResult> VoidOrderOnlineAsync(string order_no)
         {
             if (string.IsNullOrWhiteSpace(order_no))
             {
                 throw new ArgumentException("message", nameof(order_no));
             }
 
-            ReturnObject<string> ret = new ReturnObject<string>();
-            ret.Data = order_no;
-
+            ReturnObject<OrderSession> ret = new ReturnObject<OrderSession>();
+            
             try
             {
                 var omSrv = new OrderService(omDB);
-                var order_update = omSrv.VoidOrderOnline(order_no);
-                if (order_update != null)
+                ret.Data = omSrv.VoidOrderOnline(order_no);
+                if (ret.Data != null)
                 {
-                    // send update to endpoint
+                    // send update to endpoint Create Request
+                    var client = new RestClient("http://10.3.26.32:5000");
+                    var request = new RestRequest(String.Format("dev/api/Orders/{0}/Status", order_no), Method.POST);
+                    request.AddHeader("AccessToken", "A64803F0A7CEDAC8407538D341BDBE23");
+                    request.AddHeader("Content-Type", "application/json");
+                    request.AddJsonBody(new { statuscode = "CANCELED" });
+                    var restResponse = await client.ExecutePostTaskAsync(request);
+                    if (restResponse.ErrorException != null)
+                    {
+                        throw restResponse.ErrorException;
+                    }
 
                     ret.totalCount = ret.Data != null ? 1 : 0;
                     ret.isCompleted = true;
@@ -326,7 +354,6 @@ namespace KP.OrderMGT.API.Controllers
                 ret.SetMessage(e);
                 ret.Tracking = new ReturnTracking();
             }
-
 
             return Ok(ret);
         }
