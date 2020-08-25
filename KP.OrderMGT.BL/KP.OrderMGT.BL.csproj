@@ -108,6 +108,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="app.config" />
     <None Include="DBModel\OrderDataClasses.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>

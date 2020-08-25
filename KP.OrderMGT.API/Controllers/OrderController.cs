@@ -255,7 +255,7 @@ namespace KP.OrderMGT.API.Controllers
         }
 
         [HttpPut]
-        [Obsolete]
+        //[Obsolete]
         [Route("complate-order")]
         [ResponseType(typeof(ReturnObject<OrderSession>))]
         public async Task<IHttpActionResult> ComplateOrderOnlineAsync(string order_no)
@@ -320,7 +320,7 @@ namespace KP.OrderMGT.API.Controllers
         }
 
         [HttpPut]
-        [Obsolete]
+        //[Obsolete]
         [Route("void-order")]
         [ResponseType(typeof(ReturnObject<OrderSession>))]
         public async Task<IHttpActionResult> VoidOrderOnlineAsync(string order_no)
@@ -331,7 +331,7 @@ namespace KP.OrderMGT.API.Controllers
             }
 
             ReturnObject<OrderSession> ret = new ReturnObject<OrderSession>();
-            
+
             try
             {
                 var omSrv = new OrderService(omDB);
@@ -354,14 +354,14 @@ namespace KP.OrderMGT.API.Controllers
                     {
                         if (restResponse.StatusCode != HttpStatusCode.OK)
                         {
-                            ret.Data = omSrv.UpdateStatusOrderOnline(order_no,restResponse.StatusCode.ToString());
+                            ret.Data = omSrv.UpdateStatusOrderOnline(order_no, restResponse.StatusCode.ToString());
                             ret.totalCount = 0;
                             ret.isCompleted = false;
                         }
                         else
                         {
                             ret.Data = omSrv.UpdateStatusOrderOnline(order_no, "CANCELED");
-                            ret.totalCount =  1;
+                            ret.totalCount = 1;
                             ret.isCompleted = true;
                         }
                     }
