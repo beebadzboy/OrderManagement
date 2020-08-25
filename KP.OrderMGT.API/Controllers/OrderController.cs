@@ -278,7 +278,7 @@ namespace KP.OrderMGT.API.Controllers
                     var request = new RestRequest(String.Format("dev/api/Orders/{0}/Status", order_no), Method.POST);
                     request.AddHeader("AccessToken", "A64803F0A7CEDAC8407538D341BDBE23");
                     request.AddHeader("Content-Type", "application/json");
-                    request.AddJsonBody(new { statuscode = "COMPLETED" });
+                    request.AddJsonBody(new { statuscode = "receivecomplete" });
                     var restResponse = await client.ExecutePostTaskAsync(request);
                     if (restResponse.ErrorException != null)
                     {
@@ -294,7 +294,7 @@ namespace KP.OrderMGT.API.Controllers
                         }
                         else
                         {
-                            ret.Data = omSrv.UpdateStatusOrderOnline(order_no, "COMPLETED");
+                            ret.Data = omSrv.UpdateStatusOrderOnline(order_no, "receivecomplete");
                             ret.totalCount = 1;
                             ret.isCompleted = true;
                         }
@@ -344,7 +344,7 @@ namespace KP.OrderMGT.API.Controllers
                     var request = new RestRequest(String.Format("dev/api/Orders/{0}/Status", order_no), Method.POST);
                     request.AddHeader("AccessToken", "A64803F0A7CEDAC8407538D341BDBE23");
                     request.AddHeader("Content-Type", "application/json");
-                    request.AddJsonBody(new { statuscode = "CANCELED" });
+                    request.AddJsonBody(new { statuscode = "refund" });
                     var restResponse = await client.ExecutePostTaskAsync(request);
                     if (restResponse.ErrorException != null)
                     {
@@ -360,7 +360,7 @@ namespace KP.OrderMGT.API.Controllers
                         }
                         else
                         {
-                            ret.Data = omSrv.UpdateStatusOrderOnline(order_no, "CANCELED");
+                            ret.Data = omSrv.UpdateStatusOrderOnline(order_no, "refund");
                             ret.totalCount = 1;
                             ret.isCompleted = true;
                         }

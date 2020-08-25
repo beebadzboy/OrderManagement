@@ -86,36 +86,6 @@
       <Column Name="pickup_code" Type="System.String" DbType="Char(10)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.order_detail" Member="order_details">
-    <Type Name="order_detail">
-      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="header_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="sub_order_type" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
-      <Column Name="article_code" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="quantity" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
-      <Column Name="selling_price" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
-      <Column Name="total_amt" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
-      <Column Name="dis_rate" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
-      <Column Name="dis_amt" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
-      <Column Name="net_amt" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
-      <Column Name="promo_code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="reference_1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="reference_2" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="reference_3" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Association Name="order_header_order_detail" Member="order_header" ThisKey="header_id" OtherKey="id" Type="order_header" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.order_discount" Member="order_discounts">
-    <Type Name="order_discount">
-      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="header_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="dis_type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="dis_code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="dis_rate" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
-      <Column Name="dis_amt" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
-      <Association Name="order_header_order_discount" Member="order_header" ThisKey="header_id" OtherKey="id" Type="order_header" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.order_header" Member="order_headers">
     <Type Name="order_header">
       <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -135,9 +105,8 @@
       <Column Name="reference_3" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="remark" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="create_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="order_header_order_detail" Member="order_details" ThisKey="id" OtherKey="header_id" Type="order_detail" />
-      <Association Name="order_header_order_discount" Member="order_discounts" ThisKey="id" OtherKey="header_id" Type="order_discount" />
       <Association Name="order_header_order_payment" Member="order_payments" ThisKey="id" OtherKey="header_id" Type="order_payment" />
+      <Association Name="order_header_order_detail" Member="order_details" ThisKey="id" OtherKey="header_id" Type="order_detail" />
       <Association Name="order_session_order_header" Member="order_session" ThisKey="session_id" OtherKey="id" Type="order_session" IsForeignKey="true" />
     </Type>
   </Table>
@@ -183,6 +152,29 @@
       <Column Name="modified_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="order_session_order_transaction" Member="order_transactions" ThisKey="id" OtherKey="session_id" Type="order_transaction" />
       <Association Name="order_session_order_header" Member="order_headers" ThisKey="id" OtherKey="session_id" Type="order_header" />
+    </Type>
+  </Table>
+  <Table Name="dbo.order_detail" Member="order_details">
+    <Type Name="order_detail">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="header_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="sub_order_type" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="article_code" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="line_no" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="quantity" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="selling_price" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="total_amt" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="dis_rate" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="dis_amt" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="dis_pro_code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="sp_dis_amt" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="sp_dis_rate" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="sp_dis_pro_code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="net_amt" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="reference_1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="reference_2" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="reference_3" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="order_header_order_detail" Member="order_header" ThisKey="header_id" OtherKey="id" Type="order_header" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

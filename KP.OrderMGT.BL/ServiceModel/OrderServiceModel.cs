@@ -15,8 +15,8 @@ namespace KP.OrderMGT.BL.ServiceModel
         Created = 002,
         HoldOrder = 0025,
         CancelCreated = 0021,
+        RefundComplete = 103,
         Saved = 003,
-        VoidSaved = 0031,
         Complete = 006
     }
 
