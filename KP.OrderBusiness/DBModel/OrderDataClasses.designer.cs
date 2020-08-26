@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace KP.OrderMGT.BL.DBModel
+namespace KP.OrderBusiness.DBModel
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;
@@ -54,7 +54,7 @@ namespace KP.OrderMGT.BL.DBModel
     #endregion
 		
 		public OrderDataClassesDataContext() : 
-				base(global::KP.OrderMGT.BL.Properties.Settings.Default.KPOrderConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["KPOrderConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -3102,25 +3102,17 @@ namespace KP.OrderMGT.BL.DBModel
 		
 		private System.Nullable<decimal> _dis_rate;
 		
-		private System.Nullable<decimal> _dis_per;
-		
 		private System.Nullable<decimal> _dis_amt;
 		
 		private string _dis_pro_code;
-		
-		private decimal _net_amt;
 		
 		private System.Nullable<decimal> _sp_dis_amt;
 		
 		private System.Nullable<decimal> _sp_dis_rate;
 		
-		private System.Nullable<decimal> _sp_dis_per;
-		
 		private string _sp_dis_pro_code;
 		
-		private System.Nullable<decimal> _total_dis_amt;
-		
-		private System.Nullable<decimal> _total_net_amt;
+		private decimal _net_amt;
 		
 		private string _reference_1;
 		
@@ -3152,26 +3144,18 @@ namespace KP.OrderMGT.BL.DBModel
     partial void Ontotal_amtChanged();
     partial void Ondis_rateChanging(System.Nullable<decimal> value);
     partial void Ondis_rateChanged();
-    partial void Ondis_perChanging(System.Nullable<decimal> value);
-    partial void Ondis_perChanged();
     partial void Ondis_amtChanging(System.Nullable<decimal> value);
     partial void Ondis_amtChanged();
     partial void Ondis_pro_codeChanging(string value);
     partial void Ondis_pro_codeChanged();
-    partial void Onnet_amtChanging(decimal value);
-    partial void Onnet_amtChanged();
     partial void Onsp_dis_amtChanging(System.Nullable<decimal> value);
     partial void Onsp_dis_amtChanged();
     partial void Onsp_dis_rateChanging(System.Nullable<decimal> value);
     partial void Onsp_dis_rateChanged();
-    partial void Onsp_dis_perChanging(System.Nullable<decimal> value);
-    partial void Onsp_dis_perChanged();
     partial void Onsp_dis_pro_codeChanging(string value);
     partial void Onsp_dis_pro_codeChanged();
-    partial void Ontotal_dis_amtChanging(System.Nullable<decimal> value);
-    partial void Ontotal_dis_amtChanged();
-    partial void Ontotal_net_amtChanging(System.Nullable<decimal> value);
-    partial void Ontotal_net_amtChanged();
+    partial void Onnet_amtChanging(decimal value);
+    partial void Onnet_amtChanged();
     partial void Onreference_1Changing(string value);
     partial void Onreference_1Changed();
     partial void Onreference_2Changing(string value);
@@ -3370,26 +3354,6 @@ namespace KP.OrderMGT.BL.DBModel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dis_per", DbType="Decimal(18,0)")]
-		public System.Nullable<decimal> dis_per
-		{
-			get
-			{
-				return this._dis_per;
-			}
-			set
-			{
-				if ((this._dis_per != value))
-				{
-					this.Ondis_perChanging(value);
-					this.SendPropertyChanging();
-					this._dis_per = value;
-					this.SendPropertyChanged("dis_per");
-					this.Ondis_perChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dis_amt", DbType="Decimal(18,0)")]
 		public System.Nullable<decimal> dis_amt
 		{
@@ -3426,26 +3390,6 @@ namespace KP.OrderMGT.BL.DBModel
 					this._dis_pro_code = value;
 					this.SendPropertyChanged("dis_pro_code");
 					this.Ondis_pro_codeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_net_amt", DbType="Decimal(18,0) NOT NULL")]
-		public decimal net_amt
-		{
-			get
-			{
-				return this._net_amt;
-			}
-			set
-			{
-				if ((this._net_amt != value))
-				{
-					this.Onnet_amtChanging(value);
-					this.SendPropertyChanging();
-					this._net_amt = value;
-					this.SendPropertyChanged("net_amt");
-					this.Onnet_amtChanged();
 				}
 			}
 		}
@@ -3490,26 +3434,6 @@ namespace KP.OrderMGT.BL.DBModel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sp_dis_per", DbType="Decimal(18,0)")]
-		public System.Nullable<decimal> sp_dis_per
-		{
-			get
-			{
-				return this._sp_dis_per;
-			}
-			set
-			{
-				if ((this._sp_dis_per != value))
-				{
-					this.Onsp_dis_perChanging(value);
-					this.SendPropertyChanging();
-					this._sp_dis_per = value;
-					this.SendPropertyChanged("sp_dis_per");
-					this.Onsp_dis_perChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sp_dis_pro_code", DbType="NVarChar(50)")]
 		public string sp_dis_pro_code
 		{
@@ -3530,42 +3454,22 @@ namespace KP.OrderMGT.BL.DBModel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_total_dis_amt", DbType="Decimal(18,0)")]
-		public System.Nullable<decimal> total_dis_amt
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_net_amt", DbType="Decimal(18,0) NOT NULL")]
+		public decimal net_amt
 		{
 			get
 			{
-				return this._total_dis_amt;
+				return this._net_amt;
 			}
 			set
 			{
-				if ((this._total_dis_amt != value))
+				if ((this._net_amt != value))
 				{
-					this.Ontotal_dis_amtChanging(value);
+					this.Onnet_amtChanging(value);
 					this.SendPropertyChanging();
-					this._total_dis_amt = value;
-					this.SendPropertyChanged("total_dis_amt");
-					this.Ontotal_dis_amtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_total_net_amt", DbType="Decimal(18,0)")]
-		public System.Nullable<decimal> total_net_amt
-		{
-			get
-			{
-				return this._total_net_amt;
-			}
-			set
-			{
-				if ((this._total_net_amt != value))
-				{
-					this.Ontotal_net_amtChanging(value);
-					this.SendPropertyChanging();
-					this._total_net_amt = value;
-					this.SendPropertyChanged("total_net_amt");
-					this.Ontotal_net_amtChanged();
+					this._net_amt = value;
+					this.SendPropertyChanged("net_amt");
+					this.Onnet_amtChanged();
 				}
 			}
 		}

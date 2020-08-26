@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="NDCCSVB_Train" Class="POSAirPortClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=172.17.0.3;Initial Catalog=NDCCSVB_Train;Persist Security Info=True;User ID=sa" SettingsObjectName="KP.OrderMGT.BL.Properties.Settings" SettingsPropertyName="NDCCSVB_TrainConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.df_payment_onl" Member="df_payment_onls">
+    <Type Name="df_payment_onl">
+      <Column Name="branch_no" Type="System.String" DbType="Char(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="data_date" Type="System.DateTime" DbType="SmallDateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="machine_no" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="doc_no" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="line_no" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="method_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="payment_date" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="amount" Type="System.Decimal" DbType="Decimal(14,2) NOT NULL" CanBeNull="false" />
+      <Column Name="amount_round" Type="System.Decimal" DbType="Decimal(14,2) NOT NULL" CanBeNull="false" />
+      <Column Name="amount_curr" Type="System.Decimal" DbType="Decimal(14,2) NOT NULL" CanBeNull="false" />
+      <Column Name="curr_code" Type="System.String" DbType="Char(3) NOT NULL" CanBeNull="false" />
+      <Column Name="curr_rate" Type="System.Decimal" DbType="Decimal(7,3) NOT NULL" CanBeNull="false" />
+      <Column Name="cashier_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="posid" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="cred_card_no" Type="System.String" DbType="Char(30) NOT NULL" CanBeNull="false" />
+      <Column Name="cred_card_name" Type="System.String" DbType="Char(50) NOT NULL" CanBeNull="false" />
+      <Column Name="expiry_date" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="approve_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="del_flag" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="add_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="update_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="user_add" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="user_update" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="time_stamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="amount2" Type="System.Decimal" DbType="Decimal(14,2) NOT NULL" CanBeNull="false" />
+      <Column Name="amount_curr2" Type="System.Decimal" DbType="Decimal(14,2) NOT NULL" CanBeNull="false" />
+      <Column Name="BankOfEDC" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="AliBarcode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="AliMerchantID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="AliTransID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="AlipayCancel" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="df_header_onl_df_payment_onl" Member="df_header_onl" ThisKey="branch_no,data_date,machine_no,doc_no" OtherKey="branch_no,data_date,machine_no,doc_no" Type="df_header_onl" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.df_pdiscount_onl" Member="df_pdiscount_onls">
+    <Type Name="df_pdiscount_onl">
+      <Column Name="branch_no" Type="System.String" DbType="Char(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="data_date" Type="System.DateTime" DbType="SmallDateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="machine_no" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="doc_no" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="plu_line_no" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="disc_line_no" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="disc_rate" Type="System.Decimal" DbType="Decimal(6,2) NOT NULL" CanBeNull="false" />
+      <Column Name="disc_per" Type="System.Decimal" DbType="Decimal(14,2) NOT NULL" CanBeNull="false" />
+      <Column Name="disc_amount" Type="System.Decimal" DbType="Decimal(14,2) NOT NULL" CanBeNull="false" />
+      <Column Name="promo_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="bybill_flag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="bybill_runno" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="disc_type" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="del_flag" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="cancel_status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="add_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="update_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="user_add" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="user_update" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="time_stamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="QRCode" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="method_code" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="subsidize" Type="System.Decimal" DbType="Decimal(14,2)" CanBeNull="true" />
+      <Association Name="df_trans_onl_df_pdiscount_onl" Member="df_trans_onl" ThisKey="doc_no,branch_no,data_date,machine_no,plu_line_no" OtherKey="doc_no,branch_no,data_date,machine_no,line_no" Type="df_trans_onl" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.df_trans_onl" Member="df_trans_onls">
+    <Type Name="df_trans_onl">
+      <Column Name="branch_no" Type="System.String" DbType="Char(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="data_date" Type="System.DateTime" DbType="SmallDateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="area_code" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="loc_code" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="machine_no" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="doc_no" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="line_no" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="item_code" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="bar_code" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="mat_code" Type="System.String" DbType="Char(18) NOT NULL" CanBeNull="false" />
+      <Column Name="quantity" Type="System.Decimal" DbType="Decimal(14,2) NOT NULL" CanBeNull="false" />
+      <Column Name="selling_price" Type="System.Decimal" DbType="Decimal(14,2)" CanBeNull="true" />
+      <Column Name="curr_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="amount" Type="System.Decimal" DbType="Decimal(14,2)" CanBeNull="true" />
+      <Column Name="discount" Type="System.Decimal" DbType="Decimal(14,2)" CanBeNull="true" />
+      <Column Name="net" Type="System.Decimal" DbType="Decimal(14,2)" CanBeNull="true" />
+      <Column Name="vat" Type="System.Decimal" DbType="Decimal(14,2)" CanBeNull="true" />
+      <Column Name="vat_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="vat_rate" Type="System.Decimal" DbType="Decimal(6,2)" CanBeNull="true" />
+      <Column Name="disc_code" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="disc_rate" Type="System.Decimal" DbType="Decimal(6,2)" CanBeNull="true" />
+      <Column Name="promo_code" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="staff_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="staff_comm_rate" Type="System.Decimal" DbType="Decimal(6,2)" CanBeNull="true" />
+      <Column Name="cancel_status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="add_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="update_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="user_add" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="user_update" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="time_stamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="line_cancel" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="discount2" Type="System.Decimal" DbType="Decimal(14,2) NOT NULL" CanBeNull="false" />
+      <Column Name="disc_rate2" Type="System.Decimal" DbType="Decimal(14,2) NOT NULL" CanBeNull="false" />
+      <Column Name="net2" Type="System.Decimal" DbType="Decimal(14,2) NOT NULL" CanBeNull="false" />
+      <Column Name="vat2" Type="System.Decimal" DbType="Decimal(14,2) NOT NULL" CanBeNull="false" />
+      <Association Name="df_trans_onl_df_pdiscount_onl" Member="df_pdiscount_onls" ThisKey="doc_no,branch_no,data_date,machine_no,line_no" OtherKey="doc_no,branch_no,data_date,machine_no,plu_line_no" Type="df_pdiscount_onl" />
+      <Association Name="df_header_onl_df_trans_onl" Member="df_header_onl" ThisKey="branch_no,data_date,loc_code,area_code,machine_no,doc_no" OtherKey="branch_no,data_date,loc_code,area_code,machine_no,doc_no" Type="df_header_onl" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.runno_machine" Member="runno_machines">
+    <Type Name="runno_machine">
+      <Column Name="branch_no" Type="System.String" DbType="Char(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="machine_no" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="taxabb" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="reciept" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="time_stamp" Type="System.Data.Linq.Binary" DbType="Binary(8)" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vArticleMC" Member="vArticleMCs">
+    <Type Name="vArticleMC">
+      <Column Name="ArticleCode" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="ActivationDT" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Unit" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="GTIN" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="MCCode" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="IsQTYProhibited" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsOpenPrice" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsSaleBlock" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ArticleTypeCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="ArticleName" Type="System.String" DbType="NVarChar(80)" CanBeNull="true" />
+      <Column Name="BrandCode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="VatCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Timestamp" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="SubSectCode" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="SubSectName" Type="System.String" DbType="NVarChar(45)" CanBeNull="true" />
+      <Column Name="SectionCode" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="SectionName" Type="System.String" DbType="NVarChar(45)" CanBeNull="true" />
+      <Column Name="CateCode" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="CateName" Type="System.String" DbType="NVarChar(45)" CanBeNull="true" />
+      <Column Name="Volume" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.df_paymeth" Member="df_paymeths">
+    <Type Name="df_paymeth">
+      <Column Name="method_code" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="method_desc" Type="System.String" DbType="Char(60)" CanBeNull="true" />
+      <Column Name="method_short" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Column Name="method_hot" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="del_flag" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="remark" Type="System.String" DbType="Char(30)" CanBeNull="true" />
+      <Column Name="add_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="update_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="user_add" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="user_update" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="time_stamp" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="image" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" />
+      <Column Name="method_group" Type="System.String" DbType="Char(5) NOT NULL" CanBeNull="false" />
+      <Column Name="check_voucher" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="barcode_fix" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="not_allow_smc" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="is_cashcard" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="start_date" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="end_date" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IsWallet" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.df_header_onl" Member="df_header_onls">
+    <Type Name="df_header_onl">
+      <Column Name="branch_no" Type="System.String" DbType="Char(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="data_date" Type="System.DateTime" DbType="SmallDateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="area_code" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="loc_code" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="machine_no" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="doc_no" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="shift_no" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="cust_type" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="flight_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="flight_date" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="flight_time" Type="System.String" DbType="Char(5) NOT NULL" CanBeNull="false" />
+      <Column Name="country_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="cust_name" Type="System.String" DbType="Char(40) NOT NULL" CanBeNull="false" />
+      <Column Name="passport_no" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
+      <Column Name="member_id" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="shopping_card" Type="System.String" DbType="Char(13) NOT NULL" CanBeNull="false" />
+      <Column Name="cashier_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="sale_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="update_date_sale" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="add_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="update_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="user_add" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="user_update" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="time_stamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="void_status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="cancel_to_doc" Type="System.String" DbType="Char(15) NOT NULL" CanBeNull="false" />
+      <Column Name="cancel_to_date" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="cancel_to_mac" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="runno" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="data_time" Type="System.String" DbType="Char(8) NOT NULL" CanBeNull="false" />
+      <Column Name="trans_date" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="rec_no" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tour_barcode" Type="System.String" DbType="Char(13) NOT NULL" CanBeNull="false" />
+      <Column Name="tour_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="machine_tax" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
+      <Column Name="rcv_data_date" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="rcv_loc_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="rcv_machine_no" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="rcv_doc_no" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="rcv_datetime" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="sale_status" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="DiscAuthUser" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="CardTypeCode" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="EmBossID" Type="System.String" DbType="Char(16)" CanBeNull="true" />
+      <Column Name="CardTypeID" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="PersonalID" Type="System.String" DbType="Char(20)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="BirthDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="PassportExpire" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="rcv_status" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="LVHeaderKey" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="DeliveryType" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="DeliveryAuth" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="ReferDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ReferMac" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="ReferDoc" Type="System.String" DbType="Char(15)" CanBeNull="true" />
+      <Column Name="RCCode" Type="System.String" DbType="Char(20)" CanBeNull="true" />
+      <Column Name="AlipaySession" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="WeChatSession" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Promoter" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="DFA" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="OnlineNo" Type="System.String" DbType="Char(20)" CanBeNull="true" />
+      <Column Name="LastStatus" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="TerminalCode" Storage="_TerminelCode" Type="System.String" DbType="Char(1)" CanBeNull="false" UpdateCheck="Always" />
+      <Association Name="df_header_onl_df_payment_onl" Member="df_payment_onls" ThisKey="branch_no,data_date,machine_no,doc_no" OtherKey="branch_no,data_date,machine_no,doc_no" Type="df_payment_onl" />
+      <Association Name="df_header_onl_df_trans_onl" Member="df_trans_onls" ThisKey="branch_no,data_date,loc_code,area_code,machine_no,doc_no" OtherKey="branch_no,data_date,loc_code,area_code,machine_no,doc_no" Type="df_trans_onl" />
+    </Type>
+  </Table>
+  <Table Name="dbo.df_machine" Member="df_machines">
+    <Type Name="df_machine">
+      <Column Name="branch_no" Type="System.String" DbType="Char(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="machine_no" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="machine_name" Type="System.String" DbType="Char(25) NOT NULL" CanBeNull="false" />
+      <Column Name="machine_ip" Type="System.String" DbType="Char(25) NOT NULL" CanBeNull="false" />
+      <Column Name="machine_tax" Type="System.String" DbType="Char(15) NOT NULL" CanBeNull="false" />
+      <Column Name="vat_rate" Type="System.Decimal" DbType="Decimal(5,2) NOT NULL" CanBeNull="false" />
+      <Column Name="print_barcode" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="del_flag" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" />
+      <Column Name="update_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="add_datetime" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="user_add" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="user_update" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="time_stamp" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+      <Column Name="loc_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="vat_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="max_shift" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="channel" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="curr_code" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="preorder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="print_slip" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="print_invoice" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="date_remove" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="d2" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="d3" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="d4" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="d5" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="d6" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="d7" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="d1" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="server_center" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
+      <Column Name="data_center" Type="System.String" DbType="Char(20) NOT NULL" CanBeNull="false" />
+      <Column Name="switch_loc" Type="System.String" DbType="Char(10) NOT NULL" CanBeNull="false" />
+      <Column Name="na_delete" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="na_esc" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="na_change_qty" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="arrdep_terminal" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Column Name="mac_status" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="allow_rcv" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="allow_deposit" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="PriceList" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="DChannel" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="allow_sale" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="allow_vat_refund" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="allow_MPOS" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="allow_SerialNo" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="UpdateLoginSale" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="SerialNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RequestRC" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="concession_code" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="print_newslip" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SignPad" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Function Name="dbo.get_sale_passport4" Method="get_sale_passport4">
+    <Parameter Name="ihour" Type="System.Int32" DbType="Int" />
+    <Parameter Name="cpass" Type="System.String" DbType="Char(20)" />
+    <Parameter Name="cdate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="cstatus" Type="System.Char" DbType="Char(1)" />
+    <ElementType Name="get_sale_passport4Result">
+      <Column Name="net" Type="System.Decimal" DbType="Decimal(38,2)" CanBeNull="true" />
+      <Column Name="lq" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tb" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_sale_passport_vol1" Method="get_sale_passport_vol1">
+    <Parameter Name="ihour" Type="System.Int32" DbType="Int" />
+    <Parameter Name="cpass" Type="System.String" DbType="Char(20)" />
+    <Parameter Name="cdate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="cstatus" Type="System.Char" DbType="Char(1)" />
+    <ElementType Name="get_sale_passport_vol1Result">
+      <Column Name="net" Type="System.Decimal" DbType="Decimal(38,2)" CanBeNull="true" />
+      <Column Name="lq" Type="System.Decimal" DbType="Decimal(38,4)" CanBeNull="true" />
+      <Column Name="tb" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_sale_passport_vol2" Method="get_sale_passport_vol2">
+    <Parameter Name="ihour" Type="System.Int32" DbType="Int" />
+    <Parameter Name="cpass" Type="System.String" DbType="Char(20)" />
+    <Parameter Name="cdate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="cstatus" Type="System.Char" DbType="Char(1)" />
+    <ElementType Name="get_sale_passport_vol2Result">
+      <Column Name="net" Type="System.Decimal" DbType="Decimal(11,2)" CanBeNull="true" />
+      <Column Name="lq" Type="System.Decimal" DbType="Decimal(11,4)" CanBeNull="true" />
+      <Column Name="tb" Type="System.Decimal" DbType="Decimal(11,2)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

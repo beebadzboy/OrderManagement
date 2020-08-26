@@ -471,9 +471,7 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\FlightController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
-    <Compile Include="Controllers\SaleQueaeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -502,8 +500,9 @@
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="ApplicationInsights.config" />
     <None Include="Properties\PublishProfiles\10.3.0.102.pubxml" />
-    <None Include="Properties\PublishProfiles\10.3.0.121.pubxml" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
+    <None Include="Properties\PublishProfiles\OrderAPI %2810.3.0.121%29.pubxml" />
+    <None Include="Properties\PublishProfiles\OrderManagement %2810.3.0.121%29.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

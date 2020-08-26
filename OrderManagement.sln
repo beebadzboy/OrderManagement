@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KP.OrderBusiness", "KP.OrderBusiness\KP.OrderBusiness.csproj", "{F87DB764-B51A-4C06-9208-85296C8D16AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{35F8F705-5794-4F2D-AB60-E8872CA40120}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35F8F705-5794-4F2D-AB60-E8872CA40120}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35F8F705-5794-4F2D-AB60-E8872CA40120}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F87DB764-B51A-4C06-9208-85296C8D16AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F87DB764-B51A-4C06-9208-85296C8D16AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F87DB764-B51A-4C06-9208-85296C8D16AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F87DB764-B51A-4C06-9208-85296C8D16AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

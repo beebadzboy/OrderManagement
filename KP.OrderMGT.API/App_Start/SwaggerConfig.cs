@@ -18,7 +18,7 @@ namespace KP.OrderMGT.API
                     {
                         // By default, the service root url is inferred from the request used to access the docs.
                         // However, there may be situations (e.g. proxy and load-balanced environments) where this does not
-                        // resolve correctly. You can workaround this by providing your own code to determine the root URL.
+                        // resolve correctly. You can workaround this by providing your own code to Datermine the root URL.
                         //
                         //c.RootUrl(req => GetRootUrlFromAppConfig());
 
@@ -32,7 +32,7 @@ namespace KP.OrderMGT.API
                         // hold additional metadata for an API. Version and title are required but you can also provide
                         // additional fields by chaining methods off SingleApiVersion.
                         //
-                        c.SingleApiVersion("v1", "KP.OrderMGT.API");
+                        c.SingleApiVersion("v1", "OrderManagment API");
                         // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                         //
                         //c.PrettyPrint();

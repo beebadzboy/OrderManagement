@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="KP.OrderBusiness.OrderService" CodeBehind="OrderService.svc.cs" %>

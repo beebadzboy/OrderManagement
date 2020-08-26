@@ -165,16 +165,12 @@
       <Column Name="selling_price" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
       <Column Name="total_amt" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
       <Column Name="dis_rate" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
-      <Column Name="dis_per" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
       <Column Name="dis_amt" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
       <Column Name="dis_pro_code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="net_amt" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
       <Column Name="sp_dis_amt" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
       <Column Name="sp_dis_rate" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
-      <Column Name="sp_dis_per" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
       <Column Name="sp_dis_pro_code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="total_dis_amt" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
-      <Column Name="total_net_amt" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="net_amt" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
       <Column Name="reference_1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="reference_2" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="reference_3" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />

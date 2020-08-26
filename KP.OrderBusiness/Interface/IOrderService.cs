@@ -1,27 +1,58 @@
-﻿using KP.OrderMGT.BL.DBModel;
+﻿using KP.OrderBusiness.DBModel;
+using KP.OrderBusiness.ServiceModel;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel;
 
-namespace KP.OrderMGT.BL.ServiceModel
+namespace KP.OrderBusiness.Interface
 {
 
-    [DataContract]
-    public enum StatusOrderPOS
+    [ServiceContract]
+    public interface IOrderService
     {
-        Created = 002,
-        HoldOrder = 0025,
-        CancelCreated = 0021,
-        RefundComplete = 103,
-        Saved = 003,
-        Complete = 006
+        [OperationContract]
+        string GetConnectionPOSAirport(string airport_code);
+
+        [OperationContract]
+        string GetConnectionPOSOrder(string order_no);
+
+        [OperationContract]
+        SaleAmountByPassport ValidateAllowSaleOnline(POSAirPortClassesDataContext _posDB, char terminal, string passort, DateTime date, int time);
+
+        [OperationContract]
+        OrderSession SaveOrderOnline(POSAirPortClassesDataContext _posDB, OrderHeader order);
+
+        [OperationContract]
+        OrderSession HoleOrderOnline(POSAirPortClassesDataContext _posDB, string order);
+
+        [OperationContract]
+        OrderSession CancelOrderOnline(POSAirPortClassesDataContext _posDB, string order_no);
+
+        [OperationContract]
+        OrderSession VoidOrderOnline(string order_no);
+
+        [OperationContract]
+        OrderSession ComplateOrderOnline(string order_no);
+
+        [OperationContract]
+        OrderSession GetOrderOnline(string order_no);
+
+        [OperationContract]
+        List<OrderSession> GetOrderOnlineList(string airport_code, int? skip, int? take);
+
+        [OperationContract]
+        List<SaleQueue> SaleQueue(POSAirPortClassesDataContext _posDB, char terminal);
+
+        [OperationContract]
+        OrderSession UpdateStatusOrderOnline(string order_no, string status);
     }
 
     [DataContract]
-    public class StatusUpdate {
+    public class StatusUpdate
+    {
 
         [DataMember]
         public string statuscode { get; set; }
@@ -41,7 +72,7 @@ namespace KP.OrderMGT.BL.ServiceModel
 
         public SaleAmountByPassport() { }
 
-        public SaleAmountByPassport(get_sale_passport_vol2Result data)
+        public SaleAmountByPassport(KP.OrderBusiness.DBModel.get_sale_passport_vol2Result data)
         {
             this.SaleAmt = data.net;
             this.Alcohol = data.lq;
@@ -121,7 +152,8 @@ namespace KP.OrderMGT.BL.ServiceModel
         [DataMember]
         public string POSStatus { get; set; }
 
-        public OrderSession() { 
+        public OrderSession()
+        {
         }
 
         public OrderSession(order_session session)
@@ -326,13 +358,10 @@ namespace KP.OrderMGT.BL.ServiceModel
         public decimal Amount { get; set; }
 
         [DataMember]
-        public decimal DiscountRate { get; set; }
-
-        [DataMember]
-        public decimal DiscountPer { get; set; }
-
-        [DataMember]
         public decimal Discount { get; set; }
+
+        [DataMember]
+        public decimal DiscountRate { get; set; }
 
         [DataMember]
         public string PromoCode { get; set; }
@@ -341,19 +370,16 @@ namespace KP.OrderMGT.BL.ServiceModel
         public decimal Net { get; set; }
 
         [DataMember]
-        public decimal SPDiscountRate { get; set; }
-
-        [DataMember]
-        public decimal SPDiscountPer { get; set; }
-
-        [DataMember]
         public decimal SPDiscount { get; set; }
+
+        [DataMember]
+        public decimal SPDiscountRate { get; set; }
 
         [DataMember]
         public string SPPromoCode { get; set; }
 
         [DataMember]
-        public decimal TotalDiscount { get; set; } // (DiscountPer + Discount) + (SPDiscountRate + SPDiscount) = TotalDiscount
+        public decimal TotalDiscount { get; set; } // Discount + SPDiscount = TotalDiscount
 
         [DataMember]
         public decimal TotalNet { get; set; } // Net + SPDiscount = TotalNet
@@ -393,7 +419,8 @@ namespace KP.OrderMGT.BL.ServiceModel
         [DataMember]
         public List<DetailSaleQueue> details { get; set; }
 
-        public SaleQueue(string sku , List<df_trans_onl> trans){
+        public SaleQueue(string sku, List<df_trans_onl> trans)
+        {
 
             this.sku = sku.Trim();
             this.qty = trans.Sum(x => x.quantity);
