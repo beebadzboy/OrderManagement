@@ -500,6 +500,7 @@
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="ApplicationInsights.config" />
     <None Include="Properties\PublishProfiles\10.3.0.102.pubxml" />
+    <None Include="Properties\PublishProfiles\10.3.0.121-Order.pubxml" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Properties\PublishProfiles\OrderAPI %2810.3.0.121%29.pubxml" />
     <None Include="Properties\PublishProfiles\OrderManagement %2810.3.0.121%29.pubxml" />

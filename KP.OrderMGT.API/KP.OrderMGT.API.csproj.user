@@ -9,7 +9,7 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <LastActiveSolutionConfig>Release|Any CPU</LastActiveSolutionConfig>
-    <NameOfLastUsedPublishProfile>OrderManagement %2810.3.0.121%29</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>10.3.0.121-Order</NameOfLastUsedPublishProfile>
     <ProjectView>ShowAllFiles</ProjectView>
     <Controller_SelectedScaffolderID>ApiControllerWithActionsScaffolder</Controller_SelectedScaffolderID>
     <Controller_SelectedScaffolderCategoryPath>root/Controller</Controller_SelectedScaffolderCategoryPath>

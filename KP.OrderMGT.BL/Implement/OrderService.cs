@@ -156,8 +156,9 @@ namespace KP.OrderMGT.Service
                 try
                 {
                     string[] order_kpd = new string[] { "2", "3" };
-                    // p os airport save
-                    var order_digit = order_header.OnlineNo.Substring(order_header.OnlineNo.Length - 1, 1);
+                // p os airport save
+                //var order_digit = order_header.OnlineNo.Substring(order_header.OnlineNo.Length - 1, 1);
+                    var order_digit = order.NewOrder.OrderNo.Substring(order.NewOrder.OrderNo.Length - 1, 1);
                     if (!order_kpd.Contains(order_digit))
                     {
                         throw new ArgumentException("order no is not kpd.", nameof(order_header.OnlineNo));
