@@ -13,6 +13,7 @@ using System.Web.Http.Description;
 
 namespace KP.OrderMGT.API.Controllers
 {
+    
     [RoutePrefix("api/queue")]
     public class SaleQueueController : ApiController
     {
@@ -23,6 +24,7 @@ namespace KP.OrderMGT.API.Controllers
             orderDB = new OrderDataClassesDataContext(connStr);
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin")]
         [HttpGet]
         [Route("sale-by-sku")]
         [ResponseType(typeof(ReturnObject<List<SaleQueue>>))]

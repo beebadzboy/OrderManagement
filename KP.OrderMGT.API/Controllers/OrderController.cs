@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 
 namespace KP.OrderMGT.API.Controllers
 {
+
     [RoutePrefix("api/online")]
     public class OrderController : ApiController
     {
@@ -29,6 +30,7 @@ namespace KP.OrderMGT.API.Controllers
             omDB = new OrderDataClassesDataContext(connStr);
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin, User")]
         [HttpGet]
         [Route("check-purchase-rights")]
         [ResponseType(typeof(ReturnObject<SaleAmountByPassport>))]
@@ -84,6 +86,7 @@ namespace KP.OrderMGT.API.Controllers
             return Ok(ret);
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin, User")]
         [HttpPost]
         [Route("save-order")]
         [ResponseType(typeof(ReturnObject<OrderSession>))]
@@ -119,6 +122,7 @@ namespace KP.OrderMGT.API.Controllers
             return Ok(ret);
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin, User")]
         [HttpGet]
         [Route("hold-order")]
         [ResponseType(typeof(ReturnObject<OrderSession>))]
@@ -157,6 +161,7 @@ namespace KP.OrderMGT.API.Controllers
             return Ok(ret.Data);
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin, User")]
         [HttpGet]
         [Route("cancel-order")]
         [ResponseType(typeof(ReturnObject<OrderSession>))]
@@ -196,6 +201,7 @@ namespace KP.OrderMGT.API.Controllers
             return Ok(ret);
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin, User")]
         [HttpGet]
         [Route("get-order")]
         [ResponseType(typeof(ReturnObject<OrderSession>))]
@@ -225,6 +231,7 @@ namespace KP.OrderMGT.API.Controllers
             return Ok(ret);
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin, User")]
         [HttpGet]
         [Route("get-order-list")]
         [ResponseType(typeof(ReturnObject<List<OrderSession>>))]
@@ -254,6 +261,7 @@ namespace KP.OrderMGT.API.Controllers
             return Ok(ret);
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin")]
         [HttpPut]
         //[Obsolete]
         [Route("complate-order")]
@@ -319,6 +327,7 @@ namespace KP.OrderMGT.API.Controllers
             return Ok(ret);
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin")]
         [HttpPut]
         //[Obsolete]
         [Route("void-order")]
