@@ -34,7 +34,7 @@ namespace KP.OrderMGT.API.Controllers
         [HttpGet]
         [Route("check-purchase-rights")]
         [ResponseType(typeof(ReturnObject<SaleAmountByPassport>))]
-        public IHttpActionResult CheckAllowSaleOnline(string airport_code, char terminal, string passport, string date, int time)
+        public IHttpActionResult CheckAllowSaleOnline(string airport_code, string flight_code, char terminal, string flight_date, string passport, string flight_time)
         {
             ReturnObject<SaleAmountByPassport> ret = new ReturnObject<SaleAmountByPassport>();
             try
@@ -50,15 +50,31 @@ namespace KP.OrderMGT.API.Controllers
                     throw new ArgumentException("message", nameof(passport));
                 }
 
-                DateTime dateTime = Convert.ToDateTime(date);
-                if (string.IsNullOrEmpty(date))
+                if (string.IsNullOrEmpty(flight_code))
                 {
-                    throw new ArgumentException("message", nameof(date));
+                    throw new ArgumentException("message", nameof(flight_code));
+                }
+
+                if (string.IsNullOrEmpty(passport))
+                {
+                    throw new ArgumentException("message", nameof(passport));
+                }
+
+
+                if (string.IsNullOrEmpty(flight_time))
+                {
+                    throw new ArgumentException("message", nameof(flight_time));
+                }
+
+                DateTime dateTime = Convert.ToDateTime(flight_date);
+                if (string.IsNullOrEmpty(flight_date))
+                {
+                    throw new ArgumentException("message", nameof(flight_date));
                 }
                 else
                 {
                     CultureInfo provider = CultureInfo.InvariantCulture;
-                    dateTime = DateTime.ParseExact(date, "yyyy-MM-dd", provider);
+                    dateTime = DateTime.ParseExact(flight_date, "yyyy-MM-dd", provider);
                 }
 
                 var omSrv = new OrderService(omDB);
@@ -66,8 +82,11 @@ namespace KP.OrderMGT.API.Controllers
                 if (posConn != null)
                 {
                     posDB = new POSAirPortClassesDataContext(posConn);
-                    ret.Data = omSrv.ValidateAllowSaleOnline(posDB, terminal, passport, dateTime, time);
-
+                    //ret.Data = omSrv.ValidateAllowSaleOnline(posDB, terminal, passport, dateTime, time);
+                    ret.Data = new SaleAmountByPassport();
+                    ret.Data.SaleAmt = 0;
+                    ret.Data.Alcohol = 0;
+                    ret.Data.Tobacco = 0;
                     ret.totalCount = ret.Data != null ? 1 : 0;
                     ret.isCompleted = true;
                 }
@@ -261,8 +280,8 @@ namespace KP.OrderMGT.API.Controllers
             return Ok(ret);
         }
 
-        [Authorize(Roles = "SuperAdmin, Admin")]
-        [HttpPut]
+        //[Authorize(Roles = "SuperAdmin, Admin")]
+        [HttpGet]
         //[Obsolete]
         [Route("complate-order")]
         [ResponseType(typeof(ReturnObject<OrderSession>))]
@@ -327,8 +346,8 @@ namespace KP.OrderMGT.API.Controllers
             return Ok(ret);
         }
 
-        [Authorize(Roles = "SuperAdmin, Admin")]
-        [HttpPut]
+        //[Authorize(Roles = "SuperAdmin, Admin")]
+        [HttpGet]
         //[Obsolete]
         [Route("void-order")]
         [ResponseType(typeof(ReturnObject<OrderSession>))]

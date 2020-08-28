@@ -253,86 +253,86 @@ namespace KP.OrderMGT.Service
                     var item_code_list = order.Items.Select(x => x.MaterialCode).ToList();
                     var master_article = _posDB.vArticleMCs.Where(x => item_code_list.Contains(x.ArticleCode)).ToList();
                     var line_disc_no = 0;
-                    foreach (var item in order.Items.Select((value, index) => new { Value = value, Index = index }))
-                    {
-                        var item_code = master_article.FirstOrDefault(x => x.ArticleCode == item.Value.MaterialCode);
+                foreach (var item in order.Items.Select((value, index) => new { Value = value, Index = index }))
+                {
+                    var item_code = master_article.FirstOrDefault(x => x.ArticleCode == item.Value.MaterialCode);
 
-                        df_trans_onl new_item = new df_trans_onl() {
+                    df_trans_onl new_item = new df_trans_onl() {
+                        branch_no = new_order.branch_no.Trim(),
+                        data_date = DateTime.Now.Date,
+                        area_code = new_order.area_code.Trim(),
+                        loc_code = new_order.loc_code,
+                        machine_no = new_order.machine_no.Trim(),
+                        doc_no = docno.ToString("00000"),
+                        line_no = item.Index + 1,
+                        item_code = item_code.GTIN,
+                        bar_code = "",
+                        mat_code = item.Value.MaterialCode,
+                        quantity = item.Value.Quantity,
+                        selling_price = item.Value.SellingPrice,
+                        curr_code = "TH",
+                        amount = item.Value.Amount,
+                        discount = item.Value.TotalDiscount,
+                        net = item.Value.TotalNet,
+                        vat = 0,
+                        vat_code = "2",
+                        vat_rate = 0,
+                        disc_rate = item.Value.DiscountRate,
+                        disc_code = item.Value.PromoCode,
+                        promo_code = item.Value.SPPromoCode,
+                        staff_code = new_order.sale_code,
+                        staff_comm_rate = 0,
+                        cancel_status = false,
+                        add_datetime = DateTime.Now,
+                        update_datetime = DateTime.Now,
+                        user_add = new_order.sale_code,
+                        user_update = new_order.sale_code,
+                        //time_stamp = "",
+                        line_cancel = false,
+                        discount2 = 0,
+                        disc_rate2 = 0,
+                        net2 = 0,
+                        vat2 = 0
+                    };
+
+                    _posDB.df_trans_onls.InsertOnSubmit(new_item);
+                    _posDB.SubmitChanges();
+
+                    if (item.Value.Discount > 0 || item.Value.SPDiscountPer > 0)
+                    {
+                        line_disc_no = line_disc_no + 1;
+                        df_pdiscount_onl new_pdiscount = new df_pdiscount_onl()
+                        {
                             branch_no = new_order.branch_no.Trim(),
                             data_date = DateTime.Now.Date,
-                            area_code = new_order.area_code.Trim(),
-                            loc_code = new_order.loc_code,
                             machine_no = new_order.machine_no.Trim(),
                             doc_no = docno.ToString("00000"),
-                            line_no = item.Index + 1,
-                            item_code = item_code.GTIN,
-                            bar_code = "",
-                            mat_code = item.Value.MaterialCode,
-                            quantity = item.Value.Quantity,
-                            selling_price = item.Value.SellingPrice,
-                            curr_code = "TH",
-                            amount = item.Value.Amount,
-                            discount = item.Value.TotalDiscount,
-                            net = item.Value.TotalNet,
-                            vat = 0,
-                            vat_code = "2",
-                            vat_rate = 0,
-                            disc_rate = item.Value.DiscountRate,
-                            disc_code = item.Value.PromoCode,
-                            promo_code = item.Value.SPPromoCode,
-                            staff_code = new_order.sale_code,
-                            staff_comm_rate = 0,
+                            plu_line_no = new_item.line_no,
+                            disc_line_no = line_disc_no,
+                            disc_rate = (decimal)item.Value.DiscountRate,
+                            disc_per = (decimal)item.Value.DiscountRate > 0 ? (decimal)item.Value.DiscountPer : 0,
+                            disc_amount = (decimal)item.Value.Discount,
+                            promo_code = item.Value.PromoCode,
+                            bybill_flag = false,
+                            bybill_runno = 1,
+                            disc_type = (decimal)item.Value.DiscountRate > 0 ? (short)1 : (short)2,
+                            del_flag = null,
                             cancel_status = false,
                             add_datetime = DateTime.Now,
                             update_datetime = DateTime.Now,
-                            user_add = new_order.sale_code,
-                            user_update = new_order.sale_code,
+                            user_add = new_item.user_add,
+                            user_update = new_item.user_update,
                             //time_stamp = "",
-                            line_cancel = false,
-                            discount2 = 0,
-                            disc_rate2 = 0,
-                            net2 = 0,
-                            vat2 = 0
+                            QRCode = new Guid("00000000-0000-0000-0000-000000000000"),
+                            method_code = "",
+                            subsidize = 0
                         };
 
-                        _posDB.df_trans_onls.InsertOnSubmit(new_item);
+                        _posDB.df_pdiscount_onls.InsertOnSubmit(new_pdiscount);
                         _posDB.SubmitChanges();
+                    }
 
-                        if (item.Value.Discount > 0)
-                        {
-                            line_disc_no = line_disc_no + 1;
-                            df_pdiscount_onl new_pdiscount = new df_pdiscount_onl()
-                            {
-                                branch_no = new_order.branch_no.Trim(),
-                                data_date = DateTime.Now.Date,
-                                machine_no = new_order.machine_no.Trim(),
-                                doc_no = docno.ToString("00000"),
-                                plu_line_no = new_item.line_no,
-                                disc_line_no = line_disc_no,
-                                disc_rate = (decimal)item.Value.DiscountRate,
-                                disc_per = (decimal)item.Value.DiscountRate > 0 ? (decimal)item.Value.DiscountPer : 0,
-                                disc_amount = (decimal)item.Value.Discount,
-                                promo_code = item.Value.PromoCode,
-                                bybill_flag = false,
-                                bybill_runno = 1,
-                                disc_type = (decimal)item.Value.DiscountRate > 0 ? (short)1 : (short)2,
-                                del_flag = null,
-                                cancel_status = false,
-                                add_datetime = DateTime.Now,
-                                update_datetime = DateTime.Now,
-                                user_add = new_item.user_add,
-                                user_update = new_item.user_update,
-                                //time_stamp = "",
-                                QRCode = new Guid("00000000-0000-0000-0000-000000000000"),
-                                method_code = "",
-                                subsidize = 0
-                            };
-
-                            _posDB.df_pdiscount_onls.InsertOnSubmit(new_pdiscount);
-                            _posDB.SubmitChanges();
-                        }
-
-                        if (item.Value.SPDiscount > 0)
+                    if (item.Value.SPDiscount > 0 || item.Value.SPDiscountPer > 0)
                         {
                             line_disc_no = line_disc_no + 1;
                             df_pdiscount_onl new_pdiscount = new df_pdiscount_onl()
@@ -356,9 +356,9 @@ namespace KP.OrderMGT.Service
                                 user_add = new_item.user_add,
                                 user_update = new_item.user_update,
                                 //time_stamp = "",
-                                //QRCode = "",
-                                //method_code = "",
-                                //subsidize = ""
+                                QRCode = new Guid("00000000-0000-0000-0000-000000000000"),
+                                method_code = "",
+                                subsidize = 0
                             };
 
                             _posDB.df_pdiscount_onls.InsertOnSubmit(new_pdiscount);

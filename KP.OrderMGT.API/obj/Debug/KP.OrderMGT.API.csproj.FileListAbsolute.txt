@@ -1080,3 +1080,16 @@ D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v7\OrderManagement\KP.
 D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v7\OrderManagement\KP.OrderMGT.API\bin\Microsoft.Owin.Host.SystemWeb.xml
 D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v7\OrderManagement\KP.OrderMGT.API\bin\Microsoft.Owin.Security.xml
 D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v7\OrderManagement\KP.OrderMGT.API\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Code\OrderManagement\KP.OrderMGT.API\bin\EntityFramework.SqlServer.dll
+C:\Code\OrderManagement\KP.OrderMGT.API\bin\Microsoft.Owin.Cors.dll
+C:\Code\OrderManagement\KP.OrderMGT.API\bin\Microsoft.Owin.dll
+C:\Code\OrderManagement\KP.OrderMGT.API\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Code\OrderManagement\KP.OrderMGT.API\bin\Microsoft.Owin.Security.dll
+C:\Code\OrderManagement\KP.OrderMGT.API\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Code\OrderManagement\KP.OrderMGT.API\bin\Owin.dll
+C:\Code\OrderManagement\KP.OrderMGT.API\bin\EntityFramework.SqlServer.xml
+C:\Code\OrderManagement\KP.OrderMGT.API\bin\Microsoft.Owin.xml
+C:\Code\OrderManagement\KP.OrderMGT.API\bin\Microsoft.Owin.Cors.xml
+C:\Code\OrderManagement\KP.OrderMGT.API\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Code\OrderManagement\KP.OrderMGT.API\bin\Microsoft.Owin.Security.xml
+C:\Code\OrderManagement\KP.OrderMGT.API\bin\Microsoft.Owin.Security.OAuth.xml
