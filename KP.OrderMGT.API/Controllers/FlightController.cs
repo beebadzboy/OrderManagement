@@ -12,7 +12,7 @@ using System.Web.Http.Description;
 
 namespace KP.OrderMGT.API.Controllers
 {
-    [Authorize(Roles = "SuperAdmin, Admin, User")]
+    //[Authorize(Roles = "SuperAdmin, Admin, User")]
     [RoutePrefix("api/flight")]
     public class FlightController : ApiController
     {
