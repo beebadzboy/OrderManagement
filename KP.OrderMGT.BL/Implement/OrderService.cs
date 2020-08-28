@@ -253,10 +253,9 @@ namespace KP.OrderMGT.Service
                     var item_code_list = order.Items.Select(x => x.MaterialCode).ToList();
                     var master_article = _posDB.vArticleMCs.Where(x => item_code_list.Contains(x.ArticleCode)).ToList();
                     var line_disc_no = 0;
-                foreach (var item in order.Items.Select((value, index) => new { Value = value, Index = index }))
+                    foreach (var item in order.Items.Select((value, index) => new { Value = value, Index = index }))
                 {
                     var item_code = master_article.FirstOrDefault(x => x.ArticleCode == item.Value.MaterialCode);
-
                     df_trans_onl new_item = new df_trans_onl() {
                         branch_no = new_order.branch_no.Trim(),
                         data_date = DateTime.Now.Date,
@@ -275,9 +274,10 @@ namespace KP.OrderMGT.Service
                         discount = item.Value.TotalDiscount,
                         net = item.Value.TotalNet,
                         vat = 0,
-                        vat_code = "2",
+                        vat_code = "2", // 0 = no vat , 1 = vat , 2 = zero vat
                         vat_rate = 0,
-                        disc_rate = item.Value.DiscountRate,
+                        //disc_rate = item.Value.DiscountRate,
+                        disc_rate = decimal.Round((item.Value.TotalDiscount / item.Value.Amount) * 100, 2),
                         disc_code = item.Value.PromoCode,
                         promo_code = item.Value.SPPromoCode,
                         staff_code = new_order.sale_code,
@@ -298,7 +298,7 @@ namespace KP.OrderMGT.Service
                     _posDB.df_trans_onls.InsertOnSubmit(new_item);
                     _posDB.SubmitChanges();
 
-                    if (item.Value.Discount > 0 || item.Value.SPDiscountPer > 0)
+                    if (item.Value.Discount > 0 || item.Value.DiscountPer > 0)
                     {
                         line_disc_no = line_disc_no + 1;
                         df_pdiscount_onl new_pdiscount = new df_pdiscount_onl()
@@ -394,7 +394,7 @@ namespace KP.OrderMGT.Service
                             method_code = payment.Value.Code.Trim(),
                             payment_date = DateTime.Now,
                             amount = payment.Value.Amount,
-                            amount_round = 0,
+                            amount_round = 2,
                             amount_curr = amt_curr,
                             curr_code = "THB",
                             curr_rate = 1,
