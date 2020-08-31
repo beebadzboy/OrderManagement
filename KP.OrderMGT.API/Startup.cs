@@ -1,7 +1,7 @@
 ﻿using System;
-using Microsoft.Owin;
-using Owin;
-using Microsoft.Owin.Security.OAuth;
+//using Microsoft.Owin;
+//using Owin;
+//using Microsoft.Owin.Security.OAuth;
 using System.Web.Http;
 using KP.OrderMGT.API.Authen;
 

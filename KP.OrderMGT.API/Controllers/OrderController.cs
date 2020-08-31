@@ -1,4 +1,5 @@
 ﻿using KP.Common.Return;
+using KP.OrderMGT.API.Authen;
 using KP.OrderMGT.BL.DBModel;
 using KP.OrderMGT.BL.ServiceModel;
 using KP.OrderMGT.Service;
@@ -30,7 +31,8 @@ namespace KP.OrderMGT.API.Controllers
             omDB = new OrderDataClassesDataContext(connStr);
         }
 
-        //[Authorize(Roles = "SuperAdmin, Admin, User")]
+        [BasicAuthentication]
+        [MyAuthorize(Roles = "Admin, User, SuperAdmin")]
         [HttpGet]
         [Route("check-purchase-rights")]
         [ResponseType(typeof(ReturnObject<SaleAmountByPassport>))]
@@ -104,7 +106,8 @@ namespace KP.OrderMGT.API.Controllers
             return Ok(ret);
         }
 
-        //[Authorize(Roles = "SuperAdmin, Admin, User")]
+        [BasicAuthentication]
+        [MyAuthorize(Roles = "Admin, User, SuperAdmin")]
         [HttpPost]
         [Route("save-order")]
         [ResponseType(typeof(ReturnObject<OrderSession>))]
@@ -140,7 +143,8 @@ namespace KP.OrderMGT.API.Controllers
             return Ok(ret);
         }
 
-        //[Authorize(Roles = "SuperAdmin, Admin, User")]
+        [BasicAuthentication]
+        [MyAuthorize(Roles = "Admin, User, SuperAdmin")]
         [HttpGet]
         [Route("hold-order")]
         [ResponseType(typeof(ReturnObject<OrderSession>))]
@@ -179,7 +183,8 @@ namespace KP.OrderMGT.API.Controllers
             return Ok(ret.Data);
         }
 
-        //[Authorize(Roles = "SuperAdmin, Admin, User")]
+        [BasicAuthentication]
+        [MyAuthorize(Roles = "Admin, User, SuperAdmin")]
         [HttpGet]
         [Route("cancel-order")]
         [ResponseType(typeof(ReturnObject<OrderSession>))]
@@ -219,7 +224,8 @@ namespace KP.OrderMGT.API.Controllers
             return Ok(ret);
         }
 
-        //[Authorize(Roles = "SuperAdmin, Admin, User")]
+        [BasicAuthentication]
+        [MyAuthorize(Roles = "Admin, User, SuperAdmin")]
         [HttpGet]
         [Route("get-order")]
         [ResponseType(typeof(ReturnObject<OrderSession>))]
@@ -249,7 +255,8 @@ namespace KP.OrderMGT.API.Controllers
             return Ok(ret);
         }
 
-        //[Authorize(Roles = "SuperAdmin, Admin, User")]
+        [BasicAuthentication]
+        [MyAuthorize(Roles = "Admin, User, SuperAdmin")]
         [HttpGet]
         [Route("get-order-list")]
         [ResponseType(typeof(ReturnObject<List<OrderSession>>))]
@@ -279,7 +286,8 @@ namespace KP.OrderMGT.API.Controllers
             return Ok(ret);
         }
 
-        //[Authorize(Roles = "SuperAdmin, Admin")]
+        [BasicAuthentication]
+        [MyAuthorize(Roles = "Admin, SuperAdmin")]
         [HttpGet]
         //[Obsolete]
         [Route("complete-order")]
@@ -345,7 +353,8 @@ namespace KP.OrderMGT.API.Controllers
             return Ok(ret);
         }
 
-        //[Authorize(Roles = "SuperAdmin, Admin")]
+        [BasicAuthentication]
+        [MyAuthorize(Roles = "Admin, SuperAdmin")]
         [HttpGet]
         //[Obsolete]
         [Route("void-order")]

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="KPOrderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="KPOrderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="user_master">
           <Key>
             <PropertyRef Name="UserID" />
@@ -14,12 +14,12 @@
           <Property Name="UserPassword" Type="varchar" MaxLength="50" />
           <Property Name="UserRoles" Type="varchar" MaxLength="500" />
           <Property Name="UserEmailID" Type="varchar" MaxLength="100" />
+          <Property Name="UserToken" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityContainer Name="KPOrderModelStoreContainer">
           <EntitySet Name="user_master" EntityType="Self.user_master" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="KPOrderModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -32,6 +32,7 @@
           <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UserRoles" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="UserEmailID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UserToken" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="KPOrderEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="user_master" EntityType="Self.user_master" />
@@ -45,6 +46,7 @@
           <EntitySetMapping Name="user_master">
             <EntityTypeMapping TypeName="KPOrderModel.user_master">
               <MappingFragment StoreEntitySet="user_master">
+                <ScalarProperty Name="UserToken" ColumnName="UserToken" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
