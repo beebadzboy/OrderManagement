@@ -36,7 +36,7 @@ namespace KP.OrderMGT.API.Controllers
         [HttpGet]
         [Route("check-purchase-rights")]
         [ResponseType(typeof(ReturnObject<SaleAmountByPassport>))]
-        public IHttpActionResult CheckAllowSaleOnline(string airport_code, string flight_code, char terminal, string flight_date, string passport, string flight_time)
+        public IHttpActionResult CheckAllowSaleOnline(string airport_code, string flight_code, string flight_date, string passport)
         {
             ReturnObject<SaleAmountByPassport> ret = new ReturnObject<SaleAmountByPassport>();
             try
@@ -47,11 +47,6 @@ namespace KP.OrderMGT.API.Controllers
                     throw new ArgumentException("message", nameof(airport_code));
                 }
 
-                if (char.IsWhiteSpace(terminal))
-                {
-                    throw new ArgumentException("message", nameof(passport));
-                }
-
                 if (string.IsNullOrEmpty(flight_code))
                 {
                     throw new ArgumentException("message", nameof(flight_code));
@@ -60,11 +55,6 @@ namespace KP.OrderMGT.API.Controllers
                 if (string.IsNullOrEmpty(passport))
                 {
                     throw new ArgumentException("message", nameof(passport));
-                }
-
-                if (string.IsNullOrEmpty(flight_time))
-                {
-                    throw new ArgumentException("message", nameof(flight_time));
                 }
 
                 DateTime flight_datetime = Convert.ToDateTime(flight_date);
@@ -83,7 +73,7 @@ namespace KP.OrderMGT.API.Controllers
                 if (posConn != null)
                 {
                     posDB = new POSAirPortClassesDataContext(posConn);
-                    ret.Data = omSrv.ValidateAllowSaleOnline(posDB, terminal, passport, flight_datetime, flight_code);
+                    ret.Data = omSrv.ValidateAllowSaleOnline(posDB, passport, flight_datetime, flight_code);
                     ret.Data = new SaleAmountByPassport();
                     ret.Data.SaleAmt = 0;
                     ret.Data.Alcohol = 0;
@@ -289,7 +279,6 @@ namespace KP.OrderMGT.API.Controllers
         [BasicAuthentication]
         [MyAuthorize(Roles = "Admin, SuperAdmin")]
         [HttpGet]
-        //[Obsolete]
         [Route("complete-order")]
         [ResponseType(typeof(ReturnObject<OrderSession>))]
         public async Task<IHttpActionResult> CompleteOrderOnlineAsync(string order_no)
@@ -304,44 +293,49 @@ namespace KP.OrderMGT.API.Controllers
             try
             {
                 var omSrv = new OrderService(omDB);
-                ret.Data = omSrv.ComplateOrderOnline(order_no);
-                if (ret.Data != null)
+                var posConn = omSrv.GetConnectionPOSOrder(order_no);
+                if (posConn != null)
                 {
-                    // send update to endpoint COMPLETED 
-                    var client = new RestClient("http://10.3.26.32:5000");
-                    var request = new RestRequest(String.Format("dev/api/Orders/{0}/Status", order_no), Method.POST);
-                    request.AddHeader("AccessToken", "A64803F0A7CEDAC8407538D341BDBE23");
-                    request.AddHeader("Content-Type", "application/json");
-                    request.AddJsonBody(new { statuscode = "receivecomplete" });
-                    var restResponse = await client.ExecutePostTaskAsync(request);
-                    if (restResponse.ErrorException != null)
+                    posDB = new POSAirPortClassesDataContext(posConn);
+                    ret.Data = omSrv.CompleteOrderOnline(posDB, order_no);
+                    if (ret.Data != null)
                     {
-                        throw restResponse.ErrorException.InnerException;
-                    }
-                    else
-                    {
-                        if (restResponse.StatusCode != HttpStatusCode.OK)
+                        // send update to endpoint COMPLETED 
+                        var client = new RestClient("http://10.3.26.32:5000");
+                        var request = new RestRequest(String.Format("dev/api/Orders/{0}/Status", order_no), Method.POST);
+                        request.AddHeader("AccessToken", "A64803F0A7CEDAC8407538D341BDBE23");
+                        request.AddHeader("Content-Type", "application/json");
+                        request.AddJsonBody(new { statuscode = "receivecomplete" });
+                        var restResponse = await client.ExecutePostTaskAsync(request);
+                        if (restResponse.ErrorException != null)
                         {
-                            ret.Data = omSrv.UpdateStatusOrderOnline(order_no, restResponse.StatusCode.ToString());
-                            ret.totalCount = 0;
-                            ret.isCompleted = false;
+                            throw restResponse.ErrorException.InnerException;
                         }
                         else
                         {
-                            ret.Data = omSrv.UpdateStatusOrderOnline(order_no, "receivecomplete");
-                            ret.totalCount = 1;
-                            ret.isCompleted = true;
+                            if (restResponse.StatusCode != HttpStatusCode.OK)
+                            {
+                                ret.Data = omSrv.UpdateStatusOrderOnline(order_no, restResponse.StatusCode.ToString());
+                                ret.totalCount = 1;
+                                ret.isCompleted = true;
+                            }
+                            else
+                            {
+                                ret.Data = omSrv.UpdateStatusOrderOnline(order_no, "receivecomplete");
+                                ret.totalCount = 1;
+                                ret.isCompleted = true;
+                            }
                         }
+                    }
+                    else
+                    {
+                        throw new ArgumentException("message", "connection error");
                     }
                 }
                 else
                 {
                     throw new ArgumentException("message", "connection error");
                 }
-
-
-                ret.totalCount = 1;
-                ret.isCompleted = true;
             }
             catch (Exception e)
             {
@@ -356,7 +350,6 @@ namespace KP.OrderMGT.API.Controllers
         [BasicAuthentication]
         [MyAuthorize(Roles = "Admin, SuperAdmin")]
         [HttpGet]
-        //[Obsolete]
         [Route("void-order")]
         [ResponseType(typeof(ReturnObject<OrderSession>))]
         public async Task<IHttpActionResult> VoidOrderOnlineAsync(string order_no)
@@ -371,35 +364,43 @@ namespace KP.OrderMGT.API.Controllers
             try
             {
                 var omSrv = new OrderService(omDB);
-                ret.Data = omSrv.VoidOrderOnline(order_no);
-                ret.Data = new OrderSession();
-                if (ret.Data != null)
+                var posConn = omSrv.GetConnectionPOSOrder(order_no);
+                if (posConn != null)
                 {
-                    // send update to endpoint CANCELED 
-                    var client = new RestClient("http://10.3.26.32:5000");
-                    var request = new RestRequest(String.Format("dev/api/Orders/{0}/Status", order_no), Method.POST);
-                    request.AddHeader("AccessToken", "A64803F0A7CEDAC8407538D341BDBE23");
-                    request.AddHeader("Content-Type", "application/json");
-                    request.AddJsonBody(new { statuscode = "refund" });
-                    var restResponse = await client.ExecutePostTaskAsync(request);
-                    if (restResponse.ErrorException != null)
+                    posDB = new POSAirPortClassesDataContext(posConn);
+                    ret.Data = omSrv.VoidOrderOnline(posDB, order_no);
+                    if (ret.Data != null)
                     {
-                        throw restResponse.ErrorException.InnerException;
-                    }
-                    else
-                    {
-                        if (restResponse.StatusCode != HttpStatusCode.OK)
+                        // send update to endpoint CANCELED 
+                        var client = new RestClient("http://10.3.26.32:5000");
+                        var request = new RestRequest(String.Format("dev/api/Orders/{0}/Status", order_no), Method.POST);
+                        request.AddHeader("AccessToken", "A64803F0A7CEDAC8407538D341BDBE23");
+                        request.AddHeader("Content-Type", "application/json");
+                        request.AddJsonBody(new { statuscode = "refund" });
+                        var restResponse = await client.ExecutePostTaskAsync(request);
+                        if (restResponse.ErrorException != null)
                         {
-                            ret.Data = omSrv.UpdateStatusOrderOnline(order_no, restResponse.StatusCode.ToString());
-                            ret.totalCount = 0;
-                            ret.isCompleted = false;
+                            throw restResponse.ErrorException.InnerException;
                         }
                         else
                         {
-                            ret.Data = omSrv.UpdateStatusOrderOnline(order_no, "refund");
-                            ret.totalCount = 1;
-                            ret.isCompleted = true;
+                            if (restResponse.StatusCode != HttpStatusCode.OK)
+                            {
+                                ret.Data = omSrv.UpdateStatusOrderOnline(order_no, restResponse.StatusCode.ToString());
+                                ret.totalCount = 0;
+                                ret.isCompleted = false;
+                            }
+                            else
+                            {
+                                ret.Data = omSrv.UpdateStatusOrderOnline(order_no, "refund");
+                                ret.totalCount = 1;
+                                ret.isCompleted = true;
+                            }
                         }
+                    }
+                    else
+                    {
+                        throw new ArgumentException("message", "connection error");
                     }
                 }
                 else

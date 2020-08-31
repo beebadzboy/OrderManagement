@@ -17,7 +17,7 @@ namespace KP.OrderMGT.Service
         string GetConnectionPOSOrder(string order_no);
 
         [OperationContract]
-        SaleAmountByPassport ValidateAllowSaleOnline(POSAirPortClassesDataContext _posDB, char terminal, string passort, DateTime flight_date, string flight_code);
+        SaleAmountByPassport ValidateAllowSaleOnline(POSAirPortClassesDataContext _posDB, string passort, DateTime flight_date, string flight_code);
 
         [OperationContract]
         OrderSession SaveOrderOnline(POSAirPortClassesDataContext _posDB, OrderHeader order);
@@ -29,10 +29,10 @@ namespace KP.OrderMGT.Service
         OrderSession CancelOrderOnline(POSAirPortClassesDataContext _posDB, string order_no);
 
         [OperationContract]
-        OrderSession VoidOrderOnline(string order_no);
+        OrderSession VoidOrderOnline(POSAirPortClassesDataContext _posDB, string order_no);
 
         [OperationContract]
-        OrderSession ComplateOrderOnline(string order_no);
+        OrderSession CompleteOrderOnline(POSAirPortClassesDataContext _posDB, string order_no);
 
         [OperationContract]
         OrderSession GetOrderOnline(string order_no);

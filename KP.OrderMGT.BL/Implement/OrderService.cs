@@ -125,27 +125,35 @@ namespace KP.OrderMGT.Service
         {
             if (string.IsNullOrWhiteSpace(order.Billing.PassportNo))
             {
-                throw new ArgumentException("message", nameof(order.Billing.PassportNo));
+                throw new ArgumentException("data is missing.", nameof(order.Billing.PassportNo));
             }
 
-            var connObj = _omDB.config_connections.FirstOrDefault(x => x.cn_code == order.Flight.AirportCode);
+            var connObj = _omDB.config_connections.FirstOrDefault(x => x.cn_code.Trim() == order.Flight.AirportCode.Trim());
             if (connObj == null)
             {
-                throw new ArgumentException("message", nameof(order.Flight.AirportCode));
+                throw new ArgumentException("data not found.", nameof(order.Flight.AirportCode));
             }
 
             var last_number = _posDB.runno_machines.FirstOrDefault(x => x.machine_no.Trim() == connObj.ref_machine_no.Trim());
             if (last_number == null)
             {
-                throw new ArgumentException("message", nameof(last_number));
+                throw new ArgumentException("machine no is not running no.", nameof(last_number));
             }
 
-            var order_header = _posDB.df_header_onls.FirstOrDefault(x => x.OnlineNo == order.NewOrder.OrderNo);
+            var order_flight = _omDB.df_flights.FirstOrDefault(x => x.flight_code.Trim() == order.Flight.FlightCode.Trim());
+            if (order_flight != null)
+            {
+                throw new ArgumentException("data not found.", nameof(order.Flight.FlightCode));
+            }
+
+            var order_header = _posDB.df_header_onls.FirstOrDefault(x => x.OnlineNo.Trim() == order.NewOrder.OrderNo.Trim());
             if (order_header != null)
             {
                 throw new ArgumentException("order is duplicate.", nameof(order_header.OnlineNo));
             }
 
+
+            // validate data detail
             var order_result = new OrderSession();
 
             //var option = new TransactionOptions();
@@ -558,7 +566,7 @@ namespace KP.OrderMGT.Service
             }
         }
 
-        public SaleAmountByPassport ValidateAllowSaleOnline(POSAirPortClassesDataContext _posDB, char terminal, string passort, DateTime flight_date, string flight_code)
+        public SaleAmountByPassport ValidateAllowSaleOnline(POSAirPortClassesDataContext _posDB, string passort, DateTime flight_date, string flight_code)
         {
             var saleObj = _posDB.get_lt_sale_by_passport_onl(passort, flight_code, flight_date).FirstOrDefault();
             if (saleObj == null)
@@ -635,16 +643,54 @@ namespace KP.OrderMGT.Service
             return UpdateStatusOrderOnline(order_no, "hold");
         }
 
-        public OrderSession VoidOrderOnline(string order_no)
+        public OrderSession VoidOrderOnline(POSAirPortClassesDataContext _posDB, string order_no)
         {
-            UdpateOrderSession(order_no, "103");
+            var order = GetOrderOnline(order_no);
+            if (order == null)
+            {
+                throw new ObjectNotFoundException(order_no + " : data not found.");
+            }
+
+            var pos_key_order = new OrderKey(order);
+            var pos_data = _posDB.df_header_onls.FirstOrDefault(x => x.OnlineNo == order_no);
+            if (pos_data == null)
+            {
+                throw new ObjectNotFoundException(order_no + " : data not found.");
+            }
+
+            int status = (int)StatusOrderPOS.RefundComplete;
+            pos_data.LastStatus = status.ToString("000");
+            pos_data.update_datetime = DateTime.Now;
+            pos_data.user_update = "online";
+            _posDB.SubmitChanges();
+
+            UdpateOrderSession(order_no, pos_data.LastStatus);
 
             return UpdateStatusOrderOnline(order_no, "refund");
         }
 
-        public OrderSession ComplateOrderOnline(string order_no)
+        public OrderSession CompleteOrderOnline(POSAirPortClassesDataContext _posDB, string order_no)
         {
-            UdpateOrderSession(order_no, "006");
+            var order = GetOrderOnline(order_no);
+            if (order == null)
+            {
+                throw new ObjectNotFoundException(order_no + " : data not found.");
+            }
+
+            var pos_key_order = new OrderKey(order);
+            var pos_data = _posDB.df_header_onls.FirstOrDefault(x => x.OnlineNo == order_no);
+            if (pos_data == null)
+            {
+                throw new ObjectNotFoundException(order_no + " : data not found.");
+            }
+
+            int status = (int)StatusOrderPOS.RefundComplete;
+            pos_data.LastStatus = status.ToString("000");
+            pos_data.update_datetime = DateTime.Now;
+            pos_data.user_update = "online";
+            _posDB.SubmitChanges();
+
+            UdpateOrderSession(order_no, pos_data.LastStatus);
 
             return UpdateStatusOrderOnline(order_no, "receivecomplete");
         }

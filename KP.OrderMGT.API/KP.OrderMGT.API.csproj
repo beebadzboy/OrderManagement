@@ -511,7 +511,6 @@
     </Compile>
     <Compile Include="Controllers\FlightController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\SaleQueaeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -557,8 +556,8 @@
     <Content Include="Authen\OMAuthen.edmx.diagram">
       <DependentUpon>OMAuthen.edmx</DependentUpon>
     </Content>
-    <None Include="Properties\PublishProfiles\10.3.0.102.pubxml" />
     <None Include="Properties\PublishProfiles\10.3.0.121-Order.pubxml" />
+    <None Include="Properties\PublishProfiles\API KPC %2810.3.0.121%29.pubxml" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Properties\PublishProfiles\OrderAPI %2810.3.0.121%29.pubxml" />
     <None Include="Properties\PublishProfiles\OrderManagement %2810.3.0.121%29.pubxml" />

@@ -36,6 +36,9 @@ namespace KP.OrderMGT.BL.DBModel
     partial void Insertorder_transaction(order_transaction instance);
     partial void Updateorder_transaction(order_transaction instance);
     partial void Deleteorder_transaction(order_transaction instance);
+    partial void Insertorder_detail(order_detail instance);
+    partial void Updateorder_detail(order_detail instance);
+    partial void Deleteorder_detail(order_detail instance);
     partial void Insertorder_header(order_header instance);
     partial void Updateorder_header(order_header instance);
     partial void Deleteorder_header(order_header instance);
@@ -48,9 +51,9 @@ namespace KP.OrderMGT.BL.DBModel
     partial void Insertorder_session(order_session instance);
     partial void Updateorder_session(order_session instance);
     partial void Deleteorder_session(order_session instance);
-    partial void Insertorder_detail(order_detail instance);
-    partial void Updateorder_detail(order_detail instance);
-    partial void Deleteorder_detail(order_detail instance);
+    partial void Insertuser_master(user_master instance);
+    partial void Updateuser_master(user_master instance);
+    partial void Deleteuser_master(user_master instance);
     #endregion
 		
 		public OrderDataClassesDataContext() : 
@@ -123,6 +126,14 @@ namespace KP.OrderMGT.BL.DBModel
 			}
 		}
 		
+		public System.Data.Linq.Table<order_detail> order_details
+		{
+			get
+			{
+				return this.GetTable<order_detail>();
+			}
+		}
+		
 		public System.Data.Linq.Table<order_header> order_headers
 		{
 			get
@@ -155,11 +166,11 @@ namespace KP.OrderMGT.BL.DBModel
 			}
 		}
 		
-		public System.Data.Linq.Table<order_detail> order_details
+		public System.Data.Linq.Table<user_master> user_masters
 		{
 			get
 			{
-				return this.GetTable<order_detail>();
+				return this.GetTable<user_master>();
 			}
 		}
 	}
@@ -1628,6 +1639,613 @@ namespace KP.OrderMGT.BL.DBModel
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.order_detail")]
+	public partial class order_detail : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _id;
+		
+		private long _header_id;
+		
+		private string _sub_order_type;
+		
+		private string _article_code;
+		
+		private System.Nullable<int> _line_no;
+		
+		private decimal _quantity;
+		
+		private decimal _selling_price;
+		
+		private decimal _total_amt;
+		
+		private System.Nullable<decimal> _dis_rate;
+		
+		private System.Nullable<decimal> _dis_per;
+		
+		private System.Nullable<decimal> _dis_amt;
+		
+		private string _dis_pro_code;
+		
+		private decimal _net_amt;
+		
+		private System.Nullable<decimal> _sp_dis_amt;
+		
+		private System.Nullable<decimal> _sp_dis_rate;
+		
+		private System.Nullable<decimal> _sp_dis_per;
+		
+		private string _sp_dis_pro_code;
+		
+		private System.Nullable<decimal> _total_dis_amt;
+		
+		private System.Nullable<decimal> _total_net_amt;
+		
+		private string _reference_1;
+		
+		private string _reference_2;
+		
+		private string _reference_3;
+		
+		private EntityRef<order_header> _order_header;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(long value);
+    partial void OnidChanged();
+    partial void Onheader_idChanging(long value);
+    partial void Onheader_idChanged();
+    partial void Onsub_order_typeChanging(string value);
+    partial void Onsub_order_typeChanged();
+    partial void Onarticle_codeChanging(string value);
+    partial void Onarticle_codeChanged();
+    partial void Online_noChanging(System.Nullable<int> value);
+    partial void Online_noChanged();
+    partial void OnquantityChanging(decimal value);
+    partial void OnquantityChanged();
+    partial void Onselling_priceChanging(decimal value);
+    partial void Onselling_priceChanged();
+    partial void Ontotal_amtChanging(decimal value);
+    partial void Ontotal_amtChanged();
+    partial void Ondis_rateChanging(System.Nullable<decimal> value);
+    partial void Ondis_rateChanged();
+    partial void Ondis_perChanging(System.Nullable<decimal> value);
+    partial void Ondis_perChanged();
+    partial void Ondis_amtChanging(System.Nullable<decimal> value);
+    partial void Ondis_amtChanged();
+    partial void Ondis_pro_codeChanging(string value);
+    partial void Ondis_pro_codeChanged();
+    partial void Onnet_amtChanging(decimal value);
+    partial void Onnet_amtChanged();
+    partial void Onsp_dis_amtChanging(System.Nullable<decimal> value);
+    partial void Onsp_dis_amtChanged();
+    partial void Onsp_dis_rateChanging(System.Nullable<decimal> value);
+    partial void Onsp_dis_rateChanged();
+    partial void Onsp_dis_perChanging(System.Nullable<decimal> value);
+    partial void Onsp_dis_perChanged();
+    partial void Onsp_dis_pro_codeChanging(string value);
+    partial void Onsp_dis_pro_codeChanged();
+    partial void Ontotal_dis_amtChanging(System.Nullable<decimal> value);
+    partial void Ontotal_dis_amtChanged();
+    partial void Ontotal_net_amtChanging(System.Nullable<decimal> value);
+    partial void Ontotal_net_amtChanged();
+    partial void Onreference_1Changing(string value);
+    partial void Onreference_1Changed();
+    partial void Onreference_2Changing(string value);
+    partial void Onreference_2Changed();
+    partial void Onreference_3Changing(string value);
+    partial void Onreference_3Changed();
+    #endregion
+		
+		public order_detail()
+		{
+			this._order_header = default(EntityRef<order_header>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_header_id", DbType="BigInt NOT NULL")]
+		public long header_id
+		{
+			get
+			{
+				return this._header_id;
+			}
+			set
+			{
+				if ((this._header_id != value))
+				{
+					if (this._order_header.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onheader_idChanging(value);
+					this.SendPropertyChanging();
+					this._header_id = value;
+					this.SendPropertyChanged("header_id");
+					this.Onheader_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sub_order_type", DbType="Char(10) NOT NULL", CanBeNull=false)]
+		public string sub_order_type
+		{
+			get
+			{
+				return this._sub_order_type;
+			}
+			set
+			{
+				if ((this._sub_order_type != value))
+				{
+					this.Onsub_order_typeChanging(value);
+					this.SendPropertyChanging();
+					this._sub_order_type = value;
+					this.SendPropertyChanged("sub_order_type");
+					this.Onsub_order_typeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_article_code", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string article_code
+		{
+			get
+			{
+				return this._article_code;
+			}
+			set
+			{
+				if ((this._article_code != value))
+				{
+					this.Onarticle_codeChanging(value);
+					this.SendPropertyChanging();
+					this._article_code = value;
+					this.SendPropertyChanged("article_code");
+					this.Onarticle_codeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_line_no", DbType="Int")]
+		public System.Nullable<int> line_no
+		{
+			get
+			{
+				return this._line_no;
+			}
+			set
+			{
+				if ((this._line_no != value))
+				{
+					this.Online_noChanging(value);
+					this.SendPropertyChanging();
+					this._line_no = value;
+					this.SendPropertyChanged("line_no");
+					this.Online_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_quantity", DbType="Decimal(18,2) NOT NULL")]
+		public decimal quantity
+		{
+			get
+			{
+				return this._quantity;
+			}
+			set
+			{
+				if ((this._quantity != value))
+				{
+					this.OnquantityChanging(value);
+					this.SendPropertyChanging();
+					this._quantity = value;
+					this.SendPropertyChanged("quantity");
+					this.OnquantityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_selling_price", DbType="Decimal(18,2) NOT NULL")]
+		public decimal selling_price
+		{
+			get
+			{
+				return this._selling_price;
+			}
+			set
+			{
+				if ((this._selling_price != value))
+				{
+					this.Onselling_priceChanging(value);
+					this.SendPropertyChanging();
+					this._selling_price = value;
+					this.SendPropertyChanged("selling_price");
+					this.Onselling_priceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_total_amt", DbType="Decimal(18,2) NOT NULL")]
+		public decimal total_amt
+		{
+			get
+			{
+				return this._total_amt;
+			}
+			set
+			{
+				if ((this._total_amt != value))
+				{
+					this.Ontotal_amtChanging(value);
+					this.SendPropertyChanging();
+					this._total_amt = value;
+					this.SendPropertyChanged("total_amt");
+					this.Ontotal_amtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dis_rate", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> dis_rate
+		{
+			get
+			{
+				return this._dis_rate;
+			}
+			set
+			{
+				if ((this._dis_rate != value))
+				{
+					this.Ondis_rateChanging(value);
+					this.SendPropertyChanging();
+					this._dis_rate = value;
+					this.SendPropertyChanged("dis_rate");
+					this.Ondis_rateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dis_per", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> dis_per
+		{
+			get
+			{
+				return this._dis_per;
+			}
+			set
+			{
+				if ((this._dis_per != value))
+				{
+					this.Ondis_perChanging(value);
+					this.SendPropertyChanging();
+					this._dis_per = value;
+					this.SendPropertyChanged("dis_per");
+					this.Ondis_perChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dis_amt", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> dis_amt
+		{
+			get
+			{
+				return this._dis_amt;
+			}
+			set
+			{
+				if ((this._dis_amt != value))
+				{
+					this.Ondis_amtChanging(value);
+					this.SendPropertyChanging();
+					this._dis_amt = value;
+					this.SendPropertyChanged("dis_amt");
+					this.Ondis_amtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dis_pro_code", DbType="NVarChar(50)")]
+		public string dis_pro_code
+		{
+			get
+			{
+				return this._dis_pro_code;
+			}
+			set
+			{
+				if ((this._dis_pro_code != value))
+				{
+					this.Ondis_pro_codeChanging(value);
+					this.SendPropertyChanging();
+					this._dis_pro_code = value;
+					this.SendPropertyChanged("dis_pro_code");
+					this.Ondis_pro_codeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_net_amt", DbType="Decimal(18,2) NOT NULL")]
+		public decimal net_amt
+		{
+			get
+			{
+				return this._net_amt;
+			}
+			set
+			{
+				if ((this._net_amt != value))
+				{
+					this.Onnet_amtChanging(value);
+					this.SendPropertyChanging();
+					this._net_amt = value;
+					this.SendPropertyChanged("net_amt");
+					this.Onnet_amtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sp_dis_amt", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> sp_dis_amt
+		{
+			get
+			{
+				return this._sp_dis_amt;
+			}
+			set
+			{
+				if ((this._sp_dis_amt != value))
+				{
+					this.Onsp_dis_amtChanging(value);
+					this.SendPropertyChanging();
+					this._sp_dis_amt = value;
+					this.SendPropertyChanged("sp_dis_amt");
+					this.Onsp_dis_amtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sp_dis_rate", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> sp_dis_rate
+		{
+			get
+			{
+				return this._sp_dis_rate;
+			}
+			set
+			{
+				if ((this._sp_dis_rate != value))
+				{
+					this.Onsp_dis_rateChanging(value);
+					this.SendPropertyChanging();
+					this._sp_dis_rate = value;
+					this.SendPropertyChanged("sp_dis_rate");
+					this.Onsp_dis_rateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sp_dis_per", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> sp_dis_per
+		{
+			get
+			{
+				return this._sp_dis_per;
+			}
+			set
+			{
+				if ((this._sp_dis_per != value))
+				{
+					this.Onsp_dis_perChanging(value);
+					this.SendPropertyChanging();
+					this._sp_dis_per = value;
+					this.SendPropertyChanged("sp_dis_per");
+					this.Onsp_dis_perChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sp_dis_pro_code", DbType="NVarChar(50)")]
+		public string sp_dis_pro_code
+		{
+			get
+			{
+				return this._sp_dis_pro_code;
+			}
+			set
+			{
+				if ((this._sp_dis_pro_code != value))
+				{
+					this.Onsp_dis_pro_codeChanging(value);
+					this.SendPropertyChanging();
+					this._sp_dis_pro_code = value;
+					this.SendPropertyChanged("sp_dis_pro_code");
+					this.Onsp_dis_pro_codeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_total_dis_amt", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> total_dis_amt
+		{
+			get
+			{
+				return this._total_dis_amt;
+			}
+			set
+			{
+				if ((this._total_dis_amt != value))
+				{
+					this.Ontotal_dis_amtChanging(value);
+					this.SendPropertyChanging();
+					this._total_dis_amt = value;
+					this.SendPropertyChanged("total_dis_amt");
+					this.Ontotal_dis_amtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_total_net_amt", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> total_net_amt
+		{
+			get
+			{
+				return this._total_net_amt;
+			}
+			set
+			{
+				if ((this._total_net_amt != value))
+				{
+					this.Ontotal_net_amtChanging(value);
+					this.SendPropertyChanging();
+					this._total_net_amt = value;
+					this.SendPropertyChanged("total_net_amt");
+					this.Ontotal_net_amtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reference_1", DbType="NVarChar(50)")]
+		public string reference_1
+		{
+			get
+			{
+				return this._reference_1;
+			}
+			set
+			{
+				if ((this._reference_1 != value))
+				{
+					this.Onreference_1Changing(value);
+					this.SendPropertyChanging();
+					this._reference_1 = value;
+					this.SendPropertyChanged("reference_1");
+					this.Onreference_1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reference_2", DbType="NVarChar(50)")]
+		public string reference_2
+		{
+			get
+			{
+				return this._reference_2;
+			}
+			set
+			{
+				if ((this._reference_2 != value))
+				{
+					this.Onreference_2Changing(value);
+					this.SendPropertyChanging();
+					this._reference_2 = value;
+					this.SendPropertyChanged("reference_2");
+					this.Onreference_2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reference_3", DbType="NVarChar(50)")]
+		public string reference_3
+		{
+			get
+			{
+				return this._reference_3;
+			}
+			set
+			{
+				if ((this._reference_3 != value))
+				{
+					this.Onreference_3Changing(value);
+					this.SendPropertyChanging();
+					this._reference_3 = value;
+					this.SendPropertyChanged("reference_3");
+					this.Onreference_3Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="order_header_order_detail", Storage="_order_header", ThisKey="header_id", OtherKey="id", IsForeignKey=true)]
+		public order_header order_header
+		{
+			get
+			{
+				return this._order_header.Entity;
+			}
+			set
+			{
+				order_header previousValue = this._order_header.Entity;
+				if (((previousValue != value) 
+							|| (this._order_header.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._order_header.Entity = null;
+						previousValue.order_details.Remove(this);
+					}
+					this._order_header.Entity = value;
+					if ((value != null))
+					{
+						value.order_details.Add(this);
+						this._header_id = value.id;
+					}
+					else
+					{
+						this._header_id = default(long);
+					}
+					this.SendPropertyChanged("order_header");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.order_header")]
 	public partial class order_header : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1668,9 +2286,9 @@ namespace KP.OrderMGT.BL.DBModel
 		
 		private System.DateTime _create_date;
 		
-		private EntitySet<order_payment> _order_payments;
-		
 		private EntitySet<order_detail> _order_details;
+		
+		private EntitySet<order_payment> _order_payments;
 		
 		private EntityRef<order_session> _order_session;
 		
@@ -1716,8 +2334,8 @@ namespace KP.OrderMGT.BL.DBModel
 		
 		public order_header()
 		{
-			this._order_payments = new EntitySet<order_payment>(new Action<order_payment>(this.attach_order_payments), new Action<order_payment>(this.detach_order_payments));
 			this._order_details = new EntitySet<order_detail>(new Action<order_detail>(this.attach_order_details), new Action<order_detail>(this.detach_order_details));
+			this._order_payments = new EntitySet<order_payment>(new Action<order_payment>(this.attach_order_payments), new Action<order_payment>(this.detach_order_payments));
 			this._order_session = default(EntityRef<order_session>);
 			OnCreated();
 		}
@@ -2066,19 +2684,6 @@ namespace KP.OrderMGT.BL.DBModel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="order_header_order_payment", Storage="_order_payments", ThisKey="id", OtherKey="header_id")]
-		public EntitySet<order_payment> order_payments
-		{
-			get
-			{
-				return this._order_payments;
-			}
-			set
-			{
-				this._order_payments.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="order_header_order_detail", Storage="_order_details", ThisKey="id", OtherKey="header_id")]
 		public EntitySet<order_detail> order_details
 		{
@@ -2089,6 +2694,19 @@ namespace KP.OrderMGT.BL.DBModel
 			set
 			{
 				this._order_details.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="order_header_order_payment", Storage="_order_payments", ThisKey="id", OtherKey="header_id")]
+		public EntitySet<order_payment> order_payments
+		{
+			get
+			{
+				return this._order_payments;
+			}
+			set
+			{
+				this._order_payments.Assign(value);
 			}
 		}
 		
@@ -2146,18 +2764,6 @@ namespace KP.OrderMGT.BL.DBModel
 			}
 		}
 		
-		private void attach_order_payments(order_payment entity)
-		{
-			this.SendPropertyChanging();
-			entity.order_header = this;
-		}
-		
-		private void detach_order_payments(order_payment entity)
-		{
-			this.SendPropertyChanging();
-			entity.order_header = null;
-		}
-		
 		private void attach_order_details(order_detail entity)
 		{
 			this.SendPropertyChanging();
@@ -2165,6 +2771,18 @@ namespace KP.OrderMGT.BL.DBModel
 		}
 		
 		private void detach_order_details(order_detail entity)
+		{
+			this.SendPropertyChanging();
+			entity.order_header = null;
+		}
+		
+		private void attach_order_payments(order_payment entity)
+		{
+			this.SendPropertyChanging();
+			entity.order_header = this;
+		}
+		
+		private void detach_order_payments(order_payment entity)
 		{
 			this.SendPropertyChanging();
 			entity.order_header = null;
@@ -3078,588 +3696,163 @@ namespace KP.OrderMGT.BL.DBModel
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.order_detail")]
-	public partial class order_detail : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.user_master")]
+	public partial class user_master : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private long _id;
+		private int _UserID;
 		
-		private long _header_id;
+		private string _UserName;
 		
-		private string _sub_order_type;
+		private string _UserPassword;
 		
-		private string _article_code;
+		private string _UserRoles;
 		
-		private System.Nullable<int> _line_no;
+		private string _UserEmailID;
 		
-		private decimal _quantity;
-		
-		private decimal _selling_price;
-		
-		private decimal _total_amt;
-		
-		private System.Nullable<decimal> _dis_rate;
-		
-		private System.Nullable<decimal> _dis_per;
-		
-		private System.Nullable<decimal> _dis_amt;
-		
-		private string _dis_pro_code;
-		
-		private decimal _net_amt;
-		
-		private System.Nullable<decimal> _sp_dis_amt;
-		
-		private System.Nullable<decimal> _sp_dis_rate;
-		
-		private System.Nullable<decimal> _sp_dis_per;
-		
-		private string _sp_dis_pro_code;
-		
-		private System.Nullable<decimal> _total_dis_amt;
-		
-		private System.Nullable<decimal> _total_net_amt;
-		
-		private string _reference_1;
-		
-		private string _reference_2;
-		
-		private string _reference_3;
-		
-		private EntityRef<order_header> _order_header;
+		private string _UserToken;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnidChanging(long value);
-    partial void OnidChanged();
-    partial void Onheader_idChanging(long value);
-    partial void Onheader_idChanged();
-    partial void Onsub_order_typeChanging(string value);
-    partial void Onsub_order_typeChanged();
-    partial void Onarticle_codeChanging(string value);
-    partial void Onarticle_codeChanged();
-    partial void Online_noChanging(System.Nullable<int> value);
-    partial void Online_noChanged();
-    partial void OnquantityChanging(decimal value);
-    partial void OnquantityChanged();
-    partial void Onselling_priceChanging(decimal value);
-    partial void Onselling_priceChanged();
-    partial void Ontotal_amtChanging(decimal value);
-    partial void Ontotal_amtChanged();
-    partial void Ondis_rateChanging(System.Nullable<decimal> value);
-    partial void Ondis_rateChanged();
-    partial void Ondis_perChanging(System.Nullable<decimal> value);
-    partial void Ondis_perChanged();
-    partial void Ondis_amtChanging(System.Nullable<decimal> value);
-    partial void Ondis_amtChanged();
-    partial void Ondis_pro_codeChanging(string value);
-    partial void Ondis_pro_codeChanged();
-    partial void Onnet_amtChanging(decimal value);
-    partial void Onnet_amtChanged();
-    partial void Onsp_dis_amtChanging(System.Nullable<decimal> value);
-    partial void Onsp_dis_amtChanged();
-    partial void Onsp_dis_rateChanging(System.Nullable<decimal> value);
-    partial void Onsp_dis_rateChanged();
-    partial void Onsp_dis_perChanging(System.Nullable<decimal> value);
-    partial void Onsp_dis_perChanged();
-    partial void Onsp_dis_pro_codeChanging(string value);
-    partial void Onsp_dis_pro_codeChanged();
-    partial void Ontotal_dis_amtChanging(System.Nullable<decimal> value);
-    partial void Ontotal_dis_amtChanged();
-    partial void Ontotal_net_amtChanging(System.Nullable<decimal> value);
-    partial void Ontotal_net_amtChanged();
-    partial void Onreference_1Changing(string value);
-    partial void Onreference_1Changed();
-    partial void Onreference_2Changing(string value);
-    partial void Onreference_2Changed();
-    partial void Onreference_3Changing(string value);
-    partial void Onreference_3Changed();
+    partial void OnUserIDChanging(int value);
+    partial void OnUserIDChanged();
+    partial void OnUserNameChanging(string value);
+    partial void OnUserNameChanged();
+    partial void OnUserPasswordChanging(string value);
+    partial void OnUserPasswordChanged();
+    partial void OnUserRolesChanging(string value);
+    partial void OnUserRolesChanged();
+    partial void OnUserEmailIDChanging(string value);
+    partial void OnUserEmailIDChanged();
+    partial void OnUserTokenChanging(string value);
+    partial void OnUserTokenChanged();
     #endregion
 		
-		public order_detail()
+		public user_master()
 		{
-			this._order_header = default(EntityRef<order_header>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int UserID
 		{
 			get
 			{
-				return this._id;
+				return this._UserID;
 			}
 			set
 			{
-				if ((this._id != value))
+				if ((this._UserID != value))
 				{
-					this.OnidChanging(value);
+					this.OnUserIDChanging(value);
 					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_header_id", DbType="BigInt NOT NULL")]
-		public long header_id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserName", DbType="VarChar(50)")]
+		public string UserName
 		{
 			get
 			{
-				return this._header_id;
+				return this._UserName;
 			}
 			set
 			{
-				if ((this._header_id != value))
+				if ((this._UserName != value))
 				{
-					if (this._order_header.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onheader_idChanging(value);
+					this.OnUserNameChanging(value);
 					this.SendPropertyChanging();
-					this._header_id = value;
-					this.SendPropertyChanged("header_id");
-					this.Onheader_idChanged();
+					this._UserName = value;
+					this.SendPropertyChanged("UserName");
+					this.OnUserNameChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sub_order_type", DbType="Char(10) NOT NULL", CanBeNull=false)]
-		public string sub_order_type
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserPassword", DbType="VarChar(50)")]
+		public string UserPassword
 		{
 			get
 			{
-				return this._sub_order_type;
+				return this._UserPassword;
 			}
 			set
 			{
-				if ((this._sub_order_type != value))
+				if ((this._UserPassword != value))
 				{
-					this.Onsub_order_typeChanging(value);
+					this.OnUserPasswordChanging(value);
 					this.SendPropertyChanging();
-					this._sub_order_type = value;
-					this.SendPropertyChanged("sub_order_type");
-					this.Onsub_order_typeChanged();
+					this._UserPassword = value;
+					this.SendPropertyChanged("UserPassword");
+					this.OnUserPasswordChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_article_code", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string article_code
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserRoles", DbType="VarChar(500)")]
+		public string UserRoles
 		{
 			get
 			{
-				return this._article_code;
+				return this._UserRoles;
 			}
 			set
 			{
-				if ((this._article_code != value))
+				if ((this._UserRoles != value))
 				{
-					this.Onarticle_codeChanging(value);
+					this.OnUserRolesChanging(value);
 					this.SendPropertyChanging();
-					this._article_code = value;
-					this.SendPropertyChanged("article_code");
-					this.Onarticle_codeChanged();
+					this._UserRoles = value;
+					this.SendPropertyChanged("UserRoles");
+					this.OnUserRolesChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_line_no", DbType="Int")]
-		public System.Nullable<int> line_no
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserEmailID", DbType="VarChar(100)")]
+		public string UserEmailID
 		{
 			get
 			{
-				return this._line_no;
+				return this._UserEmailID;
 			}
 			set
 			{
-				if ((this._line_no != value))
+				if ((this._UserEmailID != value))
 				{
-					this.Online_noChanging(value);
+					this.OnUserEmailIDChanging(value);
 					this.SendPropertyChanging();
-					this._line_no = value;
-					this.SendPropertyChanged("line_no");
-					this.Online_noChanged();
+					this._UserEmailID = value;
+					this.SendPropertyChanged("UserEmailID");
+					this.OnUserEmailIDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_quantity", DbType="Decimal(18,0) NOT NULL")]
-		public decimal quantity
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserToken", DbType="VarChar(500)")]
+		public string UserToken
 		{
 			get
 			{
-				return this._quantity;
+				return this._UserToken;
 			}
 			set
 			{
-				if ((this._quantity != value))
+				if ((this._UserToken != value))
 				{
-					this.OnquantityChanging(value);
+					this.OnUserTokenChanging(value);
 					this.SendPropertyChanging();
-					this._quantity = value;
-					this.SendPropertyChanged("quantity");
-					this.OnquantityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_selling_price", DbType="Decimal(18,0) NOT NULL")]
-		public decimal selling_price
-		{
-			get
-			{
-				return this._selling_price;
-			}
-			set
-			{
-				if ((this._selling_price != value))
-				{
-					this.Onselling_priceChanging(value);
-					this.SendPropertyChanging();
-					this._selling_price = value;
-					this.SendPropertyChanged("selling_price");
-					this.Onselling_priceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_total_amt", DbType="Decimal(18,0) NOT NULL")]
-		public decimal total_amt
-		{
-			get
-			{
-				return this._total_amt;
-			}
-			set
-			{
-				if ((this._total_amt != value))
-				{
-					this.Ontotal_amtChanging(value);
-					this.SendPropertyChanging();
-					this._total_amt = value;
-					this.SendPropertyChanged("total_amt");
-					this.Ontotal_amtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dis_rate", DbType="Decimal(18,0)")]
-		public System.Nullable<decimal> dis_rate
-		{
-			get
-			{
-				return this._dis_rate;
-			}
-			set
-			{
-				if ((this._dis_rate != value))
-				{
-					this.Ondis_rateChanging(value);
-					this.SendPropertyChanging();
-					this._dis_rate = value;
-					this.SendPropertyChanged("dis_rate");
-					this.Ondis_rateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dis_per", DbType="Decimal(18,0)")]
-		public System.Nullable<decimal> dis_per
-		{
-			get
-			{
-				return this._dis_per;
-			}
-			set
-			{
-				if ((this._dis_per != value))
-				{
-					this.Ondis_perChanging(value);
-					this.SendPropertyChanging();
-					this._dis_per = value;
-					this.SendPropertyChanged("dis_per");
-					this.Ondis_perChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dis_amt", DbType="Decimal(18,0)")]
-		public System.Nullable<decimal> dis_amt
-		{
-			get
-			{
-				return this._dis_amt;
-			}
-			set
-			{
-				if ((this._dis_amt != value))
-				{
-					this.Ondis_amtChanging(value);
-					this.SendPropertyChanging();
-					this._dis_amt = value;
-					this.SendPropertyChanged("dis_amt");
-					this.Ondis_amtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dis_pro_code", DbType="NVarChar(50)")]
-		public string dis_pro_code
-		{
-			get
-			{
-				return this._dis_pro_code;
-			}
-			set
-			{
-				if ((this._dis_pro_code != value))
-				{
-					this.Ondis_pro_codeChanging(value);
-					this.SendPropertyChanging();
-					this._dis_pro_code = value;
-					this.SendPropertyChanged("dis_pro_code");
-					this.Ondis_pro_codeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_net_amt", DbType="Decimal(18,0) NOT NULL")]
-		public decimal net_amt
-		{
-			get
-			{
-				return this._net_amt;
-			}
-			set
-			{
-				if ((this._net_amt != value))
-				{
-					this.Onnet_amtChanging(value);
-					this.SendPropertyChanging();
-					this._net_amt = value;
-					this.SendPropertyChanged("net_amt");
-					this.Onnet_amtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sp_dis_amt", DbType="Decimal(18,0)")]
-		public System.Nullable<decimal> sp_dis_amt
-		{
-			get
-			{
-				return this._sp_dis_amt;
-			}
-			set
-			{
-				if ((this._sp_dis_amt != value))
-				{
-					this.Onsp_dis_amtChanging(value);
-					this.SendPropertyChanging();
-					this._sp_dis_amt = value;
-					this.SendPropertyChanged("sp_dis_amt");
-					this.Onsp_dis_amtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sp_dis_rate", DbType="Decimal(18,0)")]
-		public System.Nullable<decimal> sp_dis_rate
-		{
-			get
-			{
-				return this._sp_dis_rate;
-			}
-			set
-			{
-				if ((this._sp_dis_rate != value))
-				{
-					this.Onsp_dis_rateChanging(value);
-					this.SendPropertyChanging();
-					this._sp_dis_rate = value;
-					this.SendPropertyChanged("sp_dis_rate");
-					this.Onsp_dis_rateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sp_dis_per", DbType="Decimal(18,0)")]
-		public System.Nullable<decimal> sp_dis_per
-		{
-			get
-			{
-				return this._sp_dis_per;
-			}
-			set
-			{
-				if ((this._sp_dis_per != value))
-				{
-					this.Onsp_dis_perChanging(value);
-					this.SendPropertyChanging();
-					this._sp_dis_per = value;
-					this.SendPropertyChanged("sp_dis_per");
-					this.Onsp_dis_perChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sp_dis_pro_code", DbType="NVarChar(50)")]
-		public string sp_dis_pro_code
-		{
-			get
-			{
-				return this._sp_dis_pro_code;
-			}
-			set
-			{
-				if ((this._sp_dis_pro_code != value))
-				{
-					this.Onsp_dis_pro_codeChanging(value);
-					this.SendPropertyChanging();
-					this._sp_dis_pro_code = value;
-					this.SendPropertyChanged("sp_dis_pro_code");
-					this.Onsp_dis_pro_codeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_total_dis_amt", DbType="Decimal(18,0)")]
-		public System.Nullable<decimal> total_dis_amt
-		{
-			get
-			{
-				return this._total_dis_amt;
-			}
-			set
-			{
-				if ((this._total_dis_amt != value))
-				{
-					this.Ontotal_dis_amtChanging(value);
-					this.SendPropertyChanging();
-					this._total_dis_amt = value;
-					this.SendPropertyChanged("total_dis_amt");
-					this.Ontotal_dis_amtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_total_net_amt", DbType="Decimal(18,0)")]
-		public System.Nullable<decimal> total_net_amt
-		{
-			get
-			{
-				return this._total_net_amt;
-			}
-			set
-			{
-				if ((this._total_net_amt != value))
-				{
-					this.Ontotal_net_amtChanging(value);
-					this.SendPropertyChanging();
-					this._total_net_amt = value;
-					this.SendPropertyChanged("total_net_amt");
-					this.Ontotal_net_amtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reference_1", DbType="NVarChar(50)")]
-		public string reference_1
-		{
-			get
-			{
-				return this._reference_1;
-			}
-			set
-			{
-				if ((this._reference_1 != value))
-				{
-					this.Onreference_1Changing(value);
-					this.SendPropertyChanging();
-					this._reference_1 = value;
-					this.SendPropertyChanged("reference_1");
-					this.Onreference_1Changed();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reference_2", DbType="NVarChar(50)")]
-		public string reference_2
-		{
-			get
-			{
-				return this._reference_2;
-			}
-			set
-			{
-				if ((this._reference_2 != value))
-				{
-					this.Onreference_2Changing(value);
-					this.SendPropertyChanging();
-					this._reference_2 = value;
-					this.SendPropertyChanged("reference_2");
-					this.Onreference_2Changed();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reference_3", DbType="NVarChar(50)")]
-		public string reference_3
-		{
-			get
-			{
-				return this._reference_3;
-			}
-			set
-			{
-				if ((this._reference_3 != value))
-				{
-					this.Onreference_3Changing(value);
-					this.SendPropertyChanging();
-					this._reference_3 = value;
-					this.SendPropertyChanged("reference_3");
-					this.Onreference_3Changed();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="order_header_order_detail", Storage="_order_header", ThisKey="header_id", OtherKey="id", IsForeignKey=true)]
-		public order_header order_header
-		{
-			get
-			{
-				return this._order_header.Entity;
-			}
-			set
-			{
-				order_header previousValue = this._order_header.Entity;
-				if (((previousValue != value) 
-							|| (this._order_header.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._order_header.Entity = null;
-						previousValue.order_details.Remove(this);
-					}
-					this._order_header.Entity = value;
-					if ((value != null))
-					{
-						value.order_details.Add(this);
-						this._header_id = value.id;
-					}
-					else
-					{
-						this._header_id = default(long);
-					}
-					this.SendPropertyChanged("order_header");
+					this._UserToken = value;
+					this.SendPropertyChanged("UserToken");
+					this.OnUserTokenChanged();
 				}
 			}
 		}
