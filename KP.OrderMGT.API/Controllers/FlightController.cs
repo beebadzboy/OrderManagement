@@ -1,4 +1,5 @@
 ﻿using KP.Common.Return;
+using KP.OrderMGT.API.Authen;
 using KP.OrderMGT.BL.DBModel;
 using KP.OrderMGT.BL.ServiceModel;
 using KP.OrderMGT.Service;
@@ -23,6 +24,8 @@ namespace KP.OrderMGT.API.Controllers
             orderDB = new OrderDataClassesDataContext(connStr);
         }
 
+        [BasicAuthentication]
+        [MyAuthorize(Roles = "Admin, User, SuperAdmin")]
         [HttpGet]
         [Route("validate-code")]
         [ResponseType(typeof(ReturnObject<Flight>))]
@@ -51,6 +54,8 @@ namespace KP.OrderMGT.API.Controllers
             return Ok(ret);
         }
 
+        [BasicAuthentication]
+        [MyAuthorize(Roles = "Admin, User, SuperAdmin")]
         [HttpGet]
         [Route("check-flight")]
         [ResponseType(typeof(ReturnObject<Flight>))]
@@ -85,6 +90,8 @@ namespace KP.OrderMGT.API.Controllers
             return Ok(ret);
         }
 
+        [BasicAuthentication]
+        [MyAuthorize(Roles = "Admin, User, SuperAdmin")]
         [HttpGet]
         [Route("all")]
         [ResponseType(typeof(ReturnObject<FlightsAll>))]
@@ -113,6 +120,8 @@ namespace KP.OrderMGT.API.Controllers
             return Ok(ret);
         }
 
+        [BasicAuthentication]
+        [MyAuthorize(Roles = "Admin, User, SuperAdmin")]
         [HttpGet]
         [Route("arrival")]
         [ResponseType(typeof(ReturnObject<List<Flight>>))]
@@ -136,6 +145,8 @@ namespace KP.OrderMGT.API.Controllers
 
         }
 
+        [BasicAuthentication]
+        [MyAuthorize(Roles = "Admin, User, SuperAdmin")]
         [HttpGet]
         [Route("departure")]
         [ResponseType(typeof(ReturnObject<List<Flight>>))]
@@ -158,6 +169,8 @@ namespace KP.OrderMGT.API.Controllers
             return Ok(ret);
         }
 
+        [BasicAuthentication]
+        [MyAuthorize(Roles = "Admin, User, SuperAdmin")]
         [HttpGet]
         [Route("transfer")]
         [ResponseType(typeof(ReturnObject<List<Flight>>))]

@@ -1,4 +1,5 @@
 ﻿using KP.Common.Return;
+using KP.OrderMGT.API.Authen;
 using KP.OrderMGT.BL.DBModel;
 using KP.OrderMGT.BL.ServiceModel;
 using KP.OrderMGT.Service;
@@ -24,7 +25,8 @@ namespace KP.OrderMGT.API.Controllers
             orderDB = new OrderDataClassesDataContext(connStr);
         }
 
-        //[Authorize(Roles = "SuperAdmin, Admin")]
+        [BasicAuthentication]
+        [MyAuthorize(Roles = "Admin, SuperAdmin")]
         [HttpGet]
         [Route("sale-by-sku")]
         [ResponseType(typeof(ReturnObject<List<SaleQueue>>))]

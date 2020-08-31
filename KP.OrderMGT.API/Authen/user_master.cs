@@ -19,5 +19,6 @@ namespace KP.OrderMGT.API.Authen
         public string UserPassword { get; set; }
         public string UserRoles { get; set; }
         public string UserEmailID { get; set; }
+        public string UserToken { get; set; }
     }
 }

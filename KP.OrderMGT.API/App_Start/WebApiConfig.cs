@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using KP.OrderMGT.API.Authen;
+using System.Web.Http;
 
 namespace KP.OrderMGT.API
 {
@@ -6,6 +7,9 @@ namespace KP.OrderMGT.API
     {
         public static void Register(HttpConfiguration config)
         {
+            //To enable Basic Authentication for entire web application
+            config.Filters.Add(new BasicAuthenticationAttribute());
+
             // Web API configuration and services
 
             // Web API routes
