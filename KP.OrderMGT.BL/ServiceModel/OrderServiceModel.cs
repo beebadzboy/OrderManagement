@@ -41,7 +41,7 @@ namespace KP.OrderMGT.BL.ServiceModel
 
         public SaleAmountByPassport() { }
 
-        public SaleAmountByPassport(get_sale_passport_vol2Result data)
+        public SaleAmountByPassport(get_lt_sale_by_passport_onlResult data)
         {
             this.SaleAmt = data.net;
             this.Alcohol = data.lq;

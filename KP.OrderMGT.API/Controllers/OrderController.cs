@@ -60,13 +60,12 @@ namespace KP.OrderMGT.API.Controllers
                     throw new ArgumentException("message", nameof(passport));
                 }
 
-
                 if (string.IsNullOrEmpty(flight_time))
                 {
                     throw new ArgumentException("message", nameof(flight_time));
                 }
 
-                DateTime dateTime = Convert.ToDateTime(flight_date);
+                DateTime flight_datetime = Convert.ToDateTime(flight_date);
                 if (string.IsNullOrEmpty(flight_date))
                 {
                     throw new ArgumentException("message", nameof(flight_date));
@@ -74,7 +73,7 @@ namespace KP.OrderMGT.API.Controllers
                 else
                 {
                     CultureInfo provider = CultureInfo.InvariantCulture;
-                    dateTime = DateTime.ParseExact(flight_date, "yyyy-MM-dd", provider);
+                    flight_datetime = DateTime.ParseExact(flight_date, "yyyy-MM-dd", provider);
                 }
 
                 var omSrv = new OrderService(omDB);
@@ -82,7 +81,7 @@ namespace KP.OrderMGT.API.Controllers
                 if (posConn != null)
                 {
                     posDB = new POSAirPortClassesDataContext(posConn);
-                    //ret.Data = omSrv.ValidateAllowSaleOnline(posDB, terminal, passport, dateTime, time);
+                    ret.Data = omSrv.ValidateAllowSaleOnline(posDB, terminal, passport, flight_datetime, flight_code);
                     ret.Data = new SaleAmountByPassport();
                     ret.Data.SaleAmt = 0;
                     ret.Data.Alcohol = 0;
@@ -283,9 +282,9 @@ namespace KP.OrderMGT.API.Controllers
         //[Authorize(Roles = "SuperAdmin, Admin")]
         [HttpGet]
         //[Obsolete]
-        [Route("complate-order")]
+        [Route("complete-order")]
         [ResponseType(typeof(ReturnObject<OrderSession>))]
-        public async Task<IHttpActionResult> ComplateOrderOnlineAsync(string order_no)
+        public async Task<IHttpActionResult> CompleteOrderOnlineAsync(string order_no)
         {
             if (string.IsNullOrWhiteSpace(order_no))
             {

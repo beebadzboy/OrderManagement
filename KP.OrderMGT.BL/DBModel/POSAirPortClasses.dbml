@@ -321,4 +321,14 @@
       <Column Name="tb" Type="System.Decimal" DbType="Decimal(11,2)" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.get_lt_sale_by_passport_onl" Method="get_lt_sale_by_passport_onl">
+    <Parameter Name="cpass" Type="System.String" DbType="Char(20)" />
+    <Parameter Name="FlightCode" Parameter="flightCode" Type="System.String" DbType="Char(10)" />
+    <Parameter Name="FlightDate" Parameter="flightDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="get_lt_sale_by_passport_onlResult">
+      <Column Name="net" Type="System.Decimal" DbType="Decimal(11,2)" CanBeNull="true" />
+      <Column Name="lq" Type="System.Decimal" DbType="Decimal(11,2)" CanBeNull="true" />
+      <Column Name="tb" Type="System.Decimal" DbType="Decimal(11,2)" CanBeNull="true" />
+    </ElementType>
+  </Function>
 </Database>

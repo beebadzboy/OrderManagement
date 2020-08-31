@@ -167,6 +167,13 @@ namespace KP.OrderMGT.BL.DBModel
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ihour, cpass, cdate, cstatus);
 			return ((ISingleResult<get_sale_passport_vol2Result>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_lt_sale_by_passport_onl")]
+		public ISingleResult<get_lt_sale_by_passport_onlResult> get_lt_sale_by_passport_onl([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Char(20)")] string cpass, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FlightCode", DbType="Char(10)")] string flightCode, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FlightDate", DbType="DateTime")] System.Nullable<System.DateTime> flightDate)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), cpass, flightCode, flightDate);
+			return ((ISingleResult<get_lt_sale_by_passport_onlResult>)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.df_payment_onl")]
@@ -3819,7 +3826,7 @@ namespace KP.OrderMGT.BL.DBModel
 		
 		private string _LastStatus;
 		
-		private string _TerminalCode;
+		private string _TerminelCode;
 		
 		private EntitySet<df_payment_onl> _df_payment_onls;
 		
@@ -5226,20 +5233,20 @@ namespace KP.OrderMGT.BL.DBModel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TerminalCode", DbType="Char(1)", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TerminelCode", DbType="Char(1)", CanBeNull=false)]
 		public string TerminalCode
 		{
 			get
 			{
-				return this._TerminalCode;
+				return this._TerminelCode;
 			}
 			set
 			{
-				if ((this._TerminalCode != value))
+				if ((this._TerminelCode != value))
 				{
 					this.OnTerminalCodeChanging(value);
 					this.SendPropertyChanging();
-					this._TerminalCode = value;
+					this._TerminelCode = value;
 					this.SendPropertyChanged("TerminalCode");
 					this.OnTerminalCodeChanged();
 				}
@@ -6757,6 +6764,68 @@ namespace KP.OrderMGT.BL.DBModel
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lq", DbType="Decimal(11,4)")]
+		public System.Nullable<decimal> lq
+		{
+			get
+			{
+				return this._lq;
+			}
+			set
+			{
+				if ((this._lq != value))
+				{
+					this._lq = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tb", DbType="Decimal(11,2)")]
+		public System.Nullable<decimal> tb
+		{
+			get
+			{
+				return this._tb;
+			}
+			set
+			{
+				if ((this._tb != value))
+				{
+					this._tb = value;
+				}
+			}
+		}
+	}
+	
+	public partial class get_lt_sale_by_passport_onlResult
+	{
+		
+		private System.Nullable<decimal> _net;
+		
+		private System.Nullable<decimal> _lq;
+		
+		private System.Nullable<decimal> _tb;
+		
+		public get_lt_sale_by_passport_onlResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_net", DbType="Decimal(11,2)")]
+		public System.Nullable<decimal> net
+		{
+			get
+			{
+				return this._net;
+			}
+			set
+			{
+				if ((this._net != value))
+				{
+					this._net = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lq", DbType="Decimal(11,2)")]
 		public System.Nullable<decimal> lq
 		{
 			get

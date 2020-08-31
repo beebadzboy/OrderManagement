@@ -558,9 +558,9 @@ namespace KP.OrderMGT.Service
             }
         }
 
-        public SaleAmountByPassport ValidateAllowSaleOnline(POSAirPortClassesDataContext _posDB, char terminal, string passort, DateTime date, int time)
+        public SaleAmountByPassport ValidateAllowSaleOnline(POSAirPortClassesDataContext _posDB, char terminal, string passort, DateTime flight_date, string flight_code)
         {
-            var saleObj = _posDB.get_sale_passport_vol2(time, passort, date, terminal).FirstOrDefault();
+            var saleObj = _posDB.get_lt_sale_by_passport_onl(passort, flight_code, flight_date).FirstOrDefault();
             if (saleObj == null)
             {
                 throw new System.ArgumentException("data not found.", nameof(saleObj));
