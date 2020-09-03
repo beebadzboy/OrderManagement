@@ -141,7 +141,7 @@ namespace KP.OrderMGT.Service
             }
 
             var order_flight = _omDB.df_flights.FirstOrDefault(x => x.flight_code.Trim() == order.Flight.FlightCode.Trim());
-            if (order_flight != null)
+            if (order_flight == null)
             {
                 throw new ArgumentException("data not found.", nameof(order.Flight.FlightCode));
             }

@@ -74,10 +74,10 @@ namespace KP.OrderMGT.API.Controllers
                 {
                     posDB = new POSAirPortClassesDataContext(posConn);
                     ret.Data = omSrv.ValidateAllowSaleOnline(posDB, passport, flight_datetime, flight_code);
-                    ret.Data = new SaleAmountByPassport();
-                    ret.Data.SaleAmt = 0;
-                    ret.Data.Alcohol = 0;
-                    ret.Data.Tobacco = 0;
+                    //ret.Data = new SaleAmountByPassport();
+                    ret.Data.SaleAmt = ret.Data.SaleAmt;
+                    ret.Data.Alcohol = ret.Data.Alcohol;
+                    ret.Data.Tobacco = ret.Data.Tobacco;
                     ret.totalCount = ret.Data != null ? 1 : 0;
                     ret.isCompleted = true;
                 }

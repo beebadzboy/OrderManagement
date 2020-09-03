@@ -8,8 +8,8 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
-    <LastActiveSolutionConfig>Release|Any CPU</LastActiveSolutionConfig>
-    <NameOfLastUsedPublishProfile>OrderAPI %2810.3.0.121%29</NameOfLastUsedPublishProfile>
+    <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
+    <NameOfLastUsedPublishProfile>KPC</NameOfLastUsedPublishProfile>
     <ProjectView>ShowAllFiles</ProjectView>
     <Controller_SelectedScaffolderID>ApiControllerWithActionsScaffolder</Controller_SelectedScaffolderID>
     <Controller_SelectedScaffolderCategoryPath>root/Controller</Controller_SelectedScaffolderCategoryPath>

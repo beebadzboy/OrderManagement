@@ -27,3 +27,32 @@ C:\Code\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.csproj.CoreCompi
 C:\Code\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.csproj.CopyComplete
 C:\Code\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.dll
 C:\Code\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.pdb
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\KP.OrderMGT.BL.dll.config
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\KP.OrderMGT.BL.dll
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\KP.OrderMGT.BL.pdb
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\AutoMapper.dll
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\EntityFramework.dll
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\EntityFramework.SqlServer.dll
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\Microsoft.ApplicationInsights.dll
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\Newtonsoft.Json.dll
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\System.Buffers.dll
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\System.Memory.dll
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\System.Numerics.Vectors.dll
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\AutoMapper.xml
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\EntityFramework.xml
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\EntityFramework.SqlServer.xml
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\Microsoft.ApplicationInsights.pdb
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\Microsoft.ApplicationInsights.xml
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\Newtonsoft.Json.xml
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\System.Buffers.xml
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\System.Memory.xml
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\System.Numerics.Vectors.xml
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.csprojAssemblyReference.cache
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.csproj.CoreCompileInputs.cache
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.csproj.CopyComplete
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.dll
+D:\Document\KPI_Project\Pre-Order KPC\API\OrderManagement_v9\OrderManagement\KP.OrderMGT.BL\obj\Debug\KP.OrderMGT.BL.pdb
